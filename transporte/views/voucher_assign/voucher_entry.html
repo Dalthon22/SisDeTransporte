@@ -1,0 +1,129 @@
+{% extends 'index.html'%}
+
+{% block views %}
+
+<div class="ui container">
+
+
+    <form class="ui form" id="nuevo_vehiculo" name="vehiculo" action="/vehiculos/gestionar" method="POST">
+        <h1 class="ui dividing header center aligned blue">Ingreso de Vales</h1>
+
+        <div>
+            <table style="padding-left: 30%">
+                <tr style="width: 70%">
+                    <td style="width: 30%">
+                        <div class="field">
+                            <label for="field" style="align-content: center">Fecha:</label>
+                        </div>
+                    </td>
+                    <td style="width: 50%">
+                        <div class="field">
+                            <input id="name" name="brand" type="date">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <table style="padding-left: 30%">
+                <tr style="width: 100%">
+                    <td style="width: 30%;">
+                        <div class="field" style="width: 100%">
+                            <label for="field" style="align-content: center">Procuraduría:</label>
+                        </div>
+                    </td>
+                    <td style="width: 70%">
+                        <div class="field sixteen" style="width: 217%; margin-left: 30%">
+                            <select id="procu" name="procu" style="width: 100%">
+                                <option>Santa Ana</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <table style="width: 80%; padding-left: 18%">
+                <tr style="width: 100%">
+                    <td style="width: 25%; align-content: right;">
+                        <div class="field">
+                            <label for="field">Cantidad a Vales a Asignar:</label>
+                        </div>
+                    </td>
+                    <td style="width: 25%">
+                        <div class="field">
+                            <input id="name" name="brand" type="number">
+                        </div>
+                    </td>
+                    <td style="width: 25%; align-content: right;">
+                        <div class="field" style="padding-left: 20%">
+                            <label for="field">Vales Disponibles:</label>
+                        </div>
+                    </td>
+                    <td style="width: 25%">
+                        <div class="field">
+                            <input id="name" name="brand" type="number">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <table style="width: 80%; padding-left: 18%">
+                <tr style="width: 100%">
+                    <td style="width: 16%; align-content: right;">
+                        <div class="field">
+                            <label for="field">Primero:</label>
+                        </div>
+                    </td>
+                    <td style="width: 16%">
+                        <div class="field">
+                            <input id="name" name="brand" type="number">
+                        </div>
+                    </td>
+                    <td style="width: 16%; align-content: right;">
+                        <div class="field">
+                            <label for="field">Ultimo:</label>
+                        </div>
+                    </td>
+                    <td style="width: 16%">
+                        <div class="field">
+                            <input id="name" name="brand" type="number">
+                        </div>
+                    </td>
+                    <td style="width: 16%; align-content: right;">
+                        <div class="field">
+                            <label for="field">Valor Unitario:</label>
+                        </div>
+                    </td>
+                    <td style="width: 16%">
+                        <div class="field">
+                            <input id="name" name="brand" type="number">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <br>
+
+            <button id="submit_form" class="ui positive submit enter button" type="submit" style="margin-left: 40%">Guardar</button>
+            <button id="submit_form" class="ui gray submit enter button" type="submit">Cancelar</button>
+            <br>
+            <br>
+            <br>
+    </form>
+  <!--  {% if plate_error %}
+    <div class="ui warning message">
+        <li> {{ plate_error}} </li>
+    </div>
+    {% endif %}
+    {% if errors %}
+    <div class="ui error message">
+        {% for error in errors %}
+        <li> {{ error.msg }} </li>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>-->
+
+<link rel="stylesheet" href="/stylesheets/vehicle.css">
+<script src="/javascript/vehicle/a_vehicle_add.js"></script>
+
+{% endblock %}
