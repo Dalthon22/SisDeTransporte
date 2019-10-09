@@ -48,37 +48,39 @@ class address_services {
   };
 
   //Saves the new address in the DB.
+  //Saves the new address in the DB.
   async createAddress(req, res) {
     try {
-      const errors = validationResult(req);
+      let dir; //Creo variable que contendrá el objeto Dirección
       let {
-        detail,
-        departamento,
-        municipio,
-      } = req.body;
-      console.log(errors.array());
-      //If there are errors, renders the same form, otherwise saves the new Address
-      if (!errors.isEmpty()) {
-        Departamentos = await department_controller.getList();
-        res.render('../views/address/add.html', {
-          detail,
-          Departamentos,
-          errors: errors.array()
+        idSelDepto,
+        idSelMun,
+        selectedPlace,
+        destinyPlace,
+        direction,
+        selectedPlaceTxt
+      } = req.body //Saco los atributos del cuerpo de la petición
+      console.log(req.body); //Imprimo la petición para comprobar los datos.
+      if (selectedPlace != 10000) {
+        //Si el lugar seleccionado es diferente de "Otro", solo guardará los valores de los dropdown
+        dir = await Address.create({
+          name: selectedPlaceTxt,
+          city_id: idSelMun, //Creo dirección
+          department_id: idSelDepto
         });
-      } else {
-        console.log(req.body);
-        Address.create({
-          detail,
-          city_id: municipio,
-          deparment_id: departamento
+      } else { //De lo contrario guardará depto y municipio del dropdown; nombre y dirección de los inputs.
+        dir = await Address.create({
+          name: destinyPlace,
+          detail: direction, //Creo dirección
+          city_id: idSelMun,
+          department_id: idSelDepto
         });
-        res.redirect('/direccion');
-      }
+      };
+      res.send(dir); //Envío la dirección creada a la vista.
     } catch (error) {
-      console.log(error);
-    }
+      console.log(error); //Muestra errores.
+    };
   };
-
   //Gets departments list and renders edit form
   async getUpdate(req, res) {
     try {

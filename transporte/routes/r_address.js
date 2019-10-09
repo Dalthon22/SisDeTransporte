@@ -20,4 +20,9 @@ router.get('/getMunicipios', (req, res) => {
     controller.getMunicipiosByDepartamento(req, res);
 });
 
+//Crea dirección en la base de datos.
+router.post('/add', (req, res) => {
+    controller.createAddress(req, res);
+});
+
 module.exports = router;

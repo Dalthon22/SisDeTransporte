@@ -3,16 +3,16 @@
 {% block views %}
 
 <div class="ui container">
-    <a href="/vehiculos"> <button class="ui right labeled icon button" type="button">
-            <i class="left arrow icon"></i>
-            Volver al Listado
-        </button> </a>
     <form class="ui form" id="nuevo_vehiculo" name="vehiculo" action="/vehiculos/gestionar" method="POST">
+        {% if vehicle %}
+        <h1 class="ui dividing header left aligned blue">Editar Vehículo</h1>
+        {% else %}
         <h1 class="ui dividing header left aligned blue">Agregar Vehículo</h1>
+        {% endif %}
         <div class="two fields">
             <div class="required  field">
                 <label for="brand">Marca</label>
-                <input id="name" name="brand" type="text" placeholder="Ej.: Toyota" value="{{ vehicle.brand }}">
+                <input id="brand" name="brand" type="text" placeholder="Ej.: Toyota" value="{{ vehicle.brand }}">
             </div>
             <div class="required field">
                 <label for="model">Modelo</label>
@@ -28,9 +28,9 @@
                 <label for="engine">Motor</label>
                 <input id="engine" name="engine" type="text" placeholder="64EKT931230" value="{{ vehicle.engine }}">
             </div>
-            <div class="required field">
-                <label for="plate">Placa</label>
-                <input id="plate_form" name="plate" type="text" placeholder="AA236963" value="{{ vehicle.plate }}">
+            <div id="fPlate" class="required field">
+                <label for="plate">Matrícula</label>
+                <input id="vplate" name="plate" type="text" placeholder="AA236963" value="{{ vehicle.plate }}">
             </div>
         </div>
         <div class="sixteen wide field">
@@ -49,24 +49,42 @@
                 </div>
                 <div class="four wide required field">
                     <label for="seats">Asientos</label>
-                    <input id="seats" name="seats" type="number" placeholder="2-40" value="{{ vehicle.seats }}">
+                    <input id="seats" name="seats" min="2" max="40" type="number" placeholder="2-40"
+                        value="{{ vehicle.seats }}">
                 </div>
             </div>
         </div>
         <br>
         <input type="hidden" id="vehicle_id" name="vehicle_id" value={{ vehicle.id }}>
-        <button id="submit_form" class="ui positive submit enter button" type="submit">Guardar</button>
+        <a href="/vehiculos">
+            <div class="ui left floated animated button" style="margin-bottom:1em" type="button">
+                <div class="visible content">Volver</div>
+                <div class="hidden content"><i class="left arrow icon"></i></div>
+            </div>
+        </a>
+        <div class="ui positive button" id="add_btn">Guardar</div>
+        <div class="ui right floated yellow hiden hidden button" id="validate_plate">Validar matrícula</div>
     </form>
     {% if plate_error %}
-    <div class="ui warning message">
+    <div class="ui warning message" style="width:30em">
+        <div class="header">
+            Advertencia
+        </div>
+        <i class="close icon"></i>
         <li> {{ plate_error}} </li>
     </div>
     {% endif %}
     {% if errors %}
-    <div class="ui error message">
-        {% for error in errors %}
-        <li> {{ error.msg }} </li>
-        {% endfor %}
+    <div class="ui error message" style="width:30em">
+        <i class="close icon"></i>
+        <div class="header">
+            Errores al Insertar
+        </div>
+        <ul class="list">
+            {% for error in errors %}
+            <li>{{error.msg}}</li>
+            {% endfor %}
+        </ul>
     </div>
     {% endif %}
 </div>

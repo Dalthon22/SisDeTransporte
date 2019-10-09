@@ -1,7 +1,9 @@
 const db = require('../dbconfig/conex');
 const Sequelize = require('sequelize');
 const Voucher = require('../models/m_voucher');
-
+//Manejo de fechas
+var moment = require('moment');
+moment.locale("Es-SV")
 /* const Migration = require('../models/migrations');
  */
 const {
@@ -65,8 +67,26 @@ class voucher_controllers {
 
     async getList(req, res) {
         try {
-            var data = await Voucher.findAll({
+            var vouchers = await Voucher.findAll({
                 attributes: ['num_voucher', 'price', 'condition', 'voucher_provider', 'num_entry_bill', 'date_entry_bill', 'num_close_bill', 'date_close_bill'],
+            });
+            var data = [];
+            vouchers.forEach((row, i) => {
+                var el = new Object();
+                el.num_voucher = row.num_voucher;
+                el.price = row.price;
+                el.condition = row.condition;
+                el.voucher_provider = row.voucher_provider;
+                el.num_entry_bill = row.num_entry_bill;
+                el.date_entry_bill = moment.utc(row.date_entry_bill).format("DD/MM/YYYY");
+                if (row.num_close_bill) {
+                    el.num_close_bill = row.num_close_bill;
+                    el.date_close_bill = moment.utc(row.date_close_bill).format("DD/MM/YYYY");
+                } else {
+                    el.num_close_bill = "Sin liquidar";
+                    el.date_close_bill = "-----";
+                }
+                data.push(el);
             });
             res.send({
                 data: data
@@ -75,8 +95,6 @@ class voucher_controllers {
             console.log(error);
         }
     };
-
-
 
     async createVoucher(req, res) {
         var primer, ultimo;

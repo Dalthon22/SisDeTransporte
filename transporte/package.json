@@ -19,7 +19,7 @@
     "morgan": "~1.9.1",
     "nunjucks": "^3.2.0",
     "pdfmake": "^0.1.58",
-    "sequelize": "^5.10.1",
+    "sequelize": "^5.19.3",
     "tedious": "^6.2.0"
   },
   "devDependencies": {

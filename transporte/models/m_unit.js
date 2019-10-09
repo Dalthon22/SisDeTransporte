@@ -26,8 +26,8 @@ const Unit = db.define('unit', {
     freezeTableName: true,
 });
 
-Unit.hasMany(Employees, {
+/* Unit.hasMany(Employees, {
     foreignKey: 'unit_id'
-});
+}); */
 
 module.exports = Unit;

@@ -1,5 +1,12 @@
+/*
+21062019_DD
+Controlador del modelo Vehicle
+*/
+
 const Vehicle = require('../models/m_vehicle');
 const Sequelize = require('sequelize');
+const querystring = require('querystring');
+const url = require('url');
 const {
     validationResult
 } = require('express-validator');
@@ -11,6 +18,7 @@ class Vehicle_controller {
 
     }
 
+    //Metodo que inicializa el los estados de los vehiculos
     getStateList() {
         let states_map = new Map();
         states_map.set('Funcional', 'Funcional').set('Mantenimiento', 'En Mantenimiento').set('Dañado', 'Dañado');
@@ -27,11 +35,8 @@ class Vehicle_controller {
     //Encuentra el registro y devuelve true si existe
     //Parametro: _id Llave primaria de la tabla
     async existById(_id) {
-        let exist = false;
         let vehicle = await Vehicle.findByPk(_id);
-        if (vehicle) {
-            exist = true;
-        }
+        let exist = (vehicle) ? true : false;
         return exist;
     }
 
@@ -49,26 +54,45 @@ class Vehicle_controller {
     //Encuentra el registro y devuelve true si existe
     //Parametro: _plate Campo único en la tabla
     async existByPlate(_plate) {
-        let is_registered = false;
-        let vehicle = await Vehicle.findOne({
-            attributes: ['id'],
+        let vehicle = await Vehicle.count({
             where: {
                 plate: _plate
             }
         });
-        if (vehicle) {
-            is_registered = true;
-        }
+        console.log(vehicle);
+        let is_registered = (vehicle >= 1) ? true : false;
+        console.log(is_registered);
         return is_registered;
+    }
+
+    //Valida la existencia de un vehiculo por su placa y envia una respuesta
+    //Parametro: _plate (matircula)
+    async existsResponse(_plate, req, res) {
+        try {
+            if (!await this.existByPlate(_plate)) {
+                res.send({
+                    type: 0,
+                    message: "El número de matrícula: " + _plate + " es valido"
+                });
+            } else {
+                console.log('Error. Ya existe la placa: ' + _plate);
+                res.send({
+                    type: 1,
+                    message: "El número de matrícula: " + _plate + " ya está asociada a un vehículo."
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     //Obtiene todos los reguistros almacenados en la tabla
     async getList(req, res) {
         try {
             var vehicles = await Vehicle.findAll({
-                order: Sequelize.literal('plate DESC')
+                order: Sequelize.literal('plate ASC')
             });
-            console.log(vehicles)
+            console.log(vehicles);
             return res.render('../views/vehicle/list.html', {
                 vehicles
             });
@@ -77,18 +101,33 @@ class Vehicle_controller {
         }
     }
 
-    getCreate(req, res) {
-        const states = this.getStateList();
-        return res.render('../views/vehicle/create.html', {
-            states
-        })
+    //Renderiza el formulario de ingreso de vehiculo
+    //Para editar o ingresar un nuevo vehiculo
+    async getCreate(req, res) {
+        try {
+            const states = this.getStateList();
+            var plate = req.query.matricula;
+            var vehicle;
+            console.log(plate);
+            if (plate) {
+                vehicle = await this.findByPlate(plate);
+            }
+            return res.render('../views/vehicle/create.html', {
+                states,
+                vehicle
+            })
+        } catch (error) {
+            console.log("Error en getCreate" + error)
+        }
     }
 
+    //Metodo que inserta el nuevo vehiculo. Post gestionar
+    //Recibe los parametros request y response, respectivamente
     async create(req, res) {
         try {
             const errors = validationResult(req);
             const states = this.getStateList();
-            let vehicle = {
+            let {
                 brand,
                 chassis,
                 model,
@@ -97,55 +136,99 @@ class Vehicle_controller {
                 state,
                 seats,
             } = req.body;
-            if (errors.isEmpty()) {
-                const created_at = new Date();
-                if (!this.existByPlate(plate)) {
-                    Vehicle.create({
-                        brand,
-                        chassis,
-                        model,
-                        engine,
-                        plate,
-                        state,
-                        seats,
-                        created_at
-                    });
-                    res.redirect('/vehiculos');
-                } else {
-                    res.render('../views/vehicle/create.html', {
-                        plate_error: "El número de placa ya existe!",
-                        states,
-                        vehicle
-                    })
-                }
+            let vehicle = req.body;
+            if (errors.isEmpty() && !await this.existByPlate(plate)) {
+                await Vehicle.create({
+                    brand,
+                    chassis,
+                    model,
+                    engine,
+                    plate,
+                    state,
+                    seats,
+                });
+                const query = querystring.stringify({
+                    title: "Guardado exitoso",
+                    message: "Vehiculo registrado",
+                    class: "success"
+                });
+                res.send({
+                    redirect: "/vehiculos?&" + query,
+                    status: 200
+                });
             } else {
                 res.render('../views/vehicle/create.html', {
                     errors: errors.array(),
                     states,
-                    vehicle
+                    vehicle,
+                    plate_error: "El número de placa ya ha sido vinculada a otro vehículo"
                 })
             }
         } catch (error) {
-            console.log('This is the error when creating: ' + error);
+            console.log(error);
+            res.send({
+                type: 1,
+                title: "Error al guardar",
+                message: "El vehículo no pudo ser guardado. " + error,
+            });
         }
     }
 
-    update(id, ...seats) {
-        const updated_at = new Date();
-        return Vehicle.update({
-            brand,
-            chassis,
-            state,
-            model,
-            engine,
-            plate,
-            seats,
-            updated_at
-        }, {
-            where: {
-                id: id
+    //Metodo que actualiza el nuevo vehiculo. Post gestionar
+    //Recibe los parametros request y response, respectivamente
+    async update(req, res) {
+        try {
+            const errors = validationResult(req);
+            const states = this.getStateList();
+            let {
+                brand,
+                chassis,
+                model,
+                engine,
+                plate,
+                state,
+                seats,
+                vehicle_id,
+            } = req.body;
+            let vehicle = req.body;
+            if (errors.isEmpty()) {
+                await Vehicle.update({
+                    brand,
+                    chassis,
+                    model,
+                    engine,
+                    plate,
+                    state,
+                    seats,
+                }, {
+                    where: {
+                        id: vehicle_id
+                    }
+                });
+                const query = querystring.stringify({
+                    title: "Guardado exitoso",
+                    message: "Vehiculo actualizado",
+                    class: "success"
+                });
+                res.send({
+                    redirect: "/vehiculos?&" + query,
+                    status: 200
+                });
+            } else {
+                res.render('../views/vehicle/create.html', {
+                    errors: errors.array(),
+                    states,
+                    vehicle,
+                })
             }
-        })
+        } catch (error) {
+            console.log(error);
+            res.send({
+                type: 1,
+                title: "Error al actualizar",
+                message: "El vehículo no pudo ser guardado. " + error,
+            });
+        }
     }
 };
 

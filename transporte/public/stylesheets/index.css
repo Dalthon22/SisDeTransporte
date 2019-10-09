@@ -1,10 +1,16 @@
-.ui.menu {
-    background: rgba(254, 244, 241, 1);
-    background: -moz-linear-gradient(top, rgba(254, 244, 241, 1) 0%, rgba(254, 244, 241, 1) 60%, rgba(229, 229, 255, 1) 70%, rgba(133, 133, 166, 1) 83%, rgba(27, 27, 61, 1) 94%, rgba(27, 27, 61, 1) 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(254, 244, 241, 1)), color-stop(60%, rgba(254, 244, 241, 1)), color-stop(70%, rgba(229, 229, 255, 1)), color-stop(83%, rgba(133, 133, 166, 1)), color-stop(94%, rgba(27, 27, 61, 1)), color-stop(100%, rgba(27, 27, 61, 1)));
-    background: -webkit-linear-gradient(top, rgba(254, 244, 241, 1) 0%, rgba(254, 244, 241, 1) 60%, rgba(229, 229, 255, 1) 70%, rgba(133, 133, 166, 1) 83%, rgba(27, 27, 61, 1) 94%, rgba(27, 27, 61, 1) 100%);
-    background: -o-linear-gradient(top, rgba(254, 244, 241, 1) 0%, rgba(254, 244, 241, 1) 60%, rgba(229, 229, 255, 1) 70%, rgba(133, 133, 166, 1) 83%, rgba(27, 27, 61, 1) 94%, rgba(27, 27, 61, 1) 100%);
-    background: -ms-linear-gradient(top, rgba(254, 244, 241, 1) 0%, rgba(254, 244, 241, 1) 60%, rgba(229, 229, 255, 1) 70%, rgba(133, 133, 166, 1) 83%, rgba(27, 27, 61, 1) 94%, rgba(27, 27, 61, 1) 100%);
-    background: linear-gradient(to bottom, rgba(254, 244, 241, 1) 0%, rgba(254, 244, 241, 1) 60%, rgba(229, 229, 255, 1) 70%, rgba(133, 133, 166, 1) 83%, rgba(27, 27, 61, 1) 94%, rgba(27, 27, 61, 1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fef4f1', endColorstr='#1b1b3d', GradientType=0);
+.pusher {
+    max-height: max-content;
+    height: fit-content + 10em;
+}
+
+#mytable_wrapper {
+    /* padding-top: 0.5em; */
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.dataTables_scrollBody {
+    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }

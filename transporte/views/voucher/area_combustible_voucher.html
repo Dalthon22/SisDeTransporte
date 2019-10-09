@@ -1,0 +1,120 @@
+{% extends 'index.html'%}
+{% block views %}
+<!-- <div class="button">
+    <button class="ui large animated button" id="return">
+        <span class="visible content">Volver </span>
+        <span class="hidden content"> <i class="arrow left icon"></i>
+        </span>
+    </button>
+</div> -->
+<p></p>
+<div class="ui container grid stackable">
+    <div class="sixteen wide column">
+        <h1 class="ui blue dividing header"><i class="charging station icon"></i>
+            Listado de vales de combustible</h1>
+        <button class="ui labeled icon right floated primary button" id="show_add_form_btn"> <i
+                class="plus icon"></i>Agregar</button>
+    </div>
+</div>
+<br>
+<div class="ui container">
+    <table class="ui celled table datatable" id="mytable" name="mytable" style="width: 50%">
+        <thead>
+            <tr>
+                <th>Número</th>
+                <th>Valor:</th>
+                <th>Condición:</th>
+                <th>Proveedor:</th>
+                <th>Factura de Ingreso No:</th>
+                <th>Fecha de Ingreso</th>
+                <th>Factura de Liquidación No:</th>
+                <th>Fecha de Liquidación:</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>num_voucher</td>
+                <td>price</td>
+                <td>condition</td>
+                <td>voucher_provider</td>
+                <td>num_entry_bill</td>
+                <td>date_entry_bill</td>
+                <td>num_close_bill</td>
+                <td>date_close_bill</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="ui modal segment dimmable" id="add_modal">
+    <div class="header">
+        <h2 class="ui centered blue header">Ingreso de vales de combustible</h2>
+    </div>
+    <div class="content ">
+        <!-- <div class="ui disabled dimmer">
+                <div class="ui mini text loader">Agregando vales</div>
+            </div> -->
+        <div class="ui container grid stackable">
+            <div class="sixteen wide column">
+                <form class="ui form" id="add_voucher_form" method="POST" name="add_voucher">
+                    <div class="four wide field">
+                        <!-- Calendario para fecha de facturacion -->
+                        <label for="date_entry_bill">Fecha de facturacion</label>
+                        <div class="ui calendar" id="standard_calendar">
+                            <div class="ui input left icon">
+                                <i class="calendar icon"></i>
+                                <input type="text" placeholder="Seleccione fecha" name="date_entry_bill"
+                                    autocomplete="off" id="date_entry_bill">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Campo para numero de factura -->
+                    <div class="eight wide field">
+                        <label for="">Número de factura</label>
+                        <input type="number" autocomplete="off" min="0" name="bill_num" autocomplete="off" id="bill_num"
+                            maxlength="8" max="2147483647">
+                    </div>
+                    <div class="field">
+                        <label>Proveedor</label>
+                        <input type="text" placeholder="Nombre del proveedor de vales" name="provider" id="provider">
+                    </div>
+                    <div class="three wide field">
+                        <label>Valor Nominal</label>
+                        <!-- Mostrar el simbolo de $ dentro del input -->
+                        <div class="ui left labeled input">
+                            <label for="price" class="ui label">$</label>
+                            <input type="number" placeholder="10.00" id="price" min="0" name="price" value="10.00"
+                                autocomplete="off">
+                        </div>
+                    </div>
+                    <!-- Campos para numeros de vales por paquete -->
+                    <div class="two fields">
+                        <div class="field">
+                            <label for="first_voucher">Número del primer vale</label>
+                            <input type="number" min="0" autocomplete="false" name="first_voucher" id="first_voucher"
+                                autocomplete="off" placeholder="Correlativo del primer vale" maxlength="8"
+                                max="2147483647">
+                        </div>
+                        <div class="field">
+                            <label for="last_voucher">Número del último vale</label>
+                            <input type="number" min="0" autocomplete="false" name="last_voucher" id="last_voucher"
+                                disabled="true" autocomplete="off" placeholder="Correlativo del último vale"
+                                maxlength="8" max="2147483647">
+                        </div>
+                    </div>
+                    <input type="hidden" name="voucher_cant" id="voucher_cant" value="">
+                    <div class="ui error message"></div>
+                    <!--button class="ui primary submit green button" id="add_btn">Agregar</button> -->
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui positive approve button" id="add_btn">Agregar Vales</div>
+        <div class="ui cancel button">Cancel</div>
+    </div>
+</div>
+<script src="/javascript/voucher/a_add_voucher.js"></script>
+<link rel="stylesheet" href="/stylesheets/add_voucher.css">
+<link rel="stylesheet" href="/stylesheets/datatablefix.css">
+
+{%endblock%}

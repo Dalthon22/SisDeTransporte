@@ -1,32 +1,37 @@
 {% extends 'index.html' %}
 {% block views %}
 
-<section id="lista_procuradurias">
-    <h1 id="title" class="ui header">Lista de procuradurías</h1>
-    <table class="ui collapsing table">
-        <thead>
-            <tr class="ui green table">
-                <th class="center aligned">Nombre</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for procu in Procuradurias %}
-            <tr>
-                <td>{{ procu.name }}</td>
-                <td>
-                    <form action="/instituciones/update" method="GET">
-                        <button type="submit" class="huge basic black ui icon button">
-                            <i class="black edit icon">
-                                <input type="hidden" id="procu_id" name="procu_id" value={{ procu.id }}></i>
-                        </button>
-                    </form>
-                </td>
-            </tr>
-            {% else %}
-            <p>No hay procuradurías disponibles.</p>
-            {% endfor %}
-        </tbody>
-    </table>
-</section>
+<div class="ui container" id="lista_procuradurias">
+    <div class="ui vertically divided grid">
+        <div class="sixteen wide column">
+            <h1 id="title" class="ui blue dividing header"><i class="building outline icon"></i>Lista de procuradurías
+            </h1>
+            <a href="/instituciones/gestionar">
+                <button class="ui labeled icon right floated primary button"><i class=" plus icon"></i>Agregar</button>
+            </a>
+            <table id="mytable" class="ui selectable table">
+                <thead>
+                    <tr class="ui green table">
+                        <th class="center aligned">Nombre</th>
+                        <th class="center aligned">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for procu in Procuradurias %}
+                    <tr>
+                        <td>{{ procu.name }}</td>
+                        <td class="center aligned">
+                            <i class="edit big yellow icon" value={{ procu.id }}></i>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="/javascript/procuraduria/a_procu.js"></script>
+<link rel="stylesheet" href="/stylesheets/datatablefix.css">
+</link>
 {% endblock %}

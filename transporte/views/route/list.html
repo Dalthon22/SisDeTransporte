@@ -1,36 +1,40 @@
-{% extends 'base.html' %}
+{% extends 'index.html' %}
+
 {% block views %}
 
-<section id="lista_procuradurias">
-    <h1 id="title" class="ui header">Lista de rutas estándar.</h1>
-    <table class="ui collapsing table">
-        <thead>
-            <tr class="ui green table">
-                <th class="center aligned">Nombre:</th>
-                <th class="center aligned">Departamento:</th>
-                <th class="center aligned">Municipio:</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for route in Routes %}
-            <tr>
-                <td>{{ route.name }}</td>
-                <td>{{ route.department.name }}</td>
-                <td>{{ route.city.name }}</td>
-                <td>
-                    <form action="/rutas/update" method="GET">
-                        <button type="submit" class="huge basic black ui icon button">
-                            <i class="black edit icon">
-                            <input type="hidden" id="route_id" name="route_id" value={{ route.id }}></i>
-                        </button>
-                    </form>
-                </td>
-            </tr>
-            {% else %}
-                <p>No hay rutas estándar disponibles.</p>
-            {% endfor %}
-        </tbody>
-    </table>
-</section>
+<div class="ui container">
+    <div class="ui vertically divided grid">
+        <div class="sixteen wide column">
+            <h1 id="title" class="ui blue dividing header"><i class="route icon"></i>Lista de rutas estándar</h1>
+            <a href="/rutas/registrar">
+                <button class="ui labeled icon right floated primary button" id="nuevo" tabindex="0">
+                    <i class="plus icon"></i>Agregar</button>
+            </a>
+            <table id="mytable" class="ui selectable table">
+                <thead>
+                    <tr class="ui green table">
+                        <th class="center aligned">Nombre:</th>
+                        <th class="center aligned">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for route in Routes %}
+                    <tr>
+                        <td>{{ route.name }}</td>
+                        <td class="center aligned">
+                            <i class="edit big yellow icon" value={{ route.id }}></i>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="/stylesheets/datatablefix.css">
+</link>
+<script src="/javascript/route/a_route.js"></script>
+
+
 {% endblock %}

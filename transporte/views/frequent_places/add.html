@@ -1,36 +1,31 @@
 {% extends 'index.html' %}
 {% block views %}
-<div class="ui container">
+<div class="ui container" id="bad">
     <div class="ui vertically divided grid">
         <div class="one column row">
             <div class="column">
-                <br>
-                <form class="ui form" action="/lugares_frecuentes" method="GET" autocomplete="off">
-                    <button class="ui right labeled icon button" type="submit">
-                        <i class="left arrow icon"></i>
-                        Volver al Listado
-                    </button>
-                </form>
-                <br>
-                <form class="ui form" id="frm-prueba" action="/lugares_frecuentes/add" method="POST">
+                <form class="ui form" id="frm-prueba" action="/lugares_frecuentes/gestionar" method="POST">
                     {% if fplace_id %}
-                    <h1 class="ui header">Editar Lugar Frecuente.</h1>
+                    <h1 class="ui header">Editar Lugar Frecuente</h1>
                     {% else %}
-                    <h1 class="ui header">Agregar una Direccion Frecuente.</h1>
+                    <h1 class="ui blue dividing header">Agregar una Direccion Frecuente</h1>
                     {% endif %}
                     <div class="required field">
                         <label>Lugar de Destino:</label>
                         <input type="text" autocomplete="off" name="name" id="name" placeholder="Nombre del Destino"
-                            maxlength="150" value={{name}}>
+                            maxlength="150" value="{{name}}">
                     </div>
                     {% include '../address/add.html' %}
 
-                    {% if fplace_id %}
-                    <button class="ui positive button" type="submit">Guardar Cambios</button>
-                    {% else %}
-                    <button class="ui positive button" type="submit">Guardar Direccion</button>
-                    {% endif %}
+                    <button class="ui positive button" type="submit">Guardar</button>
                     <input id="fplace_id" name="fplace_id" type="hidden" value="{{fplace_id}}">
+                    <input id="true_name" name="true_name" type="hidden" value="{{true_name}}">
+                    <a href="/lugares_frecuentes">
+                        <div class="ui left floated animated button" style="margin-bottom:1em" type="button">
+                            <div class="visible content">Volver</div>
+                            <div class="hidden content"><i class="left arrow icon"></i></div>
+                        </div>
+                    </a>
                 </form>
                 {% if errors %}
                 <div class="ui error message" style="width:30em">
@@ -45,9 +40,21 @@
                     </ul>
                 </div>
                 {% endif %}
+                {% if error %}
+                <div class="ui error message" style="width:30em">
+                    <i class="close icon"></i>
+                    <div class="header">
+                        Errores al Insertar
+                    </div>
+                    <ul class="list">
+                        <li>{{error}}</li>
+                    </ul>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
 <script src="/javascript/frequent_places/a_frequent_places_add.js"></script>
+<link rel="stylesheet" href="/stylesheets/frequent_places/frequent_places_add.css">
 {% endblock %}

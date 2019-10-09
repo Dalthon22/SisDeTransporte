@@ -14,7 +14,11 @@
     <div class="ui secondary menu" id="user_menu">
         <a class="browse item" id="user">
             <i class="user tie icon"></i>
+            {% if username %}
+            {{username}}
+            {% else %}
             Usuario Fulanito
+            {% endif %}
             <i class="dropdown icon"></i>
         </a>
         <!-- Contenido del menu del usuario -->
@@ -48,6 +52,10 @@
             <i class="file alternate icon"></i>
             Folo 6
         </a>
+        <a href="/panel_de_aprobacion" class="item">
+            <i class="tasks icon"></i>
+            Aprobar Folos
+        </a>
         <a href="/vehiculos" class="item">
             <i class="car side icon"></i>
             Flota Vehicular
@@ -56,13 +64,23 @@
             <i class="gas pump icon"></i>
             Vales
         </a>
-        <a class="item">
-            <i class="smile icon"></i>
-            Friends
+        <a href="/lugares_frecuentes" class="item">
+            <i class="map marked alternate icon"></i>
+            Administrar <br>
+            Lugares Frecuentes
         </a>
-        <a class="item">
-            <i class="calendar icon"></i>
-            History
+        <a href="/nuevos_requerimientos" class="item">
+            <i class="tasks icon"></i>
+            Aprobar Requerimientos
+        </a>
+        <a href="/instituciones" class="item">
+            <i class="building outline icon"></i>
+            Administrar <br>
+            Procuradurías
+        </a>
+        <a href="/rutas" class="item">
+            <i class="route icon"></i>
+            Rutas
         </a>
     </div>
     <div class="pusher">

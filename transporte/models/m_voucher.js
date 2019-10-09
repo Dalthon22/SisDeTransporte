@@ -79,11 +79,11 @@ const Voucher = db.define('voucher', {
   freezeTableName: true,
 });
 
-Voucher.hasMany(Voucher_folo6_assign, {
+Voucher.hasOne(Voucher_folo6_assign, {
   foreignKey: 'num_voucher'
 });
 
-Voucher.hasMany(Voucher_procu_assign, {
+Voucher.hasOne(Voucher_procu_assign, {
   foreignKey: 'num_voucher'
 });
 

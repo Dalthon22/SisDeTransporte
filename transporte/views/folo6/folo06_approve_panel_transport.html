@@ -1,0 +1,160 @@
+{% extends 'index.html' %}
+{% block views %}
+<div class="ui container" id="bad">
+    <div class="ui vertically divided grid">
+        <div class="sixteen wide column">
+            <br>
+            <input type="hidden" id="messagetype" value="{{atype}}">
+            <input type="hidden" id="messageinfo" value="{{message}}">
+            <h1 id="title" class="ui blue dividing header"><i class="clipboard check icon"></i>Aprobación de
+                Solicitudes
+            </h1>
+            <table class="ui celled table datatable" id="mytable" name="mytable" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th>Fecha Salida:</th>
+                        <th>Hora Salida:</th>
+                        <th>Solicitante:</th>
+                        <th>Pasajeros:</th>
+                        <th>Conductor:</th>
+                        <th>Mision:</th>
+                        <th>Opciones:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Recibiendo todas las direcciones e insertandolas en la tabla -->
+                    {% for folo in data %}
+                    <tr>
+                        <td>{{ folo.off_date }}</td>
+                        <td>{{ folo.off_hour }}</td>
+                        <td>{{ folo.first_name }} {{ folo.last_name }}</td>
+                        <td>{{ folo.passengers_number }}</td>
+                        <td>{{ folo.wDriver }}</td>
+                        <td>{{ folo.mission }}</td>
+                        <td class="btnDelete">
+                            <div class="ui buttons">
+                                <!-- <input type="hidden" id="folo_Aid" name="Afolo_id" value="{{folo.folo6id}}"> -->
+                                <input type="hidden" id="folo06_id" name="folo06_id" value="{{folo.folo6id}}">
+                                <button class="ui icon button btnShow" title="Mostrar Requerimiento" id="btnShow"
+                                    name="btnShow" type="submit">
+                                    <i class="file alternate outline icon"></i>
+                                </button>
+                                <button class="ui icon button btnAprobe" title="Aprobar Requerimiento" id='btnAprobe'
+                                    name="btnAprobe" type="submit">
+                                    <i class="check circle outline icon"></i>
+                                </button>
+                                <button class="ui icon button btnCancel" title="Denegar Requerimiento" id="btnCancel"
+                                    name="btnCancel" type="submit">
+                                    <i class="black window close icon"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Modal de Aprobacion -->
+<div class="ui basic modal" id="AprobeModal">
+    <div class="ui icon header">
+        <i class="checkmark icon big"></i>
+        Aprobar Folo
+    </div>
+    <div class="fixCenter">
+        <input type="hidden" name="foloAid" id="foloAid" value="">
+        <div class="content">
+            <p>¿Esta seguro de aprobar el folo?</p>
+        </div>
+        <form class="ui form" action="/nuevos_requerimientos" method="POST">
+            <div class="actions">
+                <div class="ui red basic cancel inverted button">
+                    <i class="remove icon"></i>
+                    Cancelar
+                </div>
+                <button class="ui right aligned green button" id="modal_btnAprove">
+                    <input type="hidden" id="folo6_id_Amodal" name="folo6_id_Amodal" value="">
+                    <input type="hidden" id="aprobacion" name="aprobacion" value="1">
+                    <i class="checkmark icon"></i>
+                    Aceptar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Modal de Cancelacion -->
+<div class="ui basic modal" id="CancelModal">
+    <div class="ui icon header">
+        <i class="exclamation triangle icon big"></i>
+        Cancelar folo
+    </div>
+    <div class="fixCenter">
+        <input type="hidden" name="foloAid" id="foloAid" value="">
+        <div class="content">
+            <p>¿Esta seguro de Cancelar el folo?</p>
+        </div>
+        <form class="ui form" action="/nuevos_requerimientos" method="POST">
+            <div class="field">
+                <label style="color: aliceblue">Motivo</label>
+                <input type="text" name="motivo" placeholder="No cumple con la..." maxlength="150" id="motivo"
+                    autocomplete="off">
+            </div>
+            <div class="actions">
+                <div class="ui red basic cancel inverted button">
+                    <i class="remove icon"></i>
+                    Cancelar
+                </div>
+                <button class="ui right aligned green button" id="modal_btnAprove">
+                    <input type="hidden" id="folo6_id_Cmodal" name="folo6_id_Cmodal" value="">
+                    <input type="hidden" id="aprobacion" name="aprobacion" value="0">
+                    <i class="checkmark icon"></i>
+                    Aceptar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal para ver todo el folo -->
+<div class="ui modal segment dimmable" id="show_modal">
+    <div class="header">
+        <h2 class="ui blue centered header">Solicitud de transporte</h2>
+    </div>
+    <div class="content ">
+        <strong>Fecha de salida: </strong><label id="off_date_lb1"></label>
+        <div class="labels">
+            <strong>Hora de salida: </strong><label id="off_hour_lb1"></label>
+            <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <strong>Hora de retorno: </strong> <label id="return_hour_lb1"></label>
+        </div>
+        <div> <strong>Cantidad de pasajeros: </strong><label id="Passenger_number_lb1"></label></div>
+        <div><strong>Con motorista: </strong> <label id="with_driver_lb1"></label></div>
+        <div><strong>Persona que conducirá: </strong> <label id="driver_name_lb1"></label></div>
+        <div><strong>Tipo de licencia: </strong> <label id="license_type_lb1"></label></div>
+        <div><strong>Misión: </strong><label id="mission_lb1"></label></div>
+        <div><strong>Observación: </strong><label id="observation_lb1"></label></div>
+        <div><strong>Fecha de creación: </strong> <label id="created_at_lb1"></label></div>
+        <table class="ui celled collapsing table tablet stackable" id="addressTable1" name="addressTable1">
+            <thead>
+                <tr>
+                    <th>Nombre del destino</th>
+                    <th>Detalle de la dirección</th>
+                    <th>Departamento</th>
+                    <th>Municipio</th>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="actions">
+        <div class="ui left aligned cancel button">Volver</div>
+        <!--  <button class="ui approve button" id="delete_btn"> <i
+                            class="trash alternate outline icon"></i>
+                        Aceptar</button> -->
+    </div>
+</div>
+
+<script src="/javascript/a_approve_panel.js"></script>
+<link rel="stylesheet" href="/stylesheets/frequent_places/frequent_places_list.css">
+
+{% endblock %}

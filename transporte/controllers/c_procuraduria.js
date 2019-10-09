@@ -7,14 +7,22 @@ const {
 
 class Procuraduria_controller {
   constructor() {}
-  //Gets procuradurías list
+
 
   async getGestionar(req, res) {
     try {
+      //Editar procu en la misma ruta
+      //06102019_DD
+      var Procu;
+      let procu_id = req.query.procu_id;
+      if (procu_id) {
+        Procu = await Procuraduria.findByPk(procu_id);
+      }
       let Departamentos = await Departamento.getList();
       console.log(Departamentos);
       return res.render('../views/procuraduria/add.html', {
-        Departamentos
+        Departamentos,
+        Procu
       });
     } catch (error) {
       console.log(error);
@@ -22,6 +30,7 @@ class Procuraduria_controller {
 
   };
 
+  //Gets procuradurías list
   async getList(req, res) {
     try {
       var Procuradurias = await Procuraduria.findAll();
@@ -40,11 +49,14 @@ class Procuraduria_controller {
       let {
         name,
       } = req.body;
+      //Para enviar si hay error
+      //06102019_DD
+      var Procu = req.body;
       console.log(errors.array());
       if (!errors.isEmpty()) {
         //If there are errors, renders the same form, otherwise saves the new Address
         res.render('../views/procuraduria/add.html', {
-          name,
+          Procu,
           errors: errors.array()
         });
       } else {
@@ -65,7 +77,7 @@ class Procuraduria_controller {
       let procu_id = req.query.procu_id;
       console.log(procu_id);
       let Procu = await Procuraduria.findByPk(procu_id);
-      return res.render('../views/procuraduria/edit.html', {
+      return res.render('../views/procuraduria/add.html', {
         Procu
       });
     } catch (error) {

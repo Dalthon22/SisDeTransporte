@@ -4,12 +4,13 @@ const City = require('../models/m_city');
 const Department = require('./m_department');
 
 const Address = db.define('address', {
-    detail: {
+    name: { //Campo agregado el 03/09/2019 por Axel.
         type: Sequelize.STRING(250),
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-        }
+        allowNull: true,
+    },
+    detail: { //Última modificación el 03/09/2019 por Axel. Ahora permite nulos.
+        type: Sequelize.STRING(250),
+        allowNull: true,
     },
     created_by: {
         type: Sequelize.INTEGER

@@ -1,12 +1,12 @@
 const Sequelize = require('sequelize');
 const db = require('../dbconfig/conex');
-//const Routes = require('./m_route');
+const Routes = require('./m_route');
 const Vehicles = require('./m_vehicle');
 const Employee = require('./m_employee');
 const Folo6 = require('./m_folo6');
 const Address = require('./m_address');
 const Frequent_Place = require('./m_frequent_place');
-Voucher_procu_assign = require('./m_voucher_procu_assign');
+const Voucher_procu_assign = require('./m_voucher_procu_assign');
 
 const Procuraduria = db.define('procuraduria', {
     name: {
@@ -30,9 +30,9 @@ const Procuraduria = db.define('procuraduria', {
     freezeTableName: true,
 });
 
-/* Procuraduria.hasMany(Routes, {
+Procuraduria.hasMany(Routes, {
     foreignKey: 'procuraduria_id'
-}); */
+});
 Procuraduria.hasMany(Frequent_Place, {
     foreignKey: 'procuraduria_id'
 });

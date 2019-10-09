@@ -173,7 +173,7 @@ $(function () {
             type: 'date',
             //minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
             onHide: function () {
-                $(".ui.form").form('validate field', 'date_entry_bill');
+                $(".ui.form").form('validate field[date_entry_bill]');
             },
             formatter: {
                 date: function (date, settings) {

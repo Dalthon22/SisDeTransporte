@@ -1,4 +1,5 @@
 const Municipios = require('../models/m_city');
+const Departamento = require('../models/m_department');
 
 
 class City_controller {
@@ -20,6 +21,24 @@ class City_controller {
       console.log(error);
     }
   };
+  async getName(id) {
+    var name;
+    await Municipios.findAll({
+      where: {
+        id: id
+      },
+      attributes: ['name'],
+    }).then(city => {
+      //console.dir("MUNIICIPIO" + JSON.stringify(city[0].name));
+      name = city[0].name;
+    });
+    //console.log("MUNICIPIO" + name);
+    return name;
+  }
+
+
+
+
 };
 
 module.exports = new City_controller();
