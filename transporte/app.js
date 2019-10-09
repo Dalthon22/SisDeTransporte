@@ -52,6 +52,8 @@ app.use('/vehiculos', require('./routes/r_vehicle'));
 app.use('/rutas', require('./routes/r_route'));
 app.use('/lugares_frecuentes', require('./routes/r_frequent_places'));
 app.use('/', require('./routes/r_employee'));
+app.use('/asignar_vales', require('./routes/r_voucher_assign'));
+app.use('/ingresar_vales', require('./routes/r_voucher_entry'));
 app.use('/', require('./routes/r_approve_panel'));
 
 

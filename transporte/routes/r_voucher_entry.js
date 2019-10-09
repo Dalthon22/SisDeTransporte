@@ -6,7 +6,7 @@ const {
 } = require('express-validator');
 
 router.get('/', (req,res)=>{
-    res.render('./voucher_assign/assign_list.html')
+    res.render('./voucher_assign/voucher_entry.html')
 });
 
 module.exports = router;
