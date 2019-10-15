@@ -1,13 +1,9 @@
 {% extends 'index.html'%}
 
 {% block views %}
-<div id="exito" class="ui success message center aligned" style="display: none">
-    <div class="header green">Éxito</div>
-    <p>¡Registro guardado correctamente!</p>
-</div>
 
 <div id="lista_vehiculos" class="ui container">
-    <h1 id="title" style="margin-left: 30%" class="ui header">Asignación de Vales a Procuraduría</h1>
+    <h1 id="title" style="margin-left: 30%" class="ui header">Vales asignados</h1>
     
     <table class="ui celled table datatable" id="asignar_vales" name="asignar_vale" style="width: 70 em">
         <thead>
@@ -40,19 +36,18 @@
 </div>
 <table border="0" style="padding-left: 35%">
     <td colspan="2" style="align-content: center">
-            <a href="/vehiculos/gestionar">
+           
                 <div id="nuevo" class="ui  green button" style="margin-bottom:1em" tabindex="0">
-                    <div class="visible content">Asignar</div>
-                    <div class="hidden content">
-                        <i class="plus icon"></i>
-                    </div>
+                    <div >Asignar</div>
                 </div>
             </a>
     </td>
     <td><h4>Cantidades de Vales disponibles</h4></td>
-    <td> <input type="number" min="0" disabled class="form col-md-3"></td>
+    <td>  
+        <div class="field">
+        <input id="num" name="num" disable type="number">
+    </div></td>
 </table>
-
 
 
 <link rel="stylesheet" href="/stylesheets/vehicle.css">

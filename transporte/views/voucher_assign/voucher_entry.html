@@ -4,8 +4,7 @@
 
 <div class="ui container">
 
-
-    <form class="ui form" id="nuevo_vehiculo" name="vehiculo" action="/vehiculos/gestionar" method="POST">
+   <!-- <form class="ui form" id="asignar_vales" name="asignar_vales" >-->
         <h1 class="ui dividing header center aligned blue">Asignar Vales a Procuraduría</h1>
 
         <div>
@@ -103,13 +102,66 @@
 
             <br>
 
-            <button id="submit_form" class="ui positive submit enter button" type="submit" style="margin-left: 40%">Guardar</button>
-            <button id="submit_form" class="ui gray submit enter button" type="submit">Cancelar</button>
+            <button  class="ui solid button btnCancelar" style="margin-left: 40%">
+                Cancelar
+                </button>
+            <button  class="ui green button btnGuardar" >
+                Guardar
+            </button>
+            <br> 
             <br>
             <br>
-            <br>
-    </form>
-  <!--  {% if plate_error %}
+
+            <!--Modal para guardar-->
+            <div class="ui basic modal" id="modalGuardar">
+                    <div class="ui icon header">
+                        <i class="info icon"></i>
+                        Información
+                    </div>
+                    <div class="content">
+                        <p>¿Datos correctos?</p>
+                    </div>
+                    <div class="actions">
+                        <div class="ui red basic cancel inverted button">
+                            <i class="remove icon"></i>
+                            No
+                        </div>
+            
+                        <button class="ui green ok inverted button" id="btnGuar">
+                            <i class="checkmark icon"></i>
+                            Aceptar
+                        </button>
+            
+                    </div>
+                </div>
+            <!--fin Modal para guardar-->
+
+            <!--Modal para cancelar-->
+            <div class="ui basic modal" id="modalCancelar">
+                <div class="ui icon header">
+                    <i class="exclamation triangle icon"></i>
+                    Advertencia 
+                </div> 
+                <div class="content">
+                    <p>¿Desea cancelar?<br>
+                    </br>Se perderá la infromación seleccionada</p>
+                </div>
+                <div class="actions">
+                    <div class="ui red basic cancel inverted button">
+                        <i class="remove icon"></i>
+                        Cancelar
+                    </div>
+                    <div class="ui green ok inverted button">
+                        <i class="checkmark icon"></i>
+                        Aceptar
+                    </div>
+        
+                </div>
+            </div>
+            <!--fin de modal cancelar-->
+
+    <!--</form>-->
+ <!--  {% if plate_error %}
     <div class="ui warning message">
         <li> {{ plate_error}} </li>
     </div>
@@ -121,9 +173,11 @@
         {% endfor %}
     </div>
     {% endif %}
-</div>-->
+    -->
+</div>
 
-<link rel="stylesheet" href="/stylesheets/vehicle.css">
+<!-- <link rel="stylesheet" href="/stylesheets/vehicle.css"> -->
+<script src="/javascript/a_voucher_assign.js"></script>
 <!-- <script src="/javascript/vehicle/a_vehicle_add.js"></script> -->
 
 {% endblock %}
