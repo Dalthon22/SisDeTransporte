@@ -1,0 +1,63 @@
+{% extends 'index.html' %}
+
+{% block views %}
+
+<div class="ui container">
+    <div class="ui vertically divided grid">
+        <div class="sixteen wide column">
+            <br>
+            <h1 id="title" class="ui header">Configuracion Calendario</h1>
+            <br>
+            <table class="ui celled table datatable" id="mytable" name="mytable" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th>Ruta</th>
+                        <th>Utilizar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   <td>{{ ruta }}</td>
+                   <td>
+                        <div class="ui toggle checkbox">
+                            <input type="checkbox" name="public">
+                        </div>
+                   </td>
+                </tbody>
+            </table>
+
+            <div>
+                <button class="ui button btnCancelar">
+                    Cancelar
+                </button>
+                <button class="ui right labeled icon button btnSiguiente">
+                    Siguiente
+                    <i class="arrow alternate circle right icon"></i>
+                </button>
+            </div>
+
+            <div class="ui basic modal" id="modalCancelar">
+                <div class="ui icon header">
+                    <i class="exclamation triangle icon"></i>
+                    Advertencia
+                </div>
+                <div class="content">
+                    <p>¿Desea cancelar?<br></br>Se perderá la información seleccionada</p>
+                </div>
+                <div class="actions">
+                    <div class="ui red basic cancel inverted button">
+                        <i class="remove icon"></i>
+                        Cancelar
+                    </div>
+                    <div class="ui green ok inverted button">
+                        <i class="checkmark icon"></i>
+                        Aceptar
+                    </div>
+        
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
