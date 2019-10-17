@@ -16,12 +16,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                   <td>{{ ruta }}</td>
-                   <td>
-                        <div class="ui toggle checkbox">
-                            <input type="checkbox" name="public">
-                        </div>
-                   </td>
+                    {% if route_list %}
+                    {% for ruta in route_list %}
+                    <tr>
+                        <td>{{ ruta.name }}</td>
+                        <td>
+                            <div class="ui toggle checkbox">
+                                <input type="checkbox" name="public">
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
                 </tbody>
             </table>
 
@@ -52,7 +58,7 @@
                         <i class="checkmark icon"></i>
                         Aceptar
                     </div>
-        
+
                 </div>
             </div>
 
