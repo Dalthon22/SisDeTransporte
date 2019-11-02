@@ -6,7 +6,7 @@ const {
 } = require('express-validator');
 const router = express.Router();
 
-/*GET List*/
+/*Get configuracion calendario list*/
 router.get('/', (req, res) => {
     routeS_controller.getList(req, res);
 });
