@@ -1,56 +1,212 @@
 {% extends 'index.html'%}
-
 {% block views %}
-
-<div id="lista_vehiculos" class="ui container">
-    <h1 id="title" style="margin-left: 30%" class="ui header">Vales asignados</h1>
-    
-    <table class="ui celled table datatable" id="asignar_vales" name="asignar_vale" style="width: 70 em">
+<!-- <div class="button">
+    <button class="ui large animated button" id="return">
+        <span class="visible content">Volver </span>
+        <span class="hidden content"> <i class="arrow left icon"></i>
+        </span>
+    </button>
+</div> -->
+<p></p>
+<div class="ui container grid stackable">
+    <div class="sixteen wide column">
+        <h1 class="ui blue dividing header">
+            Vales asignados </h1>
+        
+    </div>
+</div>
+<br>
+<div class="ui centered container">
+    <div class="sixteen wide column">   
+         <table class="ui celled collapsing table tablet stackable" id="mytable" name="mytable" >
         <thead>
-            <tr style="text-align: center">
+            <tr>
                 <th>Procuraduría</th>
-                <th>Cantidad</th>
-                <th>Inicial</th>
-                <th>Final</th>
-                <th>Total USD</th>
+                <th>Cantidad:</th>
+                <th>Inicial:</th>
+                <th>Final:</th>
+                <th>Total USD:</th>
                
             </tr>
         </thead>
         <tbody>
-           
-            <tr>
-                <td class="center aligned"></td>
-                <td class="center aligned"></td>
-                <td class="center aligned"></td>
-                <td class="center aligned"></td>
-                <td class="center aligned"></td>
-               
-            
-            </tr>
-                    
-        </tbody> 
-    
+        
+        </tbody>
     </table>
-    <br>
-    <p></p>    
 </div>
-<table border="0" style="padding-left: 35%">
-    <td colspan="2" style="align-content: center">
+
+    <!--Tabla-->
+
+    <table border="0" style="padding-left: 35%">
+        <td colspan="2" style="align-content: center">      
+            <button  class="ui  icon center  floated primary button" id="show_add_form_btn"> 
+                Asignar</button>
+                </a>
+        </td>
+        <td><h4>Cantidades de Vales disponibles</h4></td>
+        <td>  
+                    <div class="ui disabled  input">
+                        <input type="number" name="dis_vales" id="dis_vales">
+                    </div>     
+        </td>
+    </table>
+
+
+   <!--fin de tabla-->
+</div>
+
+<!--Inicio del modal ingresar vales-->
+<div class="ui modal segment dimmable" id="add_modal">
+    <div class="header">
+        <h2 class="ui centered blue header">Asignar vales a Procuraduría</h2>
+    </div>
+    <div class="content ">
+      
+        <div class="ui container grid stackable">
+            <div class="sixteen wide column">
+                <form class="ui form" id="add_voucher_form" method="POST" name="add_voucher">
+
+                    <div class="two fields" >
+
+                        <div class="field">
+                            <label for="date_entry_bill" >Fecha:</label>
+                         </div><!--fin div de fecha-->
+                        <div class="field" style="margin-right: 100%;">
+                            <label>
+                               <!--Obteniendo la fecha del sistema-->
+                                <script>
+                                    var f = new Date();
+                                    document.write(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
+                                </script>
+                                                 
+                            </label>
+                        </div><!--fin div donde obtengo la fecha-->                                                           
+                   </div><!--fin div de fecha-->
+
+
+                    <!-- Combobox procu -->
+                    <table >
+                            <tr style="width: 100%">
+                                <td style="width: 30%;">
+                                    <div class="field" style="width: 100%">
+                                        <label for="field" style="align-content: center">Procuraduría:</label>
+                                    </div>
+                                </td>
+                                <td style="width: 70%">
+                                    <div class="field sixteen" style="width: 217%; margin-left: 30%">
+                                        <select id="procu"  name="procu" placeholder="Seleccione Procuraduría" style="width: 100%" >
+                                            <option ></option>
+                                            <option>Santa Ana</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                    <!--fin de combobox procu-->
+
+
+                    <!--input-->
+                    <div class="two fields">
+                            <div class="field">
+                                <label for="cant_vales">Cantidad vales a asignar</label>
+                                <input type="number" min="0" autocomplete="false" name="cant_vales" id="cant_vales"
+                                    autocomplete="off">
+                            </div>
+                            <div class="field">
+                                <label for="">Vales disponibles</label>
+                                <input type="number" min="0" autocomplete="false" name="vales_dis" id="vales_dis"
+                                    disabled="true" autocomplete="off">
+                            </div>
+                        </div>
+
+                    <!--fin input-->
+                   
+                
+                    <!-- Campos para numeros e -->
+                    <div class="two fields">
+                        <div class="field">
+                            <label for="first_voucher">Primero</label>
+                            <input type="number" min="0" autocomplete="false" name="prim" id="prim"
+                            disabled="true" autocomplete="off">
+                        </div>
+                        <div class="field">
+                            <label for="">Ultimo</label>
+                            <input type="number" min="0" autocomplete="false" name="ult" id="ult"
+                                disabled="true" autocomplete="off">
+                        </div>
+
+                        <div class="field">
+                                <label for="last_voucher">Valor unitario</label>
+                                <input type="number" min="0" autocomplete="false" name="unitario" id="unitario"
+                                    disabled="true" autocomplete="off">
+                            </div>
+
+                    </div>
            
-                <div id="nuevo" class="ui  green button" style="margin-bottom:1em" tabindex="0">
-                    <div >Asignar</div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="actions">
+            <div class="ui approve green button btnGuardar" id="add_btn">Guardar</div>
+            <div class="ui solid button btnCancelar">Cancelar</div>
+        </div>
+
+        <!--Modal para guardar-->
+        <div class="ui basic modal" id="modalGuardar">
+                <div class="ui icon header">
+                    <i class="info icon"></i>
+                    Información
                 </div>
-            </a>
-    </td>
-    <td><h4>Cantidades de Vales disponibles</h4></td>
-    <td>  
-        <div class="field">
-        <input id="num" name="num" disable type="number">
-    </div></td>
-</table>
+                <div class="content">
+                    <p>¿Datos correctos?</p>
+                </div>
+                <div class="actions">
+                    <div class="ui red basic cancel inverted button">
+                        <i class="remove icon"></i>
+                        No
+                    </div>
+        
+                    <button class="ui green ok inverted button" id="btnGuar">
+                        <i class="checkmark icon"></i>
+                        Aceptar
+                    </button>
+        
+                </div>
+            </div>
+        <!--fin Modal para guardar-->
+
+        <!--Modal para cancelar-->
+        <div class="ui basic modal" id="modalCancelar">
+            <div class="ui icon header">
+                <i class="exclamation triangle icon"></i>
+                Advertencia 
+            </div> 
+            <div class="content">
+                <p>¿Desea cancelar?<br>
+                </br>Se perderá la infromación seleccionada</p>
+            </div>
+            <div class="actions">
+                <div class="ui red basic cancel inverted button">
+                    <i class="remove icon"></i>
+                    Cancelar
+                </div>
+                <div class="ui green ok inverted button">
+                    <i class="checkmark icon"></i>
+                    Aceptar
+                </div>
+    
+            </div>
+        </div>
+        <!--fin de modal cancelar-->
+</div>
 
 
-<link rel="stylesheet" href="/stylesheets/vehicle.css">
+
+<script src="/javascript/a_voucher_assign.js"></script>
+<link rel="stylesheet" href="/stylesheets/add_voucher.css">
 <link rel="stylesheet" href="/stylesheets/datatablefix.css">
-<script src="/javascript/vehicle/a_vehicle_list.js"></script>
-{% endblock %}
+
+
+{%endblock%}
