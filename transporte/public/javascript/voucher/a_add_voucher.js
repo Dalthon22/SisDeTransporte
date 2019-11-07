@@ -198,8 +198,8 @@ function ingresar_vales() {
     //unique_num = true;
     animateAddButton();
     $('.ui.toast').remove();
-    $('.ui.form').form('validate form');
-    if ($('.ui.form').form('is valid')) {
+    $('#add_voucher_form').form('validate form');
+    if ($('#add_voucher_form').form('is valid')) {
         $('#voucher_cant').val(parseInt($("#last_voucher").val()) - parseInt($("#first_voucher").val()) + 1);
         alert("Se ingresaran " + $('#voucher_cant').val());
         //GET para verificar que el número de vale no haya existido con anterioridad
@@ -403,18 +403,30 @@ $('.coupled.modal').modal({
     allowMultiple: true
 });
 
-$('#modalCancelar').modal('attach events', '#add_modal .button.cancel', 'show');
+$('#modalCancelar').modal({
+    closable: false,
+    allowMultiple: true,
+    onDeny: function () {
+        //$('#add_modal').modal('show');
+        return true;
+    },
+    onApprove: function () {
+        $('#add_modal').modal('hide');
+        return true;
+    }
+}).modal('attach events', '#add_modal .button.cancel', 'show');
 
 
 $('#add_modal').modal({
     closable: false,
+    allowMultiple: true,
     onDeny: function () {
         return false;
     },
     onApprove: function () {
-        $('.ui.form').form('validate form');
-        console.log("El formuario es" + $('.ui.form').form('is valid'))
-        if ($('.ui.form').form('is valid')) {
+        $('#add_voucher_form').form('validate form');
+        console.log("El formulario es" + $('#add_voucher_form').form('is valid'))
+        if ($('#add_voucher_form').form('is valid')) {
             $('body')
                 .toast({
                     class: 'success',

@@ -105,11 +105,21 @@ function fillTable() {
 $("·btn_cancel").click(function () {
     event.preventDefault();
 });
-$('.coupled.modal').modal({
+$('#add_modal #modalCancelar').modal({
     allowMultiple: true
 });
 
-$('#modalCancelar').modal('attach events', '#add_modal .button.cancel', 'show');
+$('#modalCancelar').modal({
+    allowMultiple: true,
+    closable: false,
+    onDeny: function () {
+        return true;
+    },
+    onApprove: function () {
+        $('#add_modal').modal('hide');
+        return true;
+    }
+}).modal('attach events', '#add_modal .button.cancel', 'show');
 
 
 $('#add_modal').modal({
@@ -119,9 +129,9 @@ $('#add_modal').modal({
         return true;
     },
     onApprove: function () {
-        $('.ui.form').form('validate form');
-        console.log("El formuario es" + $('.ui.form').form('is valid'))
-        if ($('add_voucher_form').form('is valid')) {
+        $('#add_voucher_form').form('validate form');
+        console.log("El formulario es" + $('#add_voucher_form').form('is valid'))
+        if ($('#add_voucher_form').form('is valid')) {
             $('body')
                 .toast({
                     class: 'success',
