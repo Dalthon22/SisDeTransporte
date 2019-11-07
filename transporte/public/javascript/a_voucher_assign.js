@@ -1,9 +1,9 @@
 /*Bind de los eventos para poder abir el modal correspondiente*/
- $('#modalCancelar').modal('attach events', '.btnCancelar', 'show');
-$('#modalGuardar').modal('attach events', '.btnGuardar', 'show'); 
+
+//$('#modalGuardar').modal('attach events', '.btnGuardar', 'show'); 
 
 /*para abrir el toast con el evento click*/
- document.getElementById("add_btn").addEventListener('click', function () {
+/*  document.getElementById("add_btn").addEventListener('click', function () {
     $('.ui.form').form('validate form');
 
     if ($('.ui.form').form('is valid')) {
@@ -18,7 +18,7 @@ $('#modalGuardar').modal('attach events', '.btnGuardar', 'show');
     }
 
 })
- 
+  */
 
 //Var para verificar que el formulario esta listo para guardar
 var unique_num1, unique_num2, data, tab;
@@ -94,63 +94,83 @@ function fillTable() {
     return (valido)
 }; */
 
+/* function cerrarModal(){
+    var cerrar= false;
+    .modal('show');
+    console.log("El modal se va a cerrar "+cerrar);
+    return cerrar;
+} */
 //Control del Modal para agregar vales
-$(function () {
-    $("#show_add_form_btn").click(function () {
-        //$('.segment').dimmer('set disabled');
-        $('#add_modal').modal('show');
-        $('.ui.form').form('reset');
-        $('#add_modal')
-            .modal({
-                closable: false,
-                onDeny: function () {
-                    $('.ui.form').form('reset');
-                    $('.ui.toast').remove();
-                    noAnimateAddButton();
-                    $('.ui.form').form('reset');
-                    return true;
-                },
-                onApprove: function () {
-                    
-                    //buscar_vale($("#first_voucher").val(), $("#last_voucher").val());
-                   // ingresar_vales();
-                   $('.ui.form').form('validate form');
 
-                    console.log("vaiid¡")
-                    return false;
-                }
-            })
-            .modal('show');
-        var today = new Date();
+$("·btn_cancel").click(function () {
+    event.preventDefault();
+});
+$('.coupled.modal').modal({
+    allowMultiple: true
+});
 
-     /*    //Da formato e inicializa el calendario
-        $('#standard_calendar').calendar({
-            //yearFirst: true,
-            type: 'date',
-            //minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
-            onHide: function () {
-                $(".ui.form").form('validate field[date_entry_bill]');
-            },
-            formatter: {
-                date: function (date, settings) {
-                    if (!date) return '';
-                    var day = date.getDate();
-                    var month = date.getMonth() + 1;
-                    var year = date.getFullYear();
-                    //return (year + '-' + ('0' + month).slice(-2) + '-' + ('0' + day).slice(-2));
-                    return (('0' + day).slice(-2) + '/' + ('0' + month).slice(-2) + '/' + year);
-                }
-            },
-            text: {
-                days: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
-                months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-            }
-        }); */
-    });
+$('#modalCancelar').modal('attach events', '#add_modal .button.cancel', 'show');
+
+
+$('#add_modal').modal({
+    allowMultiple: true,
+    closable: false,
+    onDeny: function () {
+        return true;
+    },
+    onApprove: function () {
+        $('.ui.form').form('validate form');
+        console.log("El formuario es" + $('.ui.form').form('is valid'))
+        if ($('add_voucher_form').form('is valid')) {
+            $('body')
+                .toast({
+                    class: 'success',
+                    displayTime: 1000,
+                    title: 'Información',
+                    message: 'Vales asignados correctamente',
+                    showProgress: 'bottom'
+                });
+        }
+        return false;
+    }
+}).modal('attach events', '#show_add_form_btn', 'show');
+
+$("#show_add_form_btn").click(function () {
+    event.preventDefault();
+    //$('.segment').dimmer('set disabled');
+    /* 
+
+    $('.ui.form').form('reset'); */
+
+
+
+    /*    //Da formato e inicializa el calendario
+       $('#standard_calendar').calendar({
+           //yearFirst: true,
+           type: 'date',
+           //minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+           onHide: function () {
+               $(".ui.form").form('validate field[date_entry_bill]');
+           },
+           formatter: {
+               date: function (date, settings) {
+                   if (!date) return '';
+                   var day = date.getDate();
+                   var month = date.getMonth() + 1;
+                   var year = date.getFullYear();
+                   //return (year + '-' + ('0' + month).slice(-2) + '-' + ('0' + day).slice(-2));
+                   return (('0' + day).slice(-2) + '/' + ('0' + month).slice(-2) + '/' + year);
+               }
+           },
+           text: {
+               days: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+               months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+           }
+       }); */
 });
 
 //Se detona en el método approve del modal
-function ingresar_vales() {
+/* function ingresar_vales() {
     //unique_num = true;
     animateAddButton();
     $('.ui.toast').remove();
@@ -171,10 +191,10 @@ function ingresar_vales() {
         //Si el formulario no es válido
         noAnimateAddButton()
     }
-}
+} */
 
 ///Verifica que los vales que se vayan a ingresar no hayan sido previamente registrados
-function buscar_vale(num1, num2) {
+/* function buscar_vale(num1, num2) {
     const url_request_vale = 'vales/' + num1;
     console.log("Ajax buscará en: " + url_request_vale);
     const url_request_vale2 = 'vales/' + num2;
@@ -236,7 +256,7 @@ function buscar_vale(num1, num2) {
             console.log("Si ya te oi el ultimo esta limpio");
         }
     })
-}
+} */
 //Manda al controller los datos que seran almaceados en la BD
 function agregarVales() {
     $(this).serializeArray()
@@ -355,44 +375,42 @@ function enable_elements() {
     $('#first_voucher').prop('disabled', false);
 } */
 
-$(function () {
-    $('.ui.form').form({
-        on: 'blur', 
-        inline: true,
-        fields: {
+$('.ui.form').form({
+    on: 'blur',
+    inline: true,
+    fields: {
 
-            seleccionar_procu: {
-                identifier: 'procu',
-                rules: [{
-                    type: 'empty',
-                    prompt: 'Por favor seleccione una procuraduría'
-                }]
-            },
-
-            cant_vales: {
-                identifier: 'cant_vales',
-                rules: [{
-                    type: 'empty',
-                    prompt: 'Por favor ingrese una cantidad de vales'
-                }]
-            },
-         
-        
-
-            bill_num: {
-                identifier: 'bill_num',
-                rules: [{
-                        type: 'empty',
-                        prompt: 'Por favor ingrese un número de factura'
-                    },
-                    {
-                        type: 'integer[0...1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]',
-                        prompt: 'Por favor ingrese un número valido'
-                    } 
-                ]
-            },
-          
-          
+        seleccionar_procu: {
+            identifier: 'procu',
+            rules: [{
+                type: 'empty',
+                prompt: 'Por favor seleccione una procuraduría'
+            }]
         },
-    });
-}); 
+
+        cant_vales: {
+            identifier: 'cant_vales',
+            rules: [{
+                type: 'empty',
+                prompt: 'Por favor ingrese una cantidad de vales'
+            }]
+        },
+
+
+
+        bill_num: {
+            identifier: 'bill_num',
+            rules: [{
+                    type: 'empty',
+                    prompt: 'Por favor ingrese un número de factura'
+                },
+                {
+                    type: 'integer[0...1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]',
+                    prompt: 'Por favor ingrese un número valido'
+                }
+            ]
+        },
+
+
+    },
+});

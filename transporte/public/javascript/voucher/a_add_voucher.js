@@ -142,7 +142,7 @@ $(function () {
     });
 });
 //Control del Modal para agregar vales
-$(function () {
+/* $(function () {
     $("#show_add_form_btn").click(function () {
         //$('.segment').dimmer('set disabled');
         $('#add_modal').modal('show');
@@ -191,7 +191,7 @@ $(function () {
             }
         });
     });
-});
+}); */
 
 //Se detona en el método approve del modal
 function ingresar_vales() {
@@ -398,3 +398,32 @@ function enable_elements() {
     $('#price').prop('disabled', false);
     $('#first_voucher').prop('disabled', false);
 } */
+
+$('.coupled.modal').modal({
+    allowMultiple: true
+});
+
+$('#modalCancelar').modal('attach events', '#add_modal .button.cancel', 'show');
+
+
+$('#add_modal').modal({
+    closable: false,
+    onDeny: function () {
+        return false;
+    },
+    onApprove: function () {
+        $('.ui.form').form('validate form');
+        console.log("El formuario es" + $('.ui.form').form('is valid'))
+        if ($('.ui.form').form('is valid')) {
+            $('body')
+                .toast({
+                    class: 'success',
+                    displayTime: 1000,
+                    title: 'Información',
+                    message: 'Vales asignados correctamente',
+                    showProgress: 'bottom'
+                });
+        }
+        return false;
+    }
+}).modal('attach events', '#show_add_form_btn', 'show');
