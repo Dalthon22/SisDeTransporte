@@ -105,28 +105,25 @@ function fillTable() {
 $("·btn_cancel").click(function () {
     event.preventDefault();
 });
-$('#add_modal #modalCancelar').modal({
-    allowMultiple: true
-});
 
 $('#modalCancelar').modal({
     allowMultiple: true,
-    closable: false,
+    closable: true,
     onDeny: function () {
         return true;
     },
     onApprove: function () {
         $('#add_modal').modal('hide');
-        return true;
+        return false;
     }
-}).modal('attach events', '#add_modal .button.cancel', 'show');
+}).modal('attach events', '#add_modal .button.deny', 'show');
 
 
 $('#add_modal').modal({
     allowMultiple: true,
     closable: false,
     onDeny: function () {
-        return true;
+        return false;
     },
     onApprove: function () {
         $('#add_voucher_form').form('validate form');

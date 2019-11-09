@@ -58,7 +58,7 @@
 </div>
 
 <!--Inicio del modal ingresar vales-->
-<div class="ui modal segment dimmable .first.modal" id="add_modal">
+<div class="ui coupled modal segment dimmable " id="add_modal">
     <div class="header">
         <h2 class="ui centered blue header">Asignar vales a Procuraduría</h2>
     </div>
@@ -78,7 +78,6 @@
                                     var f = new Date();
                                     document.write(f.getDate() + "/" + (f.getMonth() + 1) + "/" + f.getFullYear());
                                 </script>
-
                             </label>
                         </div>
                         <!--fin div donde obtengo la fecha-->
@@ -105,8 +104,6 @@
                     </table>
                     <br>
                     <!--fin de combobox procu-->
-
-
                     <!--input-->
                     <div class="two fields">
                         <div class="field">
@@ -120,10 +117,7 @@
                                 disabled="true" autocomplete="off">
                         </div>
                     </div>
-
                     <!--fin input-->
-
-
                     <!-- Campos para numeros e -->
                     <div class="two fields">
                         <div class="field">
@@ -136,7 +130,6 @@
                             <input type="number" min="0" autocomplete="false" name="ult" id="ult" disabled="true"
                                 autocomplete="off">
                         </div>
-
                         <div class="field">
                             <label for="last_voucher">Valor unitario</label>
                             <input type="number" min="0" autocomplete="false" name="unitario" id="unitario"
@@ -148,13 +141,13 @@
         </div>
     </div>
     <div class="actions">
-        <div class="ui approve green button" id="add_btn">Guardar</div>
-        <div class="ui cancel button btnCancelar" id="btn_cancel">Cancelar</div>
+        <div class="ui primary green button" id="add_btn">Guardar</div>
+        <div class="ui deny button btnCancelar" id="btn_cancel">Cancelar</div>
     </div>
 </div>
 
 <!--Modal para guardar-->
-<div class="ui basic modal" id="modalGuardar">
+<div class="ui coupled basic modal" id="modalGuardar">
     <div class="ui icon header">
         <i class="info icon"></i>
         Información
@@ -163,7 +156,7 @@
         <p>¿Datos correctos?</p>
     </div>
     <div class="actions">
-        <div class="ui red basic cancel inverted button">
+        <div class="ui red basic deny inverted button">
             <i class="remove icon"></i>
             No
         </div>
@@ -178,7 +171,7 @@
 <!--fin Modal para guardar-->
 
 <!--Modal para cancelar-->
-<div class="ui basic modal" id="modalCancelar">
+<div class="ui coupled basic modal" id="modalCancelar">
     <div class="ui icon header">
         <i class="exclamation triangle icon"></i>
         Advertencia
@@ -188,7 +181,7 @@
             </br>Se perderá la infromación seleccionada</p>
     </div>
     <div class="actions">
-        <div class="ui red basic cancel inverted button">
+        <div class="ui red basic deny inverted button">
             <i class="remove icon"></i>
             No
         </div>
