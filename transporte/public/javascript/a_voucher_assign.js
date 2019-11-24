@@ -110,11 +110,13 @@ $('#modalCancelar').modal({
     allowMultiple: true,
     closable: true,
     onDeny: function () {
+        $('#add_modal').modal('show');
         return true;
     },
     onApprove: function () {
-        $('#add_modal').modal('hide');
-        return false;
+        $('.ui.modal').modal('hide all');
+        $('#add_voucher_form').form('reset');
+        return true;
     }
 }).modal('attach events', '#add_modal .button.deny', 'show');
 
