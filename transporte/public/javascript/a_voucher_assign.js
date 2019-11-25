@@ -120,17 +120,23 @@ $('#modalCancelar').modal({
     }
 }).modal('attach events', '#add_modal .button.deny', 'show');
 
+/*Modal guardar*/
+$("·btn_guardar").click(function () {
+    event.preventDefault();
+});
 
-$('#add_modal').modal({
+$('#modalGuardar').modal({
     allowMultiple: true,
-    closable: false,
+    closable: true,
     onDeny: function () {
-        return false;
+        $('#add_modal').modal('show');
+        return true;
     },
     onApprove: function () {
         $('#add_voucher_form').form('validate form');
-        console.log("El formulario es" + $('#add_voucher_form').form('is valid'))
         if ($('#add_voucher_form').form('is valid')) {
+            $('#modalGuardar').modal('hide all');
+            $('#add_voucher_form').form('reset');
             $('body')
                 .toast({
                     class: 'success',
@@ -140,6 +146,20 @@ $('#add_modal').modal({
                     showProgress: 'bottom'
                 });
         }
+        return true;
+    }
+}).modal('attach events', '#btn_guardar .button.ok', 'show');
+
+/*MODAL PRINCIPAL*/
+$('#add_modal').modal({
+    allowMultiple: true,
+    closable: false,
+    onDeny: function () {
+        return false;
+    },
+    onApprove: function () {
+        $('#modalGuardar').modal('show');
+
         return false;
     }
 }).modal('attach events', '#show_add_form_btn', 'show');

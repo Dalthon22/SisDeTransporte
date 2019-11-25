@@ -141,13 +141,13 @@
         </div>
     </div>
     <div class="actions">
-        <div class="ui primary green button" id="add_btn">Guardar</div>
+        <div class="ui ok primary green button" id="btn_guardar">Guardar</div>
         <div class="ui deny button btnCancelar" id="btn_cancel">Cancelar</div>
     </div>
 </div>
 
 <!--Modal para guardar-->
-<div class="ui coupled modal" id="modalGuardar">
+<div class="ui mini inverted modal" id="modalGuardar">
     <div class="ui icon header">
         <i class="info icon"></i>
         Información
@@ -156,22 +156,23 @@
         <p>¿Datos correctos?</p>
     </div>
     <div class="actions">
-        <div class="ui red basic deny inverted button">
-            <i class="remove icon"></i>
-            No
-        </div>
-
         <button class="ui green ok inverted button" id="btnGuar">
             <i class="checkmark icon"></i>
             Aceptar
         </button>
+        <div class="ui red deny button">
+            <i class="remove icon"></i>
+            No
+        </div>
+
+
 
     </div>
 </div>
 <!--fin Modal para guardar-->
 
 <!--Modal para cancelar-->
-<div class="ui coupled modal" id="modalCancelar">
+<div class="ui mini inverted modal" id="modalCancelar">
     <div class="ui icon header">
         <i class="exclamation triangle icon"></i>
         Advertencia
@@ -181,14 +182,15 @@
             </br>Se perderá la infromación seleccionada</p>
     </div>
     <div class="actions">
-        <div class="ui red basic deny inverted button">
-            <i class="remove icon"></i>
-            No
-        </div>
         <div class="ui green ok inverted button">
             <i class="checkmark icon"></i>
             Aceptar
         </div>
+        <div class="ui red deny button">
+            <i class="remove icon"></i>
+            Cancelar
+        </div>
+
 
     </div>
 </div>
