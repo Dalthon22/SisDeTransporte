@@ -215,9 +215,12 @@ class voucher_controllers {
     }
 
     async getBills(req, res) {
-        var date = new Date();
-        var year = parseInt(date.getFullYear());
-        var month = parseInt(date.getMonth() + 1);
+        //console.dir(req)
+        console.log("Mes solicitado: " + req.query.month + " Año:" + req.query.year)
+        var year = parseInt(req.query.year);
+        var month = parseInt(req.query.month);
+
+
         var data = [];
 
         try {

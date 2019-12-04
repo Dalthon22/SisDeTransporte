@@ -1,6 +1,7 @@
 moment.locale("Es-SV");
 //Var para verificar que el formulario esta listo para guardar
 var unique_num1, unique_num2, data, tab;
+var month, year;
 
 //HABILITA EL INPUT DEL ULTIMO VALE 
 $("#first_voucher").change(function () {
@@ -28,52 +29,26 @@ function calculateNumVoucher() {
 
 //Serializa la tabla
 $(document).ready(function () {
+    month = moment().month() + 1;
+    year = moment().year();
     fillTable();
+    $('#month_calendar_switch').calendar('set date', '' + month + '/' + year);
 });
 
-//llenar tabla
+//llenar tabla inicialmente
 function fillTable() {
-    var month = moment().get('month');
-    month = moment().month(month).format("MMMM")
-    //Llenar el data table
-    /* tab = $('#mytable').DataTable({
-        "scrollY": "500px",
-        "scrollCollapse": true,
-        ajax: {
-            url: '/vales/list',
-            type: 'GET',
-        },
-        "columns": [{
-                "data": "num_voucher"
-            },
-            {
-                "data": "price"
-            },
-            {
-                "data": "condition"
-            },
-            {
-                "data": "voucher_provider"
-            },
-            {
-                "data": "num_entry_bill"
-            },
-            {
-                "data": "date_entry_bill"
-            },
-            {
-                "data": "num_close_bill"
-            }, {
-                "data": "date_close_bill"
-            }
-        ]
-    }); */
+
+    console.log("año " + year + " mes " + month);
     tab = $('#mytable1').DataTable({
         "scrollY": "500px",
         "scrollCollapse": true,
         ajax: {
             url: '/vales/bills',
             type: 'GET',
+            data: function (d) {
+                d.month = month;
+                d.year = year;
+            }
         },
         "columns": [{
                 "data": "num_bill"
@@ -96,7 +71,8 @@ function fillTable() {
         ],
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
-            "emptyTable": "No hay facturas disponibles para el mes de " + month
+            "emptyTable": "No hay facturas disponibles para el mes de " + moment().month(month).format("MMMM"),
+            "zeroRecords": "No hay facturas disponibles para el mes seleccionado"
         },
         "columnDefs": [{
             className: "dt-body-right",
@@ -105,6 +81,7 @@ function fillTable() {
         }]
     });
 }
+
 //REVALIDA EL CAMPO DEL ULTIMO VALE
 document.getElementById("add_btn")
     .addEventListener("click", function () {
@@ -168,9 +145,13 @@ $('.ui.form').form({
                     prompt: 'Por favor ingrese un número de factura'
                 },
                 {
-                    type: 'integer[0...1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]',
-                    prompt: 'Por favor ingrese un número valido'
-                } //
+                    type: 'integer[1...9007199254740991]',
+                    prompt: 'Por favor ingrese un número válido'
+                }, //Válida la longitud de caracteres
+                {
+                    type: 'regExp[/^[0-9]{1,16}$/]',
+                    prompt: 'Por favor ingrese un número con longitud válida '
+                }
             ]
         },
         first_voucher: {
@@ -180,8 +161,12 @@ $('.ui.form').form({
                     prompt: 'Por favor ingrese el número del primer vale en el paquete'
                 },
                 {
-                    type: 'integer[0...1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]',
+                    type: 'integer[1...9007199254740991]',
                     prompt: 'Por favor ingrese un numero valido'
+                }, //Válida la longitud de caracteres
+                {
+                    type: 'regExp[/^[0-9]{1,16}$/]',
+                    prompt: 'Por favor ingrese un número con longitud válida '
                 }
             ]
         },
@@ -192,15 +177,19 @@ $('.ui.form').form({
                     prompt: 'Por favor ingrese el número del último vale en el paquete'
                 },
                 {
-                    type: 'integer[0...1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]',
+                    type: 'integer[1...9007199254740991]',
                     prompt: 'Por favor ingrese un número valido'
                 },
                 {
                     type: 'minor[first_voucher]',
                     prompt: 'El último vale deber ser mayor que el primero'
+                }, //Válida la longitud de caracteres
+                {
+                    type: 'regExp[/^[0-9]{1,16}$/]',
+                    prompt: 'Por favor ingrese un número con longitud válida '
                 }
             ]
-        },
+        }
     },
 });
 //Control del Modal para agregar vales
@@ -248,6 +237,7 @@ $('#standard_calendar').calendar({
     }
 });
 
+/* Calendario del formulario */
 $('#month_calendar')
     .calendar({
         type: 'month',
@@ -257,58 +247,40 @@ $('#month_calendar')
         }
     });
 
+/* Calendario para switchear las facturas que se estan mostrando */
 
-
-/* $(function () {
-    $("#show_add_form_btn").click(function () {
-        //$('.segment').dimmer('set disabled');
-        //$('#add_modal').modal('show');
-        $('.ui.form').form('reset');
-        $('#add_modal')
-            .modal({
-                closable: false,
-                onDeny: function () {
-                    // $('.ui.form').form('reset');
-                    $('.ui.toast').remove();
-                    noAnimateAddButton();
-                    $('.ui.form').form('clean');
-                    return true;
-                },
-                onApprove: function () {
-                    animateAddButton();
-                    //buscar_vale($("#first_voucher").val(), $("#last_voucher").val());
-                    ingresar_vales();
-                    return false;
-                }
-            })
-            .modal('show');
-        var today = new Date();
-
-        //Da formato e inicializa el calendario
-        $('#standard_calendar').calendar({
-            //yearFirst: true,
-            type: 'date',
-            //minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
-            onHide: function () {
-                ///$(".ui.form").form('validate field[date_entry_bill]');
-            },
-            formatter: {
-                date: function (date, settings) {
-                    if (!date) return '';
-                    var day = date.getDate();
-                    var month = date.getMonth() + 1;
-                    var year = date.getFullYear();
-                    //return (year + '-' + ('0' + month).slice(-2) + '-' + ('0' + day).slice(-2));
-                    return (('0' + day).slice(-2) + '/' + ('0' + month).slice(-2) + '/' + year);
-                }
-            },
-            text: {
-                days: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
-                months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+$('#month_calendar_switch')
+    .calendar({
+        type: 'month',
+        text: {
+            months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        },
+        formatter: {
+            date: function (date, settings) {
+                if (!date) return '';
+                var month = date.getMonth() + 1;
+                var year = date.getFullYear();
+                //return (year + '-' + ('0' + month).slice(-2) + '-' + ('0' + day).slice(-2));
+                return (('0' + month).slice(-2) + '/' + year);
             }
-        });
+        },
+        onChange: function (date) {
+            console.log("Cambio a la fecha" + date)
+            month = date.getMonth() + 1;
+            year = date.getFullYear();
+            console.log("año " + year + " mes " + month);
+            tab.ajax.reload();
+            //Si la tabla esta vacía mostrará al usuario que no hay facturas para ese mes seleccionado
+            /* $('#mytable1').on('draw.dt', function () {
+                if (!tab.data().any()) {
+                    $("#mytable1 td.dataTables_empty").each(function () {
+                        $(this).innerText = "No hay facturas disponibles para el mes: " + moment().month(month).format("MMMM") + " del " + year;
+                    });
+                }
+            }) */
+        }
     });
-}); */
 
 //Se detona en el método approve del modal
 function ingresar_vales() {

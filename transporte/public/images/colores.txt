@@ -1,0 +1,2 @@
+verde: #bedcc1
+gris: #e0e4e7

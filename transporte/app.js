@@ -47,16 +47,12 @@ app.use('/', require('./routes/index'));
 app.use('/', require('./routes/r_folo6'));
 app.use('/', require('./routes/r_voucher'));
 app.use('/direccion', require('./routes/r_address'));
-app.use('/instituciones', require('./routes/r_procuraduria'));
-app.use('/misiones', require('./routes/r_misiones'));
 app.use('/vehiculos', require('./routes/r_vehicle'));
-
-app.use('/rutas', require('./routes/r_route'));
 app.use('/lugares_frecuentes', require('./routes/r_frequent_places'));
-app.use('/motoristas', require('./routes/r_driver'));
 app.use('/', require('./routes/r_employee'));
+app.use('/asignar_vales', require('./routes/r_voucher_entry'));
 app.use('/', require('./routes/r_approve_panel'));
-app.use('/configuracion_calendario', require('./routes/r_config_calendar'));
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

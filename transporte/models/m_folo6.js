@@ -5,13 +5,7 @@ const Voucher_folo6_assign = require('./m_voucher_folo6_assign');
 const Folo6_Approve = require('./m_folo6_approve_state');
 
 const Folo6 = db.define('SGT_Folo6', {
-    request_unit: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-        }
-    },
+
     off_date: {
         type: Sequelize.DATE,
         allowNull: false,

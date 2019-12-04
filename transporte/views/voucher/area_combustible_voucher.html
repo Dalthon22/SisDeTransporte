@@ -21,13 +21,21 @@
             disponibles a la fecha. Si desea localizar un vale ya asignado con anterioridad debe
             dirigirse a:
         </div>
-
+        <div class="four wide">
+            <!-- Calendario para mostrar las facturas de ese mes -->
+            <label for="date_entry_bill">Facturas de:</label>
+            <div class="ui calendar" id="month_calendar_switch">
+                <div class="ui input left icon">
+                    <i class="calendar icon"></i>
+                    <input type="text" placeholder="Seleccione el mes" name="bill_month_switch" readonly=""
+                        autocomplete="off" id="bill_month_switch">
+                </div>
+            </div>
+        </div>
         <button class="ui labeled icon right floated primary button" id="show_add_form_btn"> <i
                 class="plus icon"></i>Agregar</button>
     </div>
-</div>
-<br>
-<div class="ui container">
+
     <!-- <table class="ui celled table datatable" id="mytable2" name="mytable2" style="width: 50%">
         <thead>
             <tr>
@@ -94,7 +102,7 @@
                                 <div class="ui input left icon">
                                     <i class="calendar icon"></i>
                                     <input type="text" placeholder="Seleccione fecha" name="date_entry_bill"
-                                        autocomplete="off" id="date_entry_bill">
+                                        autocomplete="off" id="date_entry_bill" readonly="">
                                 </div>
                             </div>
                         </div>
@@ -105,7 +113,7 @@
                                 <div class="ui input left icon">
                                     <i class="calendar icon"></i>
                                     <input type="text" placeholder="Seleccione fecha" name="bill_month"
-                                        autocomplete="off" id="bill_month">
+                                        autocomplete="off" id="bill_month" readonly="">
                                 </div>
                             </div>
                         </div>
@@ -115,10 +123,6 @@
                         <label for="">Número de factura</label>
                         <input type="number" autocomplete="off" min="0" name="bill_num" autocomplete="off" id="bill_num"
                             maxlength="8" max="2147483647">
-                    </div>
-                    <div class="field">
-                        <label>Proveedor</label>
-                        <input type="text" placeholder="Nombre del proveedor de vales" name="provider" id="provider">
                     </div>
                     <div class="three wide field">
                         <label>Valor Nominal</label>
@@ -148,6 +152,10 @@
                         </div>
                     </div>
                     <input type="hidden" name="voucher_cant" id="voucher_cant" value="">
+                    <div class="field">
+                        <label>Proveedor</label>
+                        <input type="text" placeholder="Nombre del proveedor de vales" name="provider" id="provider">
+                    </div>
                     <div class="ui error message"></div>
                     <!--button class="ui primary submit green button" id="add_btn">Agregar</button> -->
                 </form>
