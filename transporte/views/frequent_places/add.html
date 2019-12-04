@@ -10,10 +10,25 @@
                     {% else %}
                     <h1 class="ui blue dividing header">Agregar una Direccion Frecuente</h1>
                     {% endif %}
-                    <div class="required field">
-                        <label>Lugar de Destino:</label>
-                        <input type="text" autocomplete="off" name="name" id="name" placeholder="Nombre del Destino"
-                            maxlength="150" value="{{name}}">
+                    <div class="two fields">
+                        <div class="required field">
+                            <label>Lugar de Destino:</label>
+                            <input type="text" autocomplete="off" name="name" id="name" placeholder="Nombre del Destino"
+                                maxlength="150" value="{{name}}">
+                        </div>
+                        <div class="field">
+                            <label>Ruta:</label>
+                            <select class="ui fluid dropdown" id="ruta" name="ruta">
+                                <option value="">--Seleccione una ruta--</option>
+                                {% for r in rutas %}
+                                {% if(r.id == ruta) %}
+                                <option value="{{ r.id }}" selected>{{ r.name }}</option>
+                                {% else %}
+                                <option value="{{ r.id }}">{{ r.name }}</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
                     {% include '../address/add.html' %}
 

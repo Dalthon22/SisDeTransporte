@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../dbconfig/conex');
 
-const Voucher_folo6_assign = db.define('voucher_folo6_assign', {
+const Voucher_folo6_assign = db.define('SGT_Vales_Asignados_Folo6', {
     date_voucher_f6: {
         type: Sequelize.DATE,
         allowNull: false,

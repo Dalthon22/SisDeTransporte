@@ -4,7 +4,7 @@ const Folo6 = require('./m_folo6');
 const Unit = require('./m_unit');
 const Folo6_Approve = require('./m_folo6_approve_state');
 
-const Employee = db.define('employee', {
+const Employee = db.define('SGT_Empleado', {
     first_name: {
         type: Sequelize.STRING(75),
         allowNull: false,

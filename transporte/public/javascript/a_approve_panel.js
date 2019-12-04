@@ -59,21 +59,24 @@ $('#container').css('display', 'block'); /* para arreglar un error de datatables
 /* fill approve mueve el id del folo que se modificara desde la tabla al modal */
 function fillApproveButton() {
     /* Asociamos el evento al boton aprobar */
-    $(".button.btnAprobe").click(function (e) {
+    //$(".button.btnAprobe").click(function (e) {
+    $('.green.check.circle.outline.icon').click(function (e) {
         var idchange = $(e.currentTarget).closest('td.btnDelete').find("input[name='folo06_id']").val(); /* se busca el id y se asigna al form */
         console.log(idchange);
         $('.ui.form').form('reset');
         document.getElementById("folo6_id_Amodal").value = idchange;
     });
     /* Asociamos el evento al boton cancelar */
-    $(".button.btnCancel").click(function (e) {
+    //$(".button.btnCancel").click(function (e) {
+    $('.red.window.close.icon').click(function (e) {
         var idchange = $(e.currentTarget).closest('td.btnDelete').find("input[name='folo06_id']").val(); /* se busca el id y se asigna al form */
         console.log(idchange);
         $('.ui.form').form('reset');
         document.getElementById("folo6_id_Cmodal").value = idchange;
     });
 
-    $('.button.btnShow').click(function (event) {
+    //$('.button.btnShow').click(function (event) {
+    $('.file.alternate.outline.icon').click(function (event) {
         showLoadingDimmer();
         var id_folo = parseInt($(event.currentTarget).closest('td.btnDelete').find("input[name='folo06_id']").val()); /* se busca el id y se asigna al form */
         console.log("Usted desea Mostrar el folo:" + id_folo);
@@ -160,14 +163,13 @@ $(function () {
 });
 /* Bind de los eventos para poder abrir el modal correspondiente */
 $('#AprobeModal')
-    .modal('attach events', '.btnAprobe.button', 'show');
+    .modal('attach events', '.green.check.circle.outline.icon', 'show');
 
 $('#CancelModal')
-    .modal('attach events', '.btnCancel.button', 'show');
+    .modal('attach events', '.red.window.close.icon', 'show');
 
 /* $('#show_modal')
     .modal('attach events', '.btnShow.button', 'show'); */
-
 
 $('.ui.form').form({
     //revalidate: true,

@@ -4,8 +4,8 @@
     <div class="ui vertically divided grid">
         <div class="one column row">
             <div class="column">
-                <form class="ui form" id="folo6_form" method="POST">
-                    <h3 class="ui blue dividing header">Solicitud de transporte FOLO-6</h3>
+                <form class="ui form" id="folo6_form" method="POST" novalidate>
+                    <h3 class="ui blue dividing header" style="padding-top: 15px;">Solicitud de transporte FOLO-6</h3>
                     <div class="ui info message">
                         <div class="header"><i class="top left exclamation circle fitted info icon"></i>
                             Recuerde:
@@ -15,7 +15,7 @@
                     </div>
                     <div class="ui segment">
                         <div class="labels">
-                            <strong>Fecha de solicitud: </strong>
+                            <strong>Fecha de creación de la solicitud: </strong>
                             <label id="date_lb">{{folo.created_at}}</label>
                             <br>
                             <strong>Nombre del solicitante: </strong>
@@ -77,7 +77,7 @@
                             <div class="one wide field"></div>
                             <label>Cantidad de pasajeros: </label>
                             <div class="two wide field">
-                                <input type="number" name="passengers_i" min="1" max="40"
+                                <input type="number" name="passengers_i" id="passengers_i" min="1" max="40"
                                     value="{{folo.passengers_number}}">
                             </div>
                         </div>
@@ -131,21 +131,6 @@
                             <input id="idmun" type="hidden" value="{{municipio}}">
                         </div>
                     </div>
-                    <!-- <div class="field">
-                         <select class="ui fluid dropdown" name="place_ls">
-                            <option value="">Seleccione el lugar de destino</option>
-                            <option value="1">Aeropuerto Internacional de El Salvador San Óscar Arnulfo
-                                Romero y
-                                Galdámez</option>
-                            <option value="2">Alcaldía Municipal de Apopa</option>
-                            <option value="3">Centro Judicial de Santa Tecla</option>
-                            <option value="3">Otro</option>
-                        </select> 
-                    </div> -->
-                    <!-- <div class="field">
-                        <label>Lugar de destino</label>
-                        <input type="text" name="destiny_place_i" disabled="disabled">
-                    </div> -->
                     <div class="required field">
                         <label>Lugar de destino:</label>
                         <select class="ui fluid dropdown" id="fplaces" name="fplaces">
@@ -154,63 +139,35 @@
                     </div>
                     <div class="field">
                         <label>Lugar de destino</label>
-                        <input type="text" name="destiny_place_i" disabled="disabled">
+                        <input type="text" name="destiny_place_i" placeholder="Centro Escolar..." id="destiny_place_i">
                     </div>
                     <div class="field">
                         <label>Detalle de dirección</label>
-                        <textarea rows="3" name="direction_txt" disabled="disabled"
+                        <textarea rows="3" id="direction_txt" name="direction_txt"
                             placeholder="Calle x, pasaje y, local...."></textarea>
                     </div>
-                    <button class="ui labeled icon button"><i class="plus icon"></i>Agregar
+                    <button class="ui labeled icon button" id="addAddress" name="addAddress"><i
+                            class="plus icon"></i>Agregar
                         dirección</button>
-                    <table class="ui celled table tablet stackable">
+
+                    <!-- Los siguientes select se utilizan para cuando se envie la informacion al controller, se tiene un listado con las direcciones y lugares frecuentes que se van a guardar en la bd -->
+
+                    <select class="ui fluid dropdown" id="selectedFPlace" name="selectedFPlace"></select>
+                    <select class="ui fluid dropdown" id="createdAddress" name="createdAddress"></select>
+                    <table class="ui center celled collapsing table tablet stackable" id="addressTable"
+                        name="addressTable" style="width: 100%;">
                         <thead>
                             <tr>
-                                <th>Destino</th>
+                                <th>Nombre del destino</th>
                                 <th>Detalle de la dirección</th>
-                                <th>Municipio</th>
                                 <th>Departamento</th>
-                            </tr>
+                                <th>Municipio</th>
+                                <th></th>
                         </thead>
-                        <tbody>
-                            {% if folo.fplaces%}
-                            {% for fplace in folo.fplaces  %}
-                            <tr>
-                                <td data-label="{{fplace.id}}">{{fplace.name}}</td>
-                                {%if fplace.detail%}
-                                <td data-label="{{fplace.id}}"> {{fplace.detail}}</td>
-                                {% else %}
-                                <td data-label="{{fplace.id}}">
-                                    Sin detalle de dirección
-                                </td>
-                                {%endif%}
-                                <td data-label="{{fplace.municipio.id}}">{{fplace.city.name}}</td>
-                                <td data-label="{{fplace.municipio.id}}">{{fplace.department.name}}</td>
-                            </tr>
-                            {% endfor %}
-                            {%endif%}
-
-                            {% if folo.address%}
-                            {% for address in folo.address  %}
-                            <tr>
-                                <td data-label="{{address.id}}">{{address.name}}</td>
-                                {%if fplace.detail%}
-                                <td data-label="{{address.id}}"> {{address.detail}}</td>
-                                {% else %}
-                                <td data-label="{{address.id}}">
-                                    Sin detalle de dirección
-                                </td>
-                                {%endif%}
-                                <td data-label="{{address.city.id}}">{{address.city.name}}</td>
-                                <td data-label="{{address.department.id}}">{{address.department.name}}</td>
-
-                            </tr>
-                            {% endfor %}
-                            {%endif%}
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                     <h4 class="ui blue dividing header">Misión</h4>
-                    <div class="field">
+                    <div class="required field">
                         <label>Misión o motivo del viaje</label>
                         <input type="text" name="mision_i" placeholder="Auditoria al área laboral..." maxlength="150"
                             id="mision_i_id" autocomplete="off" value="{{folo.mission}}">
@@ -222,7 +179,15 @@
                             maxlength="150" autocomplete="off" id="details_i" value="{{folo.observation}}">
                     </div>
                     <div class="ui error message"></div>
-                    <button class="ui right aligned green button" id="save_print_btn">Guardar Cambios</button>
+                    <a href='/home'>
+                        <div class="ui left floated animated button" style="margin-bottom:1em" type="button"
+                            id="backBtn" name="backBtn">
+                            <div class="visible content">Volver</div>
+                            <div class="hidden content"><i class="left arrow icon"></i></div>
+                        </div>
+                    </a>
+                    <button class="ui right aligned green button" id="save_print_btn">Guardar
+                        Cambios</button>
                     <input type="hidden" value="{{folo.id}}" id="folo_id" name="folo_id">
                     <input type="hidden" value="{{folo.employee_id}}" id="employee_id">
                 </form>

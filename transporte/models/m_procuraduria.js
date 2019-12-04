@@ -7,14 +7,22 @@ const Folo6 = require('./m_folo6');
 const Address = require('./m_address');
 const Frequent_Place = require('./m_frequent_place');
 const Voucher_procu_assign = require('./m_voucher_procu_assign');
+const Misiones = require('./m_mision');
 
-const Procuraduria = db.define('procuraduria', {
+const Procuraduria = db.define('SGT_Procuraduria', {
     name: {
         type: Sequelize.STRING,
         allowNull: false,
         validate: {
             notEmpty: true,
-        }
+        },
+    },
+    enabled: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        validate: {
+            notEmpty: true,
+        },
     },
     created_by: {
         type: Sequelize.INTEGER
@@ -46,6 +54,9 @@ Procuraduria.hasMany(Employee, {
     foreignKey: 'procuraduria_id'
 });
 Procuraduria.hasMany(Folo6, {
+    foreignKey: 'procuraduria_id'
+});
+Procuraduria.hasMany(Misiones, {
     foreignKey: 'procuraduria_id'
 });
 

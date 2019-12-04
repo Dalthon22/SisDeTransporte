@@ -4,7 +4,7 @@ const Place_container = require('./m_places_container');
 const Voucher_folo6_assign = require('./m_voucher_folo6_assign');
 const Folo6_Approve = require('./m_folo6_approve_state');
 
-const Folo6 = db.define('folo6', {
+const Folo6 = db.define('SGT_Folo6', {
     request_unit: {
         type: Sequelize.INTEGER,
         allowNull: false,

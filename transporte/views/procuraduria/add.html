@@ -12,7 +12,11 @@
       <label>Nombre procuraduría:</label>
       <input type="text" name="name" id="name" value="{{Procu.name}}">
     </div>
-    <!-- {% include '../address/add.html' %} -->
+    <div class="ui checkbox">
+        <input type="checkbox" id="enabled" name="enabled">
+        <label for="enabled" style="padding-right:50px">Habilitada</label>
+      </div>
+     {% include '../address/add.html' %}
     <input type="hidden" id="procu_id" name="procu_id" value={{ Procu.id }}>
     <a href="/instituciones">
       <div class="ui left floated animated button" type="button">

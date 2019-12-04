@@ -15,55 +15,75 @@
             <a href="/lugares_frecuentes/nuevo"><button class="ui ui labeled icon  right floated blue button"
                     type="submit"><i class="plus icon"></i>Agregar
                 </button></a>
-            <br>
-            <input type="hidden" id="messages" name="messages" value="{{messages}}">
-            <br>
-            <br>
-            <table class="ui celled table datatable" id="mytable" name="mytable" style="width: 100%">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Detalle:</th>
-                        <th>Departamento:</th>
-                        <th>Municipio:</th>
-                        <th>Acciones:</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Recibiendo todas las direcciones e insertandolas en la tabla -->
-                    {% for fplace in fplaces %}
-                    <tr data-id="{{fplace.id}}">
-                        <td>{{ fplace.name}}</td>
-                        <td>{{ fplace.detail }}</td>
-                        <td>{{ fplace.department.name }}</td>
-                        <td>{{ fplace.city.name }}</td>
-                        <td>
-                            <i class="yellow big edit icon" value={{fplace.id}}></i>
-                            <i class="red big window close icon" value="{{fplace.id}}"></i>
-                        </td>
-                    </tr>
+            <label style="margin-right: 0.1em;">Filtrar por ruta: </label>
+            <div class="ui search selection dropdown" id="div_ruta">
+                <input id="ruta" type="hidden" name="ruta" value="">
+                <i class="dropdown icon"></i>
+                <div class="text">Todos</div>
+                <div id="menu" class="menu" value="You got it">
+                    <div class="item active selected" value=0>Todos</div>
+                    {% if rutas %}
+                    {% for r in rutas %}
+                    <div class="item" value={{r.id}}>{{r.name}}</div>
                     {% endfor %}
-                </tbody>
-            </table>
+                    {% endif %}
+                </div>
+            </div>
+            <input type="hidden" id="messages" name="messages" value="{{messages}}">
+            <div id="fTable" class="ui basic segment" style="margin-top: 0em;">
+                <table class="ui celled table datatable" id="mytable" name="mytable" style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Detalle:</th>
+                            <th>Departamento:</th>
+                            <th>Municipio:</th>
+                            <th>Acciones:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Recibiendo todas las direcciones e insertandolas en la tabla -->
+                        {% for fplace in fplaces %}
+                        <tr data-id="{{fplace.id}}">
+                            <td>{{ fplace.name}}</td>
+                            <td>{{ fplace.detail }}</td>
+                            <td>{{ fplace.SGT_Departamento.name }}</td>
+                            <td>{{ fplace.SGT_Municipio.name | capitalize }}</td>
+                            <td>
+                                <i class="large pencil yellow alternate link icon" value={{fplace.id}}></i>
+                                <i class="large trash red alternate outline link icon" value="{{fplace.id}}"></i>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
 <br>
 
-<div class="ui basic modal" id="deleteModal">
+<div class="ui mini inverted modal" id="deleteModal">
     <div class="ui icon header">
         <i class="trash alternate outline icon"></i>
         Eliminar Destino Frecuente.
     </div>
-    <div id="fix_center">
-        <div class="content">
-            <p>¿Esta seguro de Eliminar el lugar frecuente?</p>
-        </div>
+
+    <div class="content">
+        <p>¿Esta seguro de Eliminar el lugar frecuente?</p>
+    </div>
+
+    <div class="actions">
         <div class="ui green ok inverted button" type="submit">
             <i class="checkmark icon"></i>
             Aceptar
         </div>
+        <div class="ui red deny button" type="submit">
+            <i class="remove icon"></i>
+            Cancelar
+        </div>
     </div>
+
 </div>
 
 <script src="/javascript/frequent_places/a_frequent_places_list.js"></script>

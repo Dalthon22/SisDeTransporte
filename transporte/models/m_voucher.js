@@ -3,7 +3,7 @@ const db = require('../dbconfig/conex');
 Voucher_folo6_assign = require('./m_voucher_folo6_assign');
 Voucher_procu_assign = require('./m_voucher_procu_assign');
 
-const Voucher = db.define('voucher', {
+const Voucher = db.define('SGT_Vale', {
   num_voucher: {
     type: Sequelize.BIGINT,
     primaryKey: true,
@@ -40,28 +40,6 @@ const Voucher = db.define('voucher', {
     validate: {
       notEmpty: true,
     }
-  },
-  num_entry_bill: {
-    type: Sequelize.BIGINT,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    }
-  },
-  date_entry_bill: {
-    type: Sequelize.DATE,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    }
-  },
-  num_close_bill: {
-    type: Sequelize.BIGINT,
-    allowNull: true,
-  },
-  date_close_bill: {
-    type: Sequelize.DATE,
-    allowNull: true,
   },
   created_by: {
     type: Sequelize.INTEGER,

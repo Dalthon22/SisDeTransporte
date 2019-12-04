@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../dbconfig/conex');
 
-const Vehicle = db.define('vehicle', {
+const Vehicle = db.define('SGT_Vehiculo', {
     brand: {
         type: Sequelize.STRING(50),
         allowNull: false,
@@ -45,6 +45,14 @@ const Vehicle = db.define('vehicle', {
     state: {
         type: Sequelize.STRING(25),
         defaultValue: 'Funcional',
+        allowNull: false,
+        validate: {
+            notEmpty: true,
+        }
+    },
+    is_traveling: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
         allowNull: false,
         validate: {
             notEmpty: true,

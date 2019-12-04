@@ -29,25 +29,28 @@
                         <td>{{ folo.off_hour }}</td>
                         <td>{{ folo.first_name }} {{ folo.last_name }}</td>
                         <td>{{ folo.passengers_number }}</td>
-                        <td>{{ folo.wDriver }}</td>
+                        <td>{{"Sí" if folo.wDriver else "No"}}</td>
                         <td>{{ folo.mission }}</td>
                         <td class="btnDelete">
-                            <div class="ui buttons">
-                                <!-- <input type="hidden" id="folo_Aid" name="Afolo_id" value="{{folo.folo6id}}"> -->
+                            <!-- <div class="ui buttons">
                                 <input type="hidden" id="folo06_id" name="folo06_id" value="{{folo.folo6id}}">
                                 <button class="ui icon button btnShow" title="Mostrar Requerimiento" id="btnShow"
                                     name="btnShow" type="submit">
-                                    <i class="file alternate outline icon"></i>
+                                    <i class="large file grey alternate outline link icon"></i>
                                 </button>
                                 <button class="ui icon button btnAprobe" title="Aprobar Requerimiento" id='btnAprobe'
                                     name="btnAprobe" type="submit">
-                                    <i class="check circle outline icon"></i>
+                                    <i class="large check green circle outline link icon"></i>
                                 </button>
                                 <button class="ui icon button btnCancel" title="Denegar Requerimiento" id="btnCancel"
                                     name="btnCancel" type="submit">
-                                    <i class="black window close icon"></i>
+                                    <i class="large red window close link icon"></i>
                                 </button>
-                            </div>
+                            </div> -->
+                            <input type="hidden" id="folo06_id" name="folo06_id" value="{{folo.folo6id}}">
+                            <i class="large file grey alternate outline link icon" title="Mostrar Requerimiento"></i>
+                            <i class="large check green circle outline link icon" title="Aprobar Requerimiento"></i>
+                            <i class="large red window close link icon" title="Denegar Requerimiento"></i>
                         </td>
                     </tr>
                     {% endfor %}
@@ -59,7 +62,7 @@
 <!-- Modal de Aprobacion -->
 <div class="ui basic modal" id="AprobeModal">
     <div class="ui icon header">
-        <i class="checkmark icon big"></i>
+        <i class="green checkmark icon big"></i>
         Aprobar Folo
     </div>
     <div class="fixCenter">
@@ -69,11 +72,11 @@
         </div>
         <form class="ui form" action="/nuevos_requerimientos" method="POST">
             <div class="actions">
-                <div class="ui red basic cancel inverted button">
+                <div class="ui red cancel button">
                     <i class="remove icon"></i>
                     Cancelar
                 </div>
-                <button class="ui right aligned green button" id="modal_btnAprove">
+                <button class="ui inverted right aligned green button" id="modal_btnAprove">
                     <input type="hidden" id="folo6_id_Amodal" name="folo6_id_Amodal" value="">
                     <input type="hidden" id="aprobacion" name="aprobacion" value="1">
                     <i class="checkmark icon"></i>
@@ -86,7 +89,7 @@
 <!-- Modal de Cancelacion -->
 <div class="ui basic modal" id="CancelModal">
     <div class="ui icon header">
-        <i class="exclamation triangle icon big"></i>
+        <i class=" red exclamation triangle icon big"></i>
         Cancelar folo
     </div>
     <div class="fixCenter">
@@ -101,16 +104,16 @@
                     autocomplete="off">
             </div>
             <div class="actions">
-                <div class="ui red basic cancel inverted button">
-                    <i class="remove icon"></i>
-                    Cancelar
-                </div>
-                <button class="ui right aligned green button" id="modal_btnAprove">
+                <button class="ui inverted right aligned green button" id="modal_btnAprove">
                     <input type="hidden" id="folo6_id_Cmodal" name="folo6_id_Cmodal" value="">
                     <input type="hidden" id="aprobacion" name="aprobacion" value="0">
                     <i class="checkmark icon"></i>
                     Aceptar
                 </button>
+                <div class="ui red cancel button">
+                    <i class="remove icon"></i>
+                    Cancelar
+                </div>
             </div>
         </form>
     </div>
@@ -156,5 +159,6 @@
 
 <script src="/javascript/a_approve_panel.js"></script>
 <link rel="stylesheet" href="/stylesheets/frequent_places/frequent_places_list.css">
+<link rel="stylesheet" href="/stylesheets/datatablefix.css">
 
 {% endblock %}

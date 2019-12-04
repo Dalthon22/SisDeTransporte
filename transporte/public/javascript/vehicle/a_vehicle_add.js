@@ -76,8 +76,9 @@ $(function () {
                             prompt: 'El numero de placa no puede poseer más de 8 caracteres'
                         },
                         {
-                            type: 'regExp[/^[A-Z]{1,2}[0-9]{4,6}$/]',
-                            prompt: 'El número de placa debe tener este este formato: AA999999'
+                            type: 'regExp',
+                            value: /([A-Z]{1,2})(\d{3,6})/i,
+                            prompt: 'El número de placa debe tener este este formato: A(A)999(999)'
                         }
                     ]
                 },
@@ -123,15 +124,21 @@ $("#add_btn").click(function () {
  Valida que la placa no esté vinculada a ningun otro vehiculo
  01102019_DD
 */
-$('#validate_plate').click(function () {
-    if (current_plate === $('#vplate').val() && $('#vehicle_id').val()) {
-        $('#add_btn').removeClass('disabled');
-        AddToast("Valor Integro", "orange", "El numero de placa: " + current_plate + " no ha cambiado");
-    } else if (!$('#vplate').val()) {
-        $('#fPlate').addClass('error');
-        AddToast("Valor Nulo", "error", "Debe ingresar un matricula valida para poder validar");
-    } else {
-        validate_plate();
+$('#fPlate').focusout(function () {
+    console.dir($(".ui.form").form('validate field', 'plate'));
+    if ($(".ui.form").form('validate field', 'plate')) {
+        if (current_plate === $('#vplate').val() && $('#vehicle_id').val()) {
+            $('#add_btn').removeClass('disabled');
+            AddToast("Valor Integro", "orange", "El numero de placa: " + current_plate + " no ha cambiado");
+        } else if (!$('#vplate').val()) {
+            $('#fPlate').addClass('error');
+            AddToast("Valor Nulo", "error", "Debe ingresar un matricula valida para poder verificar su unicidad");
+        } else {
+            if ($('#vplate').val().length >= 4) {
+                console.log($('#vplate').val().length)
+                validate_plate();
+            }
+        }
     }
 })
 

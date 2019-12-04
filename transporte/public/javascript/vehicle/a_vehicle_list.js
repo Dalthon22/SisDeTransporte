@@ -21,7 +21,7 @@ $(function () {
         AddToast(title, clss, message);
     }
 
-    $(".edit.yellow.icon").click(function () {
+    $(".pencil.yellow.alternate.link.icon").click(function () {
         var index = $(this).closest("tr")[0].rowIndex;
         var tr = $('#mytable').find("tr").eq(index);
         current_plate = tr.find("td").eq(0).text();

@@ -9,7 +9,9 @@
             <a href="/instituciones/gestionar">
                 <button class="ui labeled icon right floated primary button"><i class=" plus icon"></i>Agregar</button>
             </a>
-            <table id="mytable" class="ui selectable table">
+            <br>
+            <br>
+            <table id="mytable" class="ui selectable table" style="margin-top: 1em;">
                 <thead>
                     <tr class="ui green table">
                         <th class="center aligned">Nombre</th>
@@ -21,7 +23,7 @@
                     <tr>
                         <td>{{ procu.name }}</td>
                         <td class="center aligned">
-                            <i class="edit big yellow icon" value={{ procu.id }}></i>
+                            <i class="large pencil yellow alternate link icon" value={{ procu.id }}></i>
                         </td>
                     </tr>
                     {% endfor %}

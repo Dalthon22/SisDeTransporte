@@ -4,7 +4,7 @@ const Address = require('./m_address');
 const Frequent_Place = require('./m_frequent_place');
 const Folo_06 = require('./m_folo6');
 
-const Places_container = db.define('places_container', {
+const Places_container = db.define('SGT_Lugares_Contenedor', {
     date_of_visit: {
         type: Sequelize.DATEONLY,
         allowNull: false,
@@ -34,9 +34,5 @@ Places_container.belongsTo(Address, {
 Places_container.belongsTo(Frequent_Place, {
     foreignKey: 'frequent_place_id'
 });
-
-/* Places_container.belongsTo(Folo_06, {
-    foreignKey: 'folo6_id'
-}); */
 
 module.exports = Places_container;

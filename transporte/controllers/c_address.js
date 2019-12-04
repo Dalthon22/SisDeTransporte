@@ -1,4 +1,3 @@
-const db = require('../dbconfig/conex');
 const Address = require('../models/m_address');
 const department_controller = require('../controllers/c_department');
 const municipio_controller = require('../controllers/c_city');
@@ -9,7 +8,7 @@ const {
 } = require('express-validator');
 
 class address_services {
-  constructor() {}
+  constructor() { }
   //Gets Addresses list
   async getList(req, res) {
     try {
@@ -47,7 +46,6 @@ class address_services {
     }
   };
 
-  //Saves the new address in the DB.
   //Saves the new address in the DB.
   async createAddress(req, res) {
     try {
@@ -133,6 +131,45 @@ class address_services {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  //Elimina la dirección creada a través del ícono en la tabla.
+  async deleteAddress(req, res) {
+    try {
+      let {
+        id_address
+      } = req.body; //Se obtiene el parámetro del cuerpo de la petición.
+      await Address.destroy({ //Eliminación de la dirección.
+        where: {
+          id: id_address,
+        }
+      });
+    } catch (error) {
+      console.log(error); //Mensaje de error si lo hubiera.
+    };
+  };
+
+  //Elimina todas las direcciones creadas al salir del Folo6.
+  async deleteAddressList(req, res) {
+    try {
+      //Parseo del cuerpo de la petición para poder leer el array enviado dentro de él.
+      req.body = JSON.parse(JSON.stringify(req.body));
+      //Recorrido del cuerpo de la petición
+      for (var key in req.body) {
+        //Sin el parseo no es posible ejecutar el método dentro del if.
+        if (req.body.hasOwnProperty(key)) {
+          let value = req.body[key];
+          await Address.destroy({ //Eliminación de las direcciones.
+            where: {
+              id: value,
+            }
+          });
+          console.log('Se eliminó la dirección con el id ' + value); //Mensaje de éxito.
+        };
+      };
+    } catch (error) {
+      console.log(error); //Mensaje de error si lo hubiera.
+    };
   };
 };
 

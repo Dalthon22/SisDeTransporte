@@ -6,10 +6,12 @@
     <div class="ui vertically divided grid">
         <div class="sixteen wide column">
             <h1 id="title" class="ui blue dividing header"><i class="route icon"></i>Lista de rutas estándar</h1>
-            <a href="/rutas/registrar">
+            <a href="/rutas/gestionar">
                 <button class="ui labeled icon right floated primary button" id="nuevo" tabindex="0">
                     <i class="plus icon"></i>Agregar</button>
             </a>
+            <br>
+            <br>
             <table id="mytable" class="ui selectable table">
                 <thead>
                     <tr class="ui green table">
@@ -22,7 +24,7 @@
                     <tr>
                         <td>{{ route.name }}</td>
                         <td class="center aligned">
-                            <i class="edit big yellow icon" value={{ route.id }}></i>
+                            <i class="large pencil yellow alternate link icon" value={{ route.id }}></i>
                         </td>
                     </tr>
                     {% endfor %}

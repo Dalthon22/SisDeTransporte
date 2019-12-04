@@ -1,0 +1,46 @@
+{% extends 'config_calendar/sub_menu.html' %}
+
+{% block config_calendar %}
+
+<div class="ui container">
+    <div class="ui vertically divided grid">
+        <div class="sixteen wide column">
+            <br>
+            <h1 id="title" class="ui blue dividing header"><i class="calendar alternate icon"></i> Configuracion
+                Calendario</h1>
+            <br>
+
+            <div id="calendar_pages" class="ui basic segment" style="margin-top: 0em;">
+
+                <table class="ui selectable table" id="mytable" name="mytable" style="width: 100%; border: none;">
+                    <thead>
+                        <tr>
+                            <th style="border: none;">Ruta</th>
+                            <th style="border: none;">Utilizar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if route_list %}
+                        {% for ruta in route_list %}
+                        <tr>
+                            <td style="border: none;">{{ ruta.name }}</td>
+                            <td style="border: none; ">
+                                <div class="ui toggle checkbox">
+                                    <input type="checkbox" class="switch" name="switch[]" id="switch"><label></label>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/javascript/config_calendar/a_config_calendar.js"></script>
+<link rel="stylesheet" href="/stylesheets/config_calendar.css">
+
+{% endblock %}

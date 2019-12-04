@@ -13,11 +13,25 @@ const Employee = require('./m_employee');
 const Unit = require('./m_unit');
 const Places_container = require('./m_places_container');
 const Folo6_Approve_State = require('./m_folo6_approve_state');
+const route_conditions = require('../models/m_route_conditions');
+const User = require('./m_user');
+const Rol = require('./m_role');
+const UserRol = require('./m_user_role');
+const ProcurementBill = require('./m_bill');
+const CosumedBill = require('./m_bill_close');
+const Mision = require('../models/m_mision');
+const Driver = require('../models/m_driver');
 
 class Migration {
     constructor() {
         Department.sync();
         City.sync();
+        Driver.sync({
+            alter: false
+        });
+        Mision.sync({
+            alter: false
+        });
         Address.sync({
             alter: false
         });
@@ -28,10 +42,10 @@ class Migration {
             alter: false
         });
         Frequent_Place.sync({
-            alter: true
+            alter: false
         });
         Voucher.sync({
-            alter: false
+            alter: true
         });
         Unit.sync({
             alter: false
@@ -43,7 +57,7 @@ class Migration {
             alter: false
         });
         Places_container.sync({
-            alter: true
+            alter: false
         });
         Voucher_procu_assign.sync({
             alter: false
@@ -54,10 +68,28 @@ class Migration {
         Folo6_Approve_State.sync({
             alter: false
         });
+        route_conditions.sync({
+            alter: false
+        });
         Route.sync({
             alter: false
         });
+        User.sync({
+            alter: false
+        });
+        Rol.sync({
+            alter: false
+        });
+        UserRol.sync({
+            alter: false
+        });
+        ProcurementBill.sync({
+            alter: false
+        })
+        CosumedBill.sync({
+            alter: false
+        })
     }
-}
+};
 
 module.exports = Migration;

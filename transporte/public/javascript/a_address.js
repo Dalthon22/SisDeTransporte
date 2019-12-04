@@ -37,5 +37,6 @@ $(function () {
 });
 
 $('#departamento').change(function () {
+    $('#municipio').prop('disabled', false); //Habilito dropdown de municipios al seleccionar un departamento
     fillMunicipio();
 });

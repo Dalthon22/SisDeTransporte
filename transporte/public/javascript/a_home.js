@@ -32,7 +32,11 @@ function fillTable() {
             },
             {
                 "data": "with_driver"
-            }, {
+            },
+            {
+                "data": "created_at"
+            },
+            {
                 "data": "buttons",
                 //Indicarle que lo que se renderizará son los iconos que trae data del controlador
                 "render": function (data, type, row, meta) {
@@ -45,7 +49,7 @@ function fillTable() {
 
 
 }
-$('#mytable tbody').on('click', '.remove.grey.alternate.link.icon', function (event) {
+$('#mytable tbody').on('click', '.trash.red.alternate.outline.link.icon', function (event) {
     showLoadingDimmer();
     var id_folo = parseInt($(this).attr('id'));
     console.log("Usted desea eliminar el folo:" + id_folo);
@@ -56,7 +60,6 @@ $('#mytable tbody').on('click', '.remove.grey.alternate.link.icon', function (ev
         .modal({
             closable: false,
             onShow: function () {
-                $('.segment').dimmer('hide');
 
                 console.log("Voy a mostrar el folo" + id_folo);
                 //DATOS PARA MOSTRAR SOBRE EL FOLO A ELIMINAR
@@ -121,6 +124,8 @@ $('#mytable tbody').on('click', '.remove.grey.alternate.link.icon', function (ev
                                 "</tr>");
                         })
                     }
+                    $('.segment').dimmer('hide');
+
                 })
             },
             onDeny: function () {
@@ -322,6 +327,36 @@ $('#mytable tbody').on('click', '.file.alternate.outline.link.icon', function (e
                     }
                     $("#created_at_lb1").text(data.folo.created_at);
                     //Limpiar la tabla
+                    /* $('#progressTable1').find('tbody').detach();
+                    $('#progressTable1').append($('<tbody>')); */
+                    /* console.log("lo que quiero que se vea" + data.folo.estado.unit_cancel_detail); */
+                    console.log(data.folo.estado.gas);
+                    if (data.folo.estado.gas) {
+                        var value = 1;
+                        progressBar(value);
+                    } else if (data.folo.estado.car) {
+                        var value = 2;
+                        progressBar(value);
+                    } else if (data.folo.estado.driver) {
+                        var value = 3;
+                        progressBar(value);
+                    } else if (data.folo.estado.t_approve) {
+                        var value = 4;
+                        progressBar(value);
+                    } else if (!(data.folo.estado.t_approve) && data.folo.estado.t_det_approve) {
+                        var value = 6;
+                        var motivo = data.folo.estado.t_det_approve;
+                        progressBar(value, motivo);
+                    } else if (data.folo.estado.u_approve) {
+                        var value = 5;
+                        progressBar(value);
+                    } else if (!(data.folo.estado.u_approve) && data.folo.estado.u_det_approve) {
+                        var value = 7;
+                        var motivo = data.folo.estado.u_det_approve;
+                        progressBar(value, motivo);
+                    } else {
+                        progressBar();
+                    }
                     $('#addressTable1').find('tbody').detach();
                     $('#addressTable1').append($('<tbody>'));
                     if (data.folo.fplaces.length) {
@@ -349,10 +384,11 @@ $('#mytable tbody').on('click', '.file.alternate.outline.link.icon', function (e
                                 "</tr>");
                         })
                     }
+                    $('.segment').dimmer('hide');
                 })
             }
         }).modal('show');
-    $('.segment').dimmer('hide');
+
 });
 
 function successAddToast(title, message) {
@@ -429,3 +465,303 @@ function debugBase64(base64URL) {
     win.document.write('<iframe src="' + base64URL + '" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>');
     win.document.close()
 }
+
+function progressBar(valor, motivo) {
+    $('#progressTable1Parent').find('div').detach();
+    $('#progressTable1Parent').append($('<div id="progressTable1">'));
+    console.log(valor);
+    if (valor == "1") {
+        $('#progressTable1').append('<div class="ui tablet stackable steps">' +
+            '<div class="completed step" style="max-width:20%;width:20%">' +
+            '<i class="user tie icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Jefe Unidad</div>' +
+            '<div class="description">Aprobado</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="completed step" style="max-width:20%;width:20%">' +
+            '<i class="chalkboard teacher icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Unidad de Transporte</div>' +
+            '<div class="description">Aprobado</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="completed step" style="max-width:20%;width:20%">' +
+            '<i class="user icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Motorista</div>' +
+            '<div class="description">Asignado</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="completed step" style="max-width:20%;width:20%">' +
+            '<i class="car icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Vehiculo</div>' +
+            '<div class="description">Asignado</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="completed step" style="max-width:20%;width:20%">' +
+            '<i class="gas pump icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Vales</div>' +
+            '<div class="description">Asignados</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>');
+    } else if (valor == "2") {
+        $('#progressTable1').append('<div class="ui tablet stackable steps">' +
+            '<div class="completed step" style="max-width:20%;width:20%">' +
+            '<i class="user tie icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Jefe Unidad</div>' +
+            '<div class="description">Aprobado</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="completed step" style="max-width:20%;width:20%">' +
+            '<i class="chalkboard teacher icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Unidad de Transporte</div>' +
+            '<div class="description">Aprobado</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="completed step" style="max-width:20%;width:20%">' +
+            '<i class="user icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Motorista</div>' +
+            '<div class="description">Asignado</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="completed step" style="max-width:20%;width:20%">' +
+            '<i class="car icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Vehiculo</div>' +
+            '<div class="description">Asignado</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="active step" style="max-width:20%;width:20%">' +
+            '<i class="gas pump icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Vales</div>' +
+            '<div class="description">Esperando Asignaci&oacute;n</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>');
+    } else if (valor == "3") {
+        $('#progressTable1').append('<div class="ui tablet stackable steps">' +
+            '<div class="completed step" style="max-width:20%;width:20%">' +
+            '<i class="user tie icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Jefe Unidad</div>' +
+            '<div class="description">Aprobado</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="completed step" style="max-width:20%;width:20%">' +
+            '<i class="chalkboard teacher icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Unidad de Transporte</div>' +
+            '<div class="description">Aprobado</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="completed step" style="max-width:20%;width:20%">' +
+            '<i class="user icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Motorista</div>' +
+            '<div class="description">Asignado</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="active step" style="max-width:20%;width:20%">' +
+            '<i class="car icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Vehiculo</div>' +
+            '<div class="description">Esperando Asignaci&oacute;n</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="disabled step" style="max-width:20%;width:20%">' +
+            '<i class="gas pump icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Vales</div>' +
+            '<div class="description">Sin Asignar</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>');
+    } else if (valor == "4") {
+        $('#progressTable1').append('<div class="ui tablet stackable steps">' +
+            '<div class="completed step" style="max-width:20%;width:20%">' +
+            '<i class="user tie icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Jefe Unidad</div>' +
+            '<div class="description">Aprobado</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="completed step" style="max-width:20%;width:20%">' +
+            '<i class="chalkboard teacher icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Unidad de Transporte</div>' +
+            '<div class="description">Aprobado</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="active step" style="max-width:20%;width:20%">' +
+            '<i class="user icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Motorista</div>' +
+            '<div class="description">Esperando Asignaci&oacute;n</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="disabled step" style="max-width:20%;width:20%">' +
+            '<i class="car icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Vehiculo</div>' +
+            '<div class="description">Sin Asignar</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="disabled step" style="max-width:20%;width:20%">' +
+            '<i class="gas pump icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Vales</div>' +
+            '<div class="description">Sin Asignar</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>');
+    } else if (valor == "5") {
+        $('#progressTable1').append('<div class="ui tablet stackable steps">' +
+            '<div class="completed step" style="max-width:20%;width:20%">' +
+            '<i class="user tie icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Jefe Unidad</div>' +
+            '<div class="description">Aprobado</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="active step" style="max-width:20%;width:20%">' +
+            '<i class="chalkboard teacher icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Unidad de Transporte</div>' +
+            '<div class="description">Esperando Aprobaci&oacute;n</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="disabled step" style="max-width:20%;width:20%">' +
+            '<i class="user icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Motorista</div>' +
+            '<div class="description">Asignado</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="disabled step" style="max-width:20%;width:20%">' +
+            '<i class="car icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Vehiculo</div>' +
+            '<div class="description">Esperando Asignaci&oacute;</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="disabled step" style="max-width:20%;width:20%">' +
+            '<i class="gas pump icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Vales</div>' +
+            '<div class="description">Sin Asignar</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>');
+    } else if (valor == "5") {
+        $('#progressTable1').append('<div class="ui tablet stackable steps">' +
+            '<div class="completed step" style="max-width:20%;width:20%">' +
+            '<i class="user tie icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Jefe Unidad</div>' +
+            '<div class="description">Aprobado</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="active step" style="max-width:20%;width:20%">' +
+            '<i class="chalkboard teacher icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Unidad de Transporte</div>' +
+            '<div class="description">Esperando Aprobaci&oacute;n</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="disabled step" style="max-width:20%;width:20%">' +
+            '<i class="user icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Motorista</div>' +
+            '<div class="description">Asignado</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="disabled step" style="max-width:20%;width:20%">' +
+            '<i class="car icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Vehiculo</div>' +
+            '<div class="description">Esperando Asignaci&oacute;</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="disabled step" style="max-width:20%;width:20%">' +
+            '<i class="gas pump icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Vales</div>' +
+            '<div class="description">Sin Asignar</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>');
+    } else if (valor == "6") {
+        $('#progressTable1').append('<div class="ui tablet stackable steps">' +
+            '<div class="completed step" style="max-width:20%;width:20%">' +
+            '<i class="user tie icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Jefe Unidad</div>' +
+            '<div class="description">Aprobado</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="active step" style="max-width:80%;width:80%">' +
+            '<i class="exclamation circle red icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Unidad de Transporte</div>' +
+            '<div class="description">Su solicitud ha sido cancelada debido a: ' + motivo + ' </div>' +
+            '</div>' +
+            '</div>'
+        );
+    } else if (valor == "7") {
+        $('#progressTable1').append('<div class="ui tablet stackable steps">' +
+            '<div class="active step" style="max-width:100%;width:100%">' +
+            '<i class="exclamation circle red icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Jefe Unidad</div>' +
+            '<div class="description">Su solicitud ha sido cancelada debido a: ' + motivo + ' </div>' +
+            '</div>' +
+            '</div>'
+        );
+    } else {
+        $('#progressTable1').append('<div class="ui tablet stackable steps">' +
+            '<div class="active step" style="max-width:20%;width:20%">' +
+            '<i class="user tie icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Jefe Unidad</div>' +
+            '<div class="description">Entregado</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="disabled step" style="max-width:20%;width:20%">' +
+            '<i class="chalkboard teacher icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Unidad de Transporte</div>' +
+            '<div class="description">Sin Aprobar</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="disabled step" style="max-width:20%;width:20%">' +
+            '<i class="user icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Motorista</div>' +
+            '<div class="description">Sin Asignar</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="disabled step" style="max-width:20%;width:20%">' +
+            '<i class="car icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Vehiculo</div>' +
+            '<div class="description">Sin Asignar</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="disabled step" style="max-width:20%;width:20%">' +
+            '<i class="gas pump icon"></i>' +
+            '<div class="content">' +
+            '<div class="title">Vales</div>' +
+            '<div class="description">Sin Asignar</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>');
+    }
+};
