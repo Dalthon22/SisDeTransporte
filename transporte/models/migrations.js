@@ -37,7 +37,7 @@ class Migration {
             alter: false
         });
         Voucher.sync({
-            alter: true
+            alter: false
         });
         Unit.sync({
             alter: false
