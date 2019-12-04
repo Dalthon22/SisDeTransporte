@@ -7,6 +7,7 @@ const Folo6 = require('./m_folo6');
 const Address = require('./m_address');
 const Frequent_Place = require('./m_frequent_place');
 const Voucher_procu_assign = require('./m_voucher_procu_assign');
+const Misiones = require('./m_mision');
 
 const Procuraduria = db.define('SGT_Procuraduria', {
     name: {
@@ -53,6 +54,9 @@ Procuraduria.hasMany(Employee, {
     foreignKey: 'procuraduria_id'
 });
 Procuraduria.hasMany(Folo6, {
+    foreignKey: 'procuraduria_id'
+});
+Procuraduria.hasMany(Misiones, {
     foreignKey: 'procuraduria_id'
 });
 

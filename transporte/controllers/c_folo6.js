@@ -276,7 +276,7 @@ class folo6_controllers {
                     /* res.setHeader(
                         'Content-Type', 'application/pdf',
                         'Content-Disposition', 'attachment; filename="folo6.pdf"'
-                    ); 
+                    );
                     res.send("data:application/pdf;base64," + result.toString('base64')); */
                     //Envío del PDF en forma base64.
                     res.send({
@@ -489,7 +489,7 @@ class folo6_controllers {
                     /*  res.setHeader(
                          'Content-Type', 'application/pdf',
                          'Content-Disposition', 'attachment; filename="folo6.pdf"'
-                     ); 
+                     );
                      res.send("data:application/pdf;base64," + result.toString('base64')); */
                     res.send({
                         link: "data:application/pdf;base64," + result.toString('base64')
@@ -670,7 +670,7 @@ class folo6_controllers {
                     /* res.setHeader(
                         'Content-Type', 'application/pdf',
                         'Content-Disposition', 'attachment; filename="folo6.pdf"'
-                    ); 
+                    );
                     res.send("data:application/pdf;base64," + result.toString('base64')); */
                     res.send({
                         link: "data:application/pdf;base64," + result.toString('base64')
@@ -1715,7 +1715,7 @@ class folo6_controllers {
                 //La BD envia las fechas y horas en formato utc por ello se debe convertir al formato especificado en el método format(). Revisar documentación de moment.js
                 /*CORRECCIÓN HECHA POR AXEL HERNÁNDEZ - 21/11/2019:
                 Al mostrar el PDF desde el listado de solicitudes, la fecha de salida se mostraba con un día
-                menos que la fecha de salida almacenada en la base de datos. 
+                menos que la fecha de salida almacenada en la base de datos.
                 Esto sucedía por la resta del tiempo UTC de -6 horas. La fecha de salida es guardada en la BD
                 con valores de 0 horas, 0 minutos, 0 segundos (como si se hubiera guardado exactamente a medianoche),
                 y al restarle las 6 horas se devolvía al día anterior.*/
@@ -1731,7 +1731,28 @@ class folo6_controllers {
                 el.created_at = moment.utc(folo.created_at).utcOffset("-06:00").format("DD/MM/YYYY");
                 el.employee_id = folo.employee_id;
             });
-
+            console.log(el.id);
+            var estados = await Apanel.findAll({
+                where: {
+                    folo06_id: el.id
+                }
+            });
+            el.estado = new Object();
+            estados.forEach((estado, i) => {
+                console.log(JSON.stringify(estado.id));
+                var e = new Object();
+                el.estado = new Object();
+                e.u_approve = estado.request_unit_approve;
+                e.u_det_approve = estado.unit_cancel_detail;
+                e.t_approve = estado.transport_unit_approve;
+                e.t_det_approve = estado.cancel_tunit_detail;
+                e.driver = estado.driver;
+                e.car = estado.car;
+                e.gas = estado.gasoline;
+                el.estado = e;
+            });
+            /* if(estado.SGT_Folo6_Aprovado.gasoline){
+            } */
             //Contador de lugares frecuentes y direcciones
             el.b = 0
             //Contendra el total de direcciones que se han creaddo para el folo que se solicita
@@ -1756,7 +1777,7 @@ class folo6_controllers {
                         f.id = row.SGT_Lugar_Frecuente.id;
                         f.name = row.SGT_Lugar_Frecuente.name;
                         f.detail = row.SGT_Lugar_Frecuente.detail;
-                        //SE GUARDA EL NOMBRE DEL MUNICIPIO  
+                        //SE GUARDA EL NOMBRE DEL MUNICIPIO
                         f.city.id = row.SGT_Lugar_Frecuente.city_id;
                         municipio_controller.getName(row.SGT_Lugar_Frecuente.city_id).then(name => {
                             f.city.name = name;
@@ -1877,7 +1898,7 @@ class folo6_controllers {
                         f.id = row.SGT_Lugar_Frecuente.id;
                         f.name = row.SGT_Lugar_Frecuente.name;
                         f.detail = row.SGT_Lugar_Frecuente.detail;
-                        //SE GUARDA EL NOMBRE DEL MUNICIPIO  
+                        //SE GUARDA EL NOMBRE DEL MUNICIPIO
                         f.city.id = row.SGT_Lugar_Frecuente.city_id;
                         municipio_controller.getName(row.SGT_Lugar_Frecuente.city_id).then(name => {
                             f.city.name = name;
@@ -2189,7 +2210,7 @@ class folo6_controllers {
                         folo06_id: folo.id
                     });
                 }
-                //CREATE para places container, esta tabla relaciona ya sean lugares frecuentes o direcciones con un folo 
+                //CREATE para places container, esta tabla relaciona ya sean lugares frecuentes o direcciones con un folo
                 if (fplaces.length) {
                     fplaces.forEach(id => {
                         place_container.create({
@@ -2213,7 +2234,7 @@ class folo6_controllers {
                     console.log("No hay direcciones que relacionar");
                 }
                 console.log("sali del create");
-                //Datos que se envían a la vista 
+                //Datos que se envían a la vista
                 res.send({
                     message: "Datos agregados con exito",
                     type: 0,
@@ -2324,7 +2345,7 @@ class folo6_controllers {
             //throw new Error(" Ocurre ingresando los vales en la BD " + err);
         }
     }
-    //Elima el folo indicado como parametros en req.params.id 
+    //Elima el folo indicado como parametros en req.params.id
     async deleteFolo(req, res) {
         try {
             /* Elimina de la tabla la unión del folo con los lugares y/o direcciones*/

@@ -17,12 +17,20 @@ const User = require('./m_user');
 const Rol = require('./m_role');
 const UserRol = require('./m_user_role');
 const ProcurementBill = require('./m_bill');
-const CosumedBill = require('./m_bill_close')
+const CosumedBill = require('./m_bill_close');
+const Mision = require('../models/m_mision');
+const Driver = require('../models/m_driver');
 
 class Migration {
     constructor() {
         Department.sync();
         City.sync();
+        Driver.sync({
+            alter: false
+        });
+        Mision.sync({
+            alter: false
+        });
         Address.sync({
             alter: false
         });

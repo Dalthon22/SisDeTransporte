@@ -20,6 +20,21 @@ const Folo6_Approve_State = db.define('SGT_Folo6_Aprovado', {
     cancel_tunit_detail: {
         type: Sequelize.STRING(250),
     },
+    driver: {
+        type: Sequelize.BOOLEAN,
+        allowNull: true,
+        defaultValue: 0
+    },
+    car: {
+        type: Sequelize.BOOLEAN,
+        allowNull: true,
+        defaultValue: 0
+    },
+    gasoline: {
+        type: Sequelize.BOOLEAN,
+        allowNull: true,
+        defaultValue: 0
+    },
     created_by: {
         type: Sequelize.INTEGER
     },
