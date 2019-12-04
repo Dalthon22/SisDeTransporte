@@ -1,7 +1,7 @@
 /*****ANIMACIÓN,SETTINGS INICIALES Y VALIDACIONES******/
-var id_employee = 3;
+var id_employee = 5;
 var motorista;
-var emp, unit;
+var emp;
 const url_request_employee = 'empleado/' + id_employee;
 
 function showLoadingDimmer() {
@@ -25,13 +25,10 @@ $(document).ready(function () {
         success: (data) => {
             console.log(typeof (data.emp));
             emp = data.emp;
-            unit = data.unit
             console.log(emp);
-            console.log(unit);
         }
     }).done(function () {
         $("#name_lb").text(emp.first_name + ", " + emp.last_name);
-        $("#unidad_lb").text(unit.name_unit);
         $('body').dimmer('hide');
     });
 
@@ -292,7 +289,6 @@ function printPDF() {
     event.preventDefault();
     //Recolección de datos.
     fechaSolicitud = $('#date_lb').text();
-    unidadSolicitante = $('#unidad_lb').text();
     personaSolicitante = $('#name_lb').text();
     fechaSalida = $('#calendar1').val();
     horaSalida = $('#time').val();
@@ -366,7 +362,6 @@ function printPDF() {
 
     return $.post('/solicitud/createPDF', { //Petición ajax post.
             fechaSolicitud,
-            unidadSolicitante,
             personaSolicitante,
             fechaSalida,
             horaSalida,

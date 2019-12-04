@@ -10,7 +10,6 @@ const Voucher_procu_assign = require('./m_voucher_procu_assign');
 const Voucher_folo6_assign = require('./m_voucher_folo6_assign');
 const Folo6 = require('./m_folo6');
 const Employee = require('./m_employee');
-const Unit = require('./m_unit');
 const Places_container = require('./m_places_container');
 const Folo6_Approve_State = require('./m_folo6_approve_state');
 const route_conditions = require('../models/m_route_conditions');
@@ -37,9 +36,6 @@ class Migration {
             alter: false
         });
         Voucher.sync({
-            alter: false
-        });
-        Unit.sync({
             alter: false
         });
         Employee.sync({

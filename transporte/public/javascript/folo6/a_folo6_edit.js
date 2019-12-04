@@ -1,5 +1,5 @@
 /*****ANIMACIÓN,SETTINGS INICIALES Y VALIDACIONES******/
-var motorista, emp, unit;
+var motorista, emp;
 
 function showLoadingDimmer() {
     // $('.segment').dimmer('set active');
@@ -36,13 +36,10 @@ $(document).ready(function () {
         success: (data) => {
             console.log(typeof (data.emp));
             emp = data.emp;
-            unit = data.unit
             console.log(emp);
-            console.log(unit);
 
             //Para setting de los labels
             $("#name_lb").text(emp.first_name + ", " + emp.last_name);
-            $("#unidad_lb").text(unit.name_unit);
         }
     });
     $('body').dimmer('hide');
@@ -414,7 +411,6 @@ function printPDF() {
     event.preventDefault();
     //Recolección de datos.
     fechaSolicitud = $('#date_lb').text();
-    unidadSolicitante = $('#unidad_lb').text();
     personaSolicitante = $('#name_lb').text();
     fechaSalida = $('#calendar1').val();
     horaSalida = $('#time').val();
@@ -462,7 +458,6 @@ function printPDF() {
 
     return $.post('/solicitud/createPDF', { //Petición ajax post.
             fechaSolicitud,
-            unidadSolicitante,
             personaSolicitante,
             fechaSalida,
             horaSalida,

@@ -44,7 +44,11 @@ function fillTable() {
                 }
 
             }
-        ]
+        ],
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+            "emptyTable": "No hay folos que mostrar"
+        },
     });
 
 
@@ -175,7 +179,6 @@ function printPDF() {
 
     //Recolección de datos.
     fechaSolicitud = $('#date_lb').text();
-    unidadSolicitante = $('#unidad_lb').text();
     fechaSalida = $('#calendar1').val();
     horaSalida = $('#time').val();
     horaRetorno = $('#time1').val();
@@ -222,7 +225,6 @@ function printPDF() {
 
     $.post('/solicitud/createPDF', { //Petición ajax post.
             fechaSolicitud,
-            unidadSolicitante,
             fechaSalida,
             horaSalida,
             horaRetorno,

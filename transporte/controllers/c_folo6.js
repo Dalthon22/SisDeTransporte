@@ -52,7 +52,6 @@ class folo6_controllers {
             console.dir(req.body); //Muestra en consola el cuerpo de la petición para comprobar datos.
             let {
                 fechaSolicitud,
-                unidadSolicitante,
                 personaSolicitante,
                 fechaSalida,
                 horaSalida,
@@ -98,11 +97,11 @@ class folo6_controllers {
                 var docDefinition = {
                     info: {
                         //Nombre interno del documento.
-                        title: 'Solicitud de transporte FOLO-06 ' + today.getDate() + '/' + month + '/' + today.getFullYear(),
+                        title: 'Solicitud de transporte: ' + today.getDate() + '/' + month + '/' + today.getFullYear(),
                     },
                     pageSize: 'LETTER',
                     content: [{
-                            image: 'public/images/logopgr1.png',
+                            image: 'public/images/logo.png',
                             fit: [60, 60],
                             absolutePosition: {
                                 x: 70,
@@ -111,7 +110,7 @@ class folo6_controllers {
                             writable: true,
                         },
                         {
-                            text: 'PROCURADURÍA GENERAL DE LA REPÚBLICA',
+                            text: 'CONSULTORIA Y ESTRATEGIA EMPRESARIAL',
                             alignment: 'center',
                             bold: true,
                             italics: true,
@@ -125,7 +124,7 @@ class folo6_controllers {
                             fontSize: '16'
                         },
                         {
-                            text: '\n\nFOLO-06',
+                            text: '\n\nRequerimiento de transporte',
                             alignment: 'right',
                             bold: true,
                             italics: true
@@ -135,12 +134,6 @@ class folo6_controllers {
                                 text: 'Fecha de solicitud: ',
                                 bold: true
                             }, '' + fechaSolicitud]
-                        },
-                        {
-                            text: [{
-                                text: '\nUnidad solicitante: ',
-                                bold: true
-                            }, '' + unidadSolicitante],
                         },
                         {
                             text: [{
@@ -310,11 +303,11 @@ class folo6_controllers {
                 var month = today.getMonth() + 1;
                 var docDefinition = {
                     info: {
-                        title: 'Solicitud de transporte FOLO-06 ' + today.getDate() + '/' + month + '/' + today.getFullYear(),
+                        title: 'Solicitud de transporte: ' + today.getDate() + '/' + month + '/' + today.getFullYear(),
                     },
                     pageSize: 'LETTER',
                     content: [{
-                            image: 'public/images/logopgr1.png',
+                            image: 'public/images/logo.png',
                             fit: [60, 60],
                             absolutePosition: {
                                 x: 70,
@@ -323,7 +316,7 @@ class folo6_controllers {
                             writable: true,
                         },
                         {
-                            text: 'PROCURADURÍA GENERAL DE LA REPÚBLICA',
+                            text: 'CONSULTORIA Y ESTRATEGIA EMPRESARIAL',
                             alignment: 'center',
                             bold: true,
                             italics: true,
@@ -337,7 +330,7 @@ class folo6_controllers {
                             fontSize: '16'
                         },
                         {
-                            text: '\n\nFOLO-06',
+                            text: '\n\nRequerimiento de transporte',
                             alignment: 'right',
                             bold: true,
                             italics: true
@@ -347,12 +340,6 @@ class folo6_controllers {
                                 text: 'Fecha de solicitud: ',
                                 bold: true
                             }, '' + fechaSolicitud]
-                        },
-                        {
-                            text: [{
-                                text: '\nUnidad solicitante: ',
-                                bold: true
-                            }, '' + unidadSolicitante],
                         },
                         {
                             text: [{
@@ -528,11 +515,11 @@ class folo6_controllers {
                 var month = today.getMonth() + 1;
                 var docDefinition = {
                     info: {
-                        title: 'Solicitud de transporte FOLO-06 ' + today.getDate() + '/' + month + '/' + today.getFullYear(),
+                        title: 'Solicitud de transporte: ' + today.getDate() + '/' + month + '/' + today.getFullYear(),
                     },
                     pageSize: 'LETTER',
                     content: [{
-                            image: 'public/images/logopgr1.png',
+                            image: 'public/images/logo.png',
                             fit: [60, 60],
                             absolutePosition: {
                                 x: 70,
@@ -541,7 +528,7 @@ class folo6_controllers {
                             writable: true,
                         },
                         {
-                            text: 'PROCURADURÍA GENERAL DE LA REPÚBLICA',
+                            text: 'CONSULTORIA Y ESTRATEGIA EMPRESARIAL',
                             alignment: 'center',
                             bold: true,
                             italics: true,
@@ -555,7 +542,7 @@ class folo6_controllers {
                             fontSize: '16'
                         },
                         {
-                            text: '\n\nFOLO-06',
+                            text: '\n\Requerimiento de transporte',
                             alignment: 'right',
                             bold: true,
                             italics: true
@@ -565,12 +552,6 @@ class folo6_controllers {
                                 text: 'Fecha de solicitud: ',
                                 bold: true
                             }, '' + fechaSolicitud]
-                        },
-                        {
-                            text: [{
-                                text: '\nUnidad solicitante: ',
-                                bold: true
-                            }, '' + unidadSolicitante],
                         },
                         {
                             text: [{
@@ -715,11 +696,11 @@ class folo6_controllers {
                 var month = today.getMonth() + 1;
                 var docDefinition = {
                     info: {
-                        title: 'Solicitud de transporte FOLO-06 ' + today.getDate() + '/' + month + '/' + today.getFullYear(),
+                        title: 'Solicitud de transporte: ' + today.getDate() + '/' + month + '/' + today.getFullYear(),
                     },
                     pageSize: 'LETTER',
                     content: [{
-                            image: 'public/images/logopgr1.png',
+                            image: 'public/images/logo.png',
                             fit: [60, 60],
                             absolutePosition: {
                                 x: 70,
@@ -728,7 +709,7 @@ class folo6_controllers {
                             writable: true,
                         },
                         {
-                            text: 'PROCURADURÍA GENERAL DE LA REPÚBLICA',
+                            text: 'CONSULTORIA Y ESTRATEGIA EMPRESARIAL',
                             alignment: 'center',
                             bold: true,
                             italics: true,
@@ -742,7 +723,7 @@ class folo6_controllers {
                             fontSize: '16'
                         },
                         {
-                            text: '\n\nFOLO-06',
+                            text: '\n\nRquerimiento de transporte',
                             alignment: 'right',
                             bold: true,
                             italics: true
@@ -752,12 +733,6 @@ class folo6_controllers {
                                 text: 'Fecha de solicitud: ',
                                 bold: true
                             }, '' + fechaSolicitud]
-                        },
-                        {
-                            text: [{
-                                text: '\nUnidad solicitante: ',
-                                bold: true
-                            }, '' + unidadSolicitante],
                         },
                         {
                             text: [{
@@ -906,7 +881,6 @@ class folo6_controllers {
             let folo = await this.foloInfo(req);
             console.dir("EN SHOW RECIBI ESTO" + JSON.stringify(folo));
             var fechaSolicitud = folo.created_at;
-            var unidadSolicitante = folo.emp.unit.name;
             var personaSolicitante = folo.emp.first_name + ', ' + folo.emp.last_name;
             var fechaSalida = folo.off_date;
             var horaSalida = folo.off_hour;
@@ -973,11 +947,11 @@ class folo6_controllers {
                 var docDefinition = {
                     info: {
                         //Nombre interno del documento.
-                        title: 'Solicitud de transporte FOLO-06 ' + today.getDate() + '/' + month + '/' + today.getFullYear(),
+                        title: 'Solicitud de transporte: ' + today.getDate() + '/' + month + '/' + today.getFullYear(),
                     },
                     pageSize: 'LETTER',
                     content: [{
-                            image: 'public/images/logopgr1.png',
+                            image: 'public/images/logo.png',
                             fit: [60, 60],
                             absolutePosition: {
                                 x: 70,
@@ -986,7 +960,7 @@ class folo6_controllers {
                             writable: true,
                         },
                         {
-                            text: 'PROCURADURÍA GENERAL DE LA REPÚBLICA',
+                            text: 'CONSULTORIA Y ESTRATEGIA EMPRESARIAL',
                             alignment: 'center',
                             bold: true,
                             italics: true,
@@ -1000,7 +974,7 @@ class folo6_controllers {
                             fontSize: '16'
                         },
                         {
-                            text: '\n\nFOLO-06',
+                            text: '\n\nRequerimiento de transporte',
                             alignment: 'right',
                             bold: true,
                             italics: true
@@ -1010,12 +984,6 @@ class folo6_controllers {
                                 text: 'Fecha de solicitud: ',
                                 bold: true
                             }, '' + fechaSolicitud]
-                        },
-                        {
-                            text: [{
-                                text: '\nUnidad solicitante: ',
-                                bold: true
-                            }, '' + unidadSolicitante],
                         },
                         {
                             text: [{
@@ -1180,11 +1148,11 @@ class folo6_controllers {
                 var month = today.getMonth() + 1;
                 var docDefinition = {
                     info: {
-                        title: 'Solicitud de transporte FOLO-06 ' + today.getDate() + '/' + month + '/' + today.getFullYear(),
+                        title: 'Solicitud de transporte: ' + today.getDate() + '/' + month + '/' + today.getFullYear(),
                     },
                     pageSize: 'LETTER',
                     content: [{
-                            image: 'public/images/logopgr1.png',
+                            image: 'public/images/logo.png',
                             fit: [60, 60],
                             absolutePosition: {
                                 x: 70,
@@ -1193,7 +1161,7 @@ class folo6_controllers {
                             writable: true,
                         },
                         {
-                            text: 'PROCURADURÍA GENERAL DE LA REPÚBLICA',
+                            text: 'CONSULTORIA Y ESTRATEGIA EMPRESARIAL',
                             alignment: 'center',
                             bold: true,
                             italics: true,
@@ -1207,7 +1175,7 @@ class folo6_controllers {
                             fontSize: '16'
                         },
                         {
-                            text: '\n\nFOLO-06',
+                            text: '\n\nRquerimiento de transporte',
                             alignment: 'right',
                             bold: true,
                             italics: true
@@ -1217,12 +1185,6 @@ class folo6_controllers {
                                 text: 'Fecha de solicitud: ',
                                 bold: true
                             }, '' + fechaSolicitud]
-                        },
-                        {
-                            text: [{
-                                text: '\nUnidad solicitante: ',
-                                bold: true
-                            }, '' + unidadSolicitante],
                         },
                         {
                             text: [{
@@ -1391,11 +1353,11 @@ class folo6_controllers {
                 var month = today.getMonth() + 1;
                 var docDefinition = {
                     info: {
-                        title: 'Solicitud de transporte FOLO-06 ' + today.getDate() + '/' + month + '/' + today.getFullYear(),
+                        title: 'Solicitud de transporte: ' + today.getDate() + '/' + month + '/' + today.getFullYear(),
                     },
                     pageSize: 'LETTER',
                     content: [{
-                            image: 'public/images/logopgr1.png',
+                            image: 'public/images/logo.png',
                             fit: [60, 60],
                             absolutePosition: {
                                 x: 70,
@@ -1404,7 +1366,7 @@ class folo6_controllers {
                             writable: true,
                         },
                         {
-                            text: 'PROCURADURÍA GENERAL DE LA REPÚBLICA',
+                            text: 'CONSULTORIA Y ESTRATEGIA EMPRESARIAL',
                             alignment: 'center',
                             bold: true,
                             italics: true,
@@ -1418,7 +1380,7 @@ class folo6_controllers {
                             fontSize: '16'
                         },
                         {
-                            text: '\n\nFOLO-06',
+                            text: '\n\nRequerimiento de transporte',
                             alignment: 'right',
                             bold: true,
                             italics: true
@@ -1428,12 +1390,6 @@ class folo6_controllers {
                                 text: 'Fecha de solicitud: ',
                                 bold: true
                             }, '' + fechaSolicitud]
-                        },
-                        {
-                            text: [{
-                                text: '\nUnidad solicitante: ',
-                                bold: true
-                            }, '' + unidadSolicitante],
                         },
                         {
                             text: [{
@@ -1571,11 +1527,11 @@ class folo6_controllers {
                 var month = today.getMonth() + 1;
                 var docDefinition = {
                     info: {
-                        title: 'Solicitud de transporte FOLO-06 ' + today.getDate() + '/' + month + '/' + today.getFullYear(),
+                        title: 'Solicitud de transporte: ' + today.getDate() + '/' + month + '/' + today.getFullYear(),
                     },
                     pageSize: 'LETTER',
                     content: [{
-                            image: 'public/images/logopgr1.png',
+                            image: 'public/images/logo.png',
                             fit: [60, 60],
                             absolutePosition: {
                                 x: 70,
@@ -1584,7 +1540,7 @@ class folo6_controllers {
                             writable: true,
                         },
                         {
-                            text: 'PROCURADURÍA GENERAL DE LA REPÚBLICA',
+                            text: 'CONSULTORIA Y ESTRATEGIA EMPRESARIAL',
                             alignment: 'center',
                             bold: true,
                             italics: true,
@@ -1598,7 +1554,7 @@ class folo6_controllers {
                             fontSize: '16'
                         },
                         {
-                            text: '\n\nFOLO-06',
+                            text: '\n\nRquerimiento de transporte',
                             alignment: 'right',
                             bold: true,
                             italics: true
@@ -1608,12 +1564,6 @@ class folo6_controllers {
                                 text: 'Fecha de solicitud: ',
                                 bold: true
                             }, '' + fechaSolicitud]
-                        },
-                        {
-                            text: [{
-                                text: '\nUnidad solicitante: ',
-                                bold: true
-                            }, '' + unidadSolicitante],
                         },
                         {
                             text: [{
@@ -2191,7 +2141,6 @@ class folo6_controllers {
                 //Si en el folo 6 selecciono motorista se llenará con estos datos la BD
                 if (motorista) {
                     folo = await Folo6.create({
-                        request_unit: emp.unit_id,
                         off_date: date,
                         off_hour: t,
                         return_hour: t1,
@@ -2211,7 +2160,6 @@ class folo6_controllers {
                     //Si en el folo 6 NO selecciono motorista se llenará con estos datos la BD
 
                     folo = await Folo6.create({
-                        request_unit: emp.unit_id,
                         off_date: date,
                         off_hour: t,
                         return_hour: t1,
@@ -2315,7 +2263,6 @@ class folo6_controllers {
                     console.log("Estoy en el true del edit");
 
                     let f = await Folo6.update({
-                        request_unit: emp.unit_id,
                         off_date: date,
                         off_hour: t,
                         return_hour: t1,
