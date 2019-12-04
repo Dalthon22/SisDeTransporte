@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
           }
         },
         {
-          text: 'PROCURADURÍA GENERAL DE LA REPÚBLICA',
+          text: 'CONSULTORIA Y ESTRATEGIA EMPRESARIAL',
           alignment: 'center',
           bold: true,
           italics: true,

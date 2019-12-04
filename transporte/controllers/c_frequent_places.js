@@ -3,7 +3,6 @@ const City = require('../models/m_city');
 const Deparment = require('../models/m_department');
 const department_controller = require('../controllers/c_department');
 const municipio_controller = require('../controllers/c_city');
-const route_controller = require('./c_route');
 const {
     validationResult
 } = require('express-validator');
@@ -18,9 +17,6 @@ class frequent_place_controller {
             //Cuando se necesita filtrada
             if (parseInt(req.query.filter) !== 0) {
                 fplaces = await frequent_place.findAll({
-                    where: {
-                        route_id: req.query.filter
-                    },
                     include: [City, Deparment]
                 });
             } //Caundo se derse ver todos
@@ -42,10 +38,8 @@ class frequent_place_controller {
             var fplaces = await frequent_place.findAll({
                 include: [City, Deparment]
             });
-            let rutas = await route_controller.getRouteList();
             return res.render('../views/frequent_places/list.html', {
-                fplaces,
-                rutas
+                fplaces
             });
         } catch (error) {
             console.log(error);
@@ -64,10 +58,8 @@ class frequent_place_controller {
     async getAdd(req, res) {
         try {
             let Departamentos = await department_controller.getList();
-            let rutas = await route_controller.getRouteList();
             return res.render('../views/frequent_places/add.html', {
                 Departamentos,
-                rutas
             })
         } catch (error) {
             console.log(error);
@@ -82,19 +74,15 @@ class frequent_place_controller {
                 detail,
                 departamento,
                 municipio,
-                ruta
             } = req.body;
             if (!errors.isEmpty()) {
                 let Departamentos = await department_controller.getList();
-                let rutas = await route_controller.getRouteList();
                 res.render('../views/frequent_places/add.html', {
                     name,
                     detail,
                     departamento,
                     Departamentos,
                     municipio,
-                    rutas,
-                    ruta,
                     errors: errors.array()
                 });
             } else {
@@ -104,17 +92,14 @@ class frequent_place_controller {
                         detail,
                         city_id: municipio,
                         department_id: departamento,
-                        route_id: ruta,
                     });
                     res.redirect('/lugares_frecuentes');
                 } catch (errors) {
                     console.log(errors);
                     let error = 'El Lugar de Destino ingresado ya existe.';
                     let Departamentos = await department_controller.getList();
-                    let rutas = await route_controller.getRouteList();
                     res.render('../views/frequent_places/add.html', {
                         Departamentos,
-                        rutas,
                         error,
                     });
                 }
@@ -135,8 +120,6 @@ class frequent_place_controller {
             let municipio = place.city_id;
             let departamento = place.department_id;
             let edit = true;
-            let ruta = place.route_id;
-            let rutas = await route_controller.getRouteList();
             let Departamentos = await department_controller.getList();
             console.log(name);
             return res.render('../views/frequent_places/add.html', {
@@ -148,8 +131,6 @@ class frequent_place_controller {
                 edit,
                 fplace_id,
                 true_name,
-                ruta,
-                rutas
             })
         } catch (error) {
             console.log(error);
@@ -165,7 +146,6 @@ class frequent_place_controller {
                 departamento,
                 municipio,
                 true_name,
-                ruta,
                 fplace_id
             } = req.body;
             if (!errors.isEmpty()) {
@@ -177,7 +157,6 @@ class frequent_place_controller {
                     Departamentos,
                     municipio,
                     fplace_id,
-                    ruta,
                     errors: errors.array()
                 });
             } else {
@@ -185,7 +164,6 @@ class frequent_place_controller {
                     console.log(req.body.detail);
                     await frequent_place.update({
                         name: name,
-                        route_id: ruta,
                         detail: detail,
                         city_id: municipio,
                         department_id: departamento
@@ -199,7 +177,6 @@ class frequent_place_controller {
                     console.log(error);
                     error = 'El Lugar de Destino ingresado ya existe.';
                     let Departamentos = await department_controller.getList();
-                    let rutas = await route_controller.getRouteList();
                     name = true_name;
                     res.render('../views/frequent_places/add.html', {
                         name,
@@ -207,8 +184,6 @@ class frequent_place_controller {
                         departamento,
                         Departamentos,
                         municipio,
-                        rutas,
-                        ruta,
                         fplace_id,
                         error
                     });

@@ -1,7 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../dbconfig/conex');
 Voucher_folo6_assign = require('./m_voucher_folo6_assign');
-Voucher_procu_assign = require('./m_voucher_procu_assign');
 
 const Voucher = db.define('SGT_Vale', {
   num_voucher: {
@@ -58,10 +57,6 @@ const Voucher = db.define('SGT_Vale', {
 });
 
 Voucher.hasOne(Voucher_folo6_assign, {
-  foreignKey: 'num_voucher'
-});
-
-Voucher.hasOne(Voucher_procu_assign, {
   foreignKey: 'num_voucher'
 });
 
