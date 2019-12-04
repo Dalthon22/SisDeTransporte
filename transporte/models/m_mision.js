@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 const db = require('../dbconfig/conex');
-const Procuraduria = require('./m_procuraduria');
 
 const Mision = db.define('SGT_Mision', {
     name: {

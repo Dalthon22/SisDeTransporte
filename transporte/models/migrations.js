@@ -1,7 +1,6 @@
 const Department = require('./m_department');
 const City = require('./m_city');
 const Vehicle = require('./m_vehicle');
-const Procuraduria = require('./m_procuraduria');
 const Address = require('./m_address');
 const Route = require('./m_route');
 const Frequent_Place = require('./m_frequent_place');
@@ -32,9 +31,6 @@ class Migration {
             alter: false
         });
         Address.sync({
-            alter: false
-        });
-        Procuraduria.sync({
             alter: false
         });
         Vehicle.sync({

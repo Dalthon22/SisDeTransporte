@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 const db = require('../dbconfig/conex');
-const Procuraduria = require('./m_procuraduria');
 
 const Driver = db.define('SGT_Motorista', {
     first_name: {
@@ -67,7 +66,4 @@ const Driver = db.define('SGT_Motorista', {
 });
 
 
-Driver.belongsTo(Procuraduria, {
-    foreignKey: 'procuraduria_id'
-});
 module.exports = Driver;
