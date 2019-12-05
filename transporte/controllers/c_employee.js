@@ -103,22 +103,12 @@ class employee_controller {
         }
     }
 
-    async getCreate(req, res) {
-        try {
-            const states = this.getStateList();
-            var plate = req.query.matricula;
-            var vehicle;
-            console.log(plate);
-            if (plate) {
-                vehicle = await this.findByPlate(plate);
-            }
-            return res.render('../views/vehicle/create.html', {
-                states,
-                vehicle
-            })
-        } catch (error) {
-            console.log("Error en getCreate" + error)
-        }
+    async updateEmployee(req, res) {
+
+    }
+
+    async createEmployee(req, res) {
+
     }
 };
 
