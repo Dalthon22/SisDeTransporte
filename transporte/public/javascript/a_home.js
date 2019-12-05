@@ -475,13 +475,6 @@ function progressBar(valor, motivo) {
     if (valor == "1") {
         $('#progressTable1').append('<div class="ui tablet stackable steps">' +
             '<div class="completed step" style="max-width:20%;width:20%">' +
-            '<i class="user tie icon"></i>' +
-            '<div class="content">' +
-            '<div class="title">Jefe Unidad</div>' +
-            '<div class="description">Aprobado</div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="completed step" style="max-width:20%;width:20%">' +
             '<i class="chalkboard teacher icon"></i>' +
             '<div class="content">' +
             '<div class="title">Unidad de Transporte</div>' +
@@ -512,13 +505,6 @@ function progressBar(valor, motivo) {
             '</div>');
     } else if (valor == "2") {
         $('#progressTable1').append('<div class="ui tablet stackable steps">' +
-            '<div class="completed step" style="max-width:20%;width:20%">' +
-            '<i class="user tie icon"></i>' +
-            '<div class="content">' +
-            '<div class="title">Jefe Unidad</div>' +
-            '<div class="description">Aprobado</div>' +
-            '</div>' +
-            '</div>' +
             '<div class="completed step" style="max-width:20%;width:20%">' +
             '<i class="chalkboard teacher icon"></i>' +
             '<div class="content">' +
@@ -551,13 +537,6 @@ function progressBar(valor, motivo) {
     } else if (valor == "3") {
         $('#progressTable1').append('<div class="ui tablet stackable steps">' +
             '<div class="completed step" style="max-width:20%;width:20%">' +
-            '<i class="user tie icon"></i>' +
-            '<div class="content">' +
-            '<div class="title">Jefe Unidad</div>' +
-            '<div class="description">Aprobado</div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="completed step" style="max-width:20%;width:20%">' +
             '<i class="chalkboard teacher icon"></i>' +
             '<div class="content">' +
             '<div class="title">Unidad de Transporte</div>' +
@@ -589,13 +568,6 @@ function progressBar(valor, motivo) {
     } else if (valor == "4") {
         $('#progressTable1').append('<div class="ui tablet stackable steps">' +
             '<div class="completed step" style="max-width:20%;width:20%">' +
-            '<i class="user tie icon"></i>' +
-            '<div class="content">' +
-            '<div class="title">Jefe Unidad</div>' +
-            '<div class="description">Aprobado</div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="completed step" style="max-width:20%;width:20%">' +
             '<i class="chalkboard teacher icon"></i>' +
             '<div class="content">' +
             '<div class="title">Unidad de Transporte</div>' +
@@ -626,13 +598,6 @@ function progressBar(valor, motivo) {
             '</div>');
     } else if (valor == "5") {
         $('#progressTable1').append('<div class="ui tablet stackable steps">' +
-            '<div class="completed step" style="max-width:20%;width:20%">' +
-            '<i class="user tie icon"></i>' +
-            '<div class="content">' +
-            '<div class="title">Jefe Unidad</div>' +
-            '<div class="description">Aprobado</div>' +
-            '</div>' +
-            '</div>' +
             '<div class="active step" style="max-width:20%;width:20%">' +
             '<i class="chalkboard teacher icon"></i>' +
             '<div class="content">' +
@@ -664,13 +629,6 @@ function progressBar(valor, motivo) {
             '</div>');
     } else if (valor == "5") {
         $('#progressTable1').append('<div class="ui tablet stackable steps">' +
-            '<div class="completed step" style="max-width:20%;width:20%">' +
-            '<i class="user tie icon"></i>' +
-            '<div class="content">' +
-            '<div class="title">Jefe Unidad</div>' +
-            '<div class="description">Aprobado</div>' +
-            '</div>' +
-            '</div>' +
             '<div class="active step" style="max-width:20%;width:20%">' +
             '<i class="chalkboard teacher icon"></i>' +
             '<div class="content">' +
@@ -702,13 +660,6 @@ function progressBar(valor, motivo) {
             '</div>');
     } else if (valor == "6") {
         $('#progressTable1').append('<div class="ui tablet stackable steps">' +
-            '<div class="completed step" style="max-width:20%;width:20%">' +
-            '<i class="user tie icon"></i>' +
-            '<div class="content">' +
-            '<div class="title">Jefe Unidad</div>' +
-            '<div class="description">Aprobado</div>' +
-            '</div>' +
-            '</div>' +
             '<div class="active step" style="max-width:80%;width:80%">' +
             '<i class="exclamation circle red icon"></i>' +
             '<div class="content">' +
@@ -717,25 +668,8 @@ function progressBar(valor, motivo) {
             '</div>' +
             '</div>'
         );
-    } else if (valor == "7") {
-        $('#progressTable1').append('<div class="ui tablet stackable steps">' +
-            '<div class="active step" style="max-width:100%;width:100%">' +
-            '<i class="exclamation circle red icon"></i>' +
-            '<div class="content">' +
-            '<div class="title">Jefe Unidad</div>' +
-            '<div class="description">Su solicitud ha sido cancelada debido a: ' + motivo + ' </div>' +
-            '</div>' +
-            '</div>'
-        );
     } else {
         $('#progressTable1').append('<div class="ui tablet stackable steps">' +
-            '<div class="active step" style="max-width:20%;width:20%">' +
-            '<i class="user tie icon"></i>' +
-            '<div class="content">' +
-            '<div class="title">Jefe Unidad</div>' +
-            '<div class="description">Entregado</div>' +
-            '</div>' +
-            '</div>' +
             '<div class="disabled step" style="max-width:20%;width:20%">' +
             '<i class="chalkboard teacher icon"></i>' +
             '<div class="content">' +

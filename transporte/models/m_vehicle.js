@@ -72,4 +72,8 @@ const Vehicle = db.define('SGT_Vehiculo', {
     freezeTableName: true,
 });
 
+Voucher.hasOne(Voucher_folo6_assign, {
+    foreignKey: 'vehicle_plate'
+});
+
 module.exports = Vehicle;
