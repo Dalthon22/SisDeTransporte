@@ -52,6 +52,7 @@ app.use('/lugares_frecuentes', require('./routes/r_frequent_places'));
 app.use('/', require('./routes/r_employee'));
 app.use('/asignar_vales', require('./routes/r_voucher_entry'));
 app.use('/', require('./routes/r_approve_panel'));
+app.use('/empleados', require('./routes/r_employee'));
 
 
 // catch 404 and forward to error handler

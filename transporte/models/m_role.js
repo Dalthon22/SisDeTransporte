@@ -25,8 +25,4 @@ const Role = db.define('SGT_Rol', {
     freezeTableName: true,
 });
 
-/* Role.hasMany(UserRol, {
-    foreignKey: 'Codigo_Rol'
-}); */
-
 module.exports = Role;

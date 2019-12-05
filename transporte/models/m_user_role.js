@@ -3,14 +3,6 @@ const db = require('../dbconfig/conex');
 const Role = require('./m_role');
 
 const UserRol = db.define('SGT_UsuarioRol', {
-    CodigoUsuario: {
-        type: Sequelize.STRING(10),
-        primaryKey: true,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-        }
-    },
     CodigoRol: {
         type: Sequelize.STRING(10),
         primaryKey: true,

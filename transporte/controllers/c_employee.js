@@ -1,6 +1,11 @@
 const db = require('../dbconfig/conex');
 const Sequelize = require('sequelize');
 const Employee = require('../models/m_employee');
+const User = require('../models/m_user');
+
+//Manejo de fechas
+var moment = require('moment');
+moment.locale("Es-SV")
 
 /* const Migration = require('../models/migrations');
  */
@@ -10,9 +15,9 @@ const {
     validationResult
 } = require('../middleware/expresse-validator');
 
-class employee_controllers {
+class employee_controller {
     constructor() {
-        //var migrate = new Migration();
+
     }
     //Metodo find por id
     async findById(id, req, res) {
@@ -50,6 +55,71 @@ class employee_controllers {
             console.log(err);
         }
     }
+
+    async getList(req, res) {
+        try {
+            var emps = await Employee.findAll({
+                include: [User],
+                order: Sequelize.literal('id ASC')
+            });
+            var employees = [];
+            emps.forEach((record) => {
+                var user = new Object();
+                user.id = record.id;
+                user.name = record.first_name + ' ' + record.last_name;
+                user.email = record.SGT_Usuario.email;
+                user.active = record.SGT_Usuario.active;
+                user.created_at = moment.parseZone(record.created_at).local().format("DD/MM/YYYY h:mm A");
+                employees.push(user);
+            })
+            console.log(employees);
+            return res.render('../views/employee/list.html', {
+                employees
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async getAdd(req, res) {
+        try {
+            var employee;
+            var employee_id = req.query.user_id;
+            console.log(employee_id);
+            if (employee_id) {
+                employee = await Employee.findOne({
+                    where: {
+                        id: employee_id
+                    },
+                    include: [User]
+                });
+            }
+            console.log(employee);
+            return res.render('../views/employee/add.html', {
+                employee
+            });
+        } catch (error) {
+            console.log("Error en getCreate" + error)
+        }
+    }
+
+    async getCreate(req, res) {
+        try {
+            const states = this.getStateList();
+            var plate = req.query.matricula;
+            var vehicle;
+            console.log(plate);
+            if (plate) {
+                vehicle = await this.findByPlate(plate);
+            }
+            return res.render('../views/vehicle/create.html', {
+                states,
+                vehicle
+            })
+        } catch (error) {
+            console.log("Error en getCreate" + error)
+        }
+    }
 };
 
-module.exports = new employee_controllers();
+module.exports = new employee_controller();
