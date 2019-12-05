@@ -1,5 +1,11 @@
 var filterValue, myTable;
 var tableCells = "<tbody> <tr> <td> 1 </td> <td> 2 </td> <td> 3 </td> <td> 4 </td> <td> <i class =\"yellow big edit icon\" value=\"\" >< /i> <i class =\"red big window close icon\" value =\"\" >< /i> </td > </tr> </tbody>"
+
+$(window).on('load', function () {
+    console.log('window loaded');
+    this.enviarToast();
+});
+
 $(document).ready(function () {
     myTable = $('#mytable').DataTable({
         "scrollY": "500px",
@@ -8,41 +14,6 @@ $(document).ready(function () {
             "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
         }
     });
-    var type = $('input#messagetype').val();
-    var info = $('input#messageinfo').val();
-    console.log(type);
-    console.log(info);
-    if (type == 1) {
-        if (info == 1) {
-            $('body')
-                .toast({
-                    class: 'success',
-                    onclick: 'null',
-                    message: `El Requerimiento fue aprobado`
-                });
-        } else if (info == 0) {
-            $('body')
-                .toast({
-                    class: 'error',
-                    message: `Error al modificar la base de Datos.`
-                });
-        }
-    } else if (type == 0) {
-        if (info == 1) {
-            $('body')
-                .toast({
-                    class: 'warning',
-                    message: `El Requerimiento fue cancelado`
-                });
-        } else if (info == 0) {
-            $('body')
-                .toast({
-                    class: 'error',
-                    message: `Error al modificar la base de Datos.`
-                });
-        }
-    };
-    enviarToast();
     $.ajax({
         url: '/vales/quantity',
         async: true,
@@ -111,6 +82,7 @@ $(".check.green.circle.outline.link.icon").click(function (e) {
     $("#pasajeros").text($.trim(tableData[2]));
     $("#mision_folo").text($.trim(tableData[3]));
     document.getElementById("foloA_id").value = id;
+    document.getElementById("fecha_folo").value = $.trim(tableData[0]);
     var tabla = document.getElementById("div_table");
     tabla.style.display = "none";
     var div = document.getElementById("data-hidden");
@@ -126,6 +98,7 @@ $(".ui.left.floated.animated.button").click(function (e) {
     $("#pasajeros").text('---');
     $("#mision_folo").text('---');
     document.getElementById("foloA_id").value = "";
+    document.getElementById("fecha_folo").value = "";
     var tabla = document.getElementById("div_table");
     tabla.style.display = "block";
     var div = document.getElementById("data-hidden");

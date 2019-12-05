@@ -8,4 +8,9 @@ const {
 router.get('/', (req, res) => {
     controller.getAsignar(req, res);
 });
+
+router.post('/', (req, res) => {
+    controller.crearAsignacion(req, res);
+});
+
 module.exports = router;

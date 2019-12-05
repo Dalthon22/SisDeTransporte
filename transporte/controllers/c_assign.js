@@ -3,6 +3,7 @@ const Vehiculo = require('../models/m_vehicle');
 const employee = require('../models/m_employee');
 const folo6 = require('../models/m_folo6');
 const folo6_approve = require('../models/m_folo6_approve_state');
+const Vales = require('../models/m_voucher');
 
 //Manejo de fechas
 var moment = require('moment');
@@ -27,7 +28,9 @@ class assign_controller {
                     include: [{
                         model: folo6_approve,
                         where: {
-                            transport_unit_approve: 1, //Aprobados
+                            transport_unit_approve: 1,
+                            car: 0,
+                            gasoline: 0, //Aprobados
                             cancel_tunit_detail: null //Que no haya sido cancelado
                         }
                     }]
@@ -60,8 +63,66 @@ class assign_controller {
             });
             return res.render('../views/assign.html', {
                 Cars,
-                data
+                data,
             });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    async crearAsignacion(req, res) {
+        try {
+            const errors = validationResult(req);
+            let {
+                license_type,
+                cant,
+                foloA_id,
+                fecha_folo
+            } = req.body;
+            if (!errors.isEmpty()) {
+                getAsignar(req, res);
+            } else {
+                console.log(cant);
+                console.log(license_type);
+                console.log(foloA_id);
+                try {
+                    var vales_lista = await Vales.findAll({
+                        attributes: ['num_voucher'],
+                        top: cant,
+                        where: {
+                            condition: 'Disponible',
+                        }
+                    });
+                    var fecha = moment.utc(fecha_folo, 'DD MMMM YYYY').format('YYYY/MM/DD')
+                    for (var i = 0; i < cant; i++) {
+                        console.log(vales_lista[i].num_voucher);
+                        await Asignacion.create({
+                            date_voucher_f6: fecha,
+                            num_voucher: vales_lista[i].num_voucher,
+                            folo6_id: foloA_id,
+                            vehicle_plate: license_type
+                        });
+                        await Vales.update({
+                            condition: 'Asignado',
+                        }, {
+                            where: {
+                                num_voucher: vales_lista[i].num_voucher
+                            }
+                        });
+                    }
+                    await folo6_approve.update({
+                        car: 1,
+                        gasoline: 1
+                    }, {
+                        where: {
+                            folo06_id: foloA_id
+                        }
+                    });
+                    res.redirect('/asignar_recursos');
+                } catch (errors) {
+                    console.log(errors);
+                    res.redirect('/asignar_recursos');
+                }
+            }
         } catch (error) {
             console.log(error);
         }
