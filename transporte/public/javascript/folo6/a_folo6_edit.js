@@ -440,7 +440,7 @@ function printPDF() {
         c2 = tablaDirecciones.rows[1].cells[1].innerHTML;
         c3 = tablaDirecciones.rows[1].cells[2].innerHTML;
         c4 = tablaDirecciones.rows[1].cells[3].innerHTML;
-        direccion = c1 + ', ' + c2 + ', ' + c3 + ', ' + c4 + ".";
+        direccion = (c1 ? c1 + ', ' : '') + (c2 ? c2 + ', ' : '') + (c3 ? c3 + ', ' : '') + (c4 ? c4 + "." : '.');
         b = 0; //No crea listado de direcciones
     } else {
         direccion = "Ver listado de direcciones en página anexo.";
@@ -451,7 +451,7 @@ function printPDF() {
         c2 = tablaDirecciones.rows[i].cells[1].innerHTML;
         c3 = tablaDirecciones.rows[i].cells[2].innerHTML;
         c4 = tablaDirecciones.rows[i].cells[3].innerHTML;
-        direcciones.push("\n" + i + " - " + c1 + ', ' + c2 + ', ' + c3 + ',' + c4 + ".");
+        direcciones.push("\n" + i + " - " + (c1 ? c1 + ', ' : '') + (c2 ? c2 + ', ' : '') + (c3 ? c3 + ', ' : '') + (c4 ? c4 + "." : '.'));
     };
     //Convierto el array en un string.
     direcciones = direcciones.toString();
@@ -604,7 +604,7 @@ $('#addAddress').click(function () {
     var dirCreadas = $('#createdAddress'); //Obtengo el dropdown de direcciones que está oculto
     var selectedFPlace = $('#selectedFPlace'); //Dropdown que tiene solo los lugares frecuentes ingresados
     if (selectedPlaceTxt == 'Otro') {
-        $.post('/direccion/add', { //Hago la petición post
+        $.post('/direccion/add?folo_id=' + parseInt($("#folo_id").val()), { //Hago la petición post
                 idSelDepto,
                 idSelMun,
                 selectedPlace,
@@ -624,6 +624,8 @@ $('#addAddress').click(function () {
             });
     }
     if (selectedPlaceTxt != 'Otro') {
+        console.log("Ire a linkear")
+        $.post('/direccion/add?folo_id=' + parseInt($("#folo_id").val()) + '&fplace_id=' + parseInt(selectedPlace))
         selectedFPlace.append($('<option/>', {
             value: selectedPlace,
             text: selectedPlaceTxt,

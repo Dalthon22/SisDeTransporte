@@ -1,3 +1,5 @@
+//const moment = require("moment");
+
 moment.locale("Es-SV");
 //Var para verificar que el formulario esta listo para guardar
 var unique_num1, unique_num2, data, tab;
@@ -236,11 +238,13 @@ $('#standard_calendar').calendar({
         months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
     }
 });
+var today = new Date()
 
 /* Calendario del formulario */
 $('#month_calendar')
     .calendar({
         type: 'month',
+        minDate: new Date(today.getFullYear(), today.getMonth()),
         text: {
             months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
             monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
@@ -248,7 +252,6 @@ $('#month_calendar')
     });
 
 /* Calendario para switchear las facturas que se estan mostrando */
-
 $('#month_calendar_switch')
     .calendar({
         type: 'month',
