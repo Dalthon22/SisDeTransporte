@@ -42,4 +42,16 @@ router.get('/vales/bills', (req, res) => {
 
 });
 
+//Reporte de vales por vehículo
+router.get('/vales/reporte_por_vehiculo', (req, res) => {
+    /* controller.getAsignaciones(req, res); */
+
+    controller.getAsignaciones(req, res);
+
+});
+
+//Listadp de vales por vehículo 
+/* router.get('/vales/get_asignaciones', (req, res) => {
+}); */
+
 module.exports = router;
