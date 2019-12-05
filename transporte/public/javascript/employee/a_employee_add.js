@@ -45,6 +45,8 @@ $(function () {
                 }
             }
         });
+
+    $('.ui.toggle.checkbox').checkbox('set enabled');
 });
 
 $('#pw_icon').click(function () {

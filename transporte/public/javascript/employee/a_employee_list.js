@@ -6,6 +6,8 @@ $(function () {
             "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
         }
     });
+
+
 })
 
 /* Detona el metodo editar en el back mediante el id en un querystring */

@@ -20,7 +20,12 @@
     </div>
 
     <div class="ui toggle checkbox">
+
+        {% if employee.SGT_Usuario.active == true %}
+        <input type="checkbox" name="active" checked="checked">
+        {% else %}
         <input type="checkbox" name="active">
+        {% endif %}
         <label>Activo</label>
     </div>
 
