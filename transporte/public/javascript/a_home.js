@@ -339,22 +339,12 @@ $('#mytable tbody').on('click', '.file.alternate.outline.link.icon', function (e
                     } else if (data.folo.estado.car) {
                         var value = 2;
                         progressBar(value);
-                    } else if (data.folo.estado.driver) {
-                        var value = 3;
-                        progressBar(value);
                     } else if (data.folo.estado.t_approve) {
                         var value = 4;
                         progressBar(value);
                     } else if (!(data.folo.estado.t_approve) && data.folo.estado.t_det_approve) {
                         var value = 6;
                         var motivo = data.folo.estado.t_det_approve;
-                        progressBar(value, motivo);
-                    } else if (data.folo.estado.u_approve) {
-                        var value = 5;
-                        progressBar(value);
-                    } else if (!(data.folo.estado.u_approve) && data.folo.estado.u_det_approve) {
-                        var value = 7;
-                        var motivo = data.folo.estado.u_det_approve;
                         progressBar(value, motivo);
                     } else {
                         progressBar();
@@ -474,28 +464,21 @@ function progressBar(valor, motivo) {
     console.log(valor);
     if (valor == "1") {
         $('#progressTable1').append('<div class="ui tablet stackable steps">' +
-            '<div class="completed step" style="max-width:20%;width:20%">' +
+            '<div class="completed step" style="max-width:25%;width:25%">' +
             '<i class="chalkboard teacher icon"></i>' +
             '<div class="content">' +
-            '<div class="title">Unidad de Transporte</div>' +
+            '<div class="title">Jefe</div>' +
             '<div class="description">Aprobado</div>' +
             '</div>' +
             '</div>' +
-            '<div class="completed step" style="max-width:20%;width:20%">' +
-            '<i class="user icon"></i>' +
-            '<div class="content">' +
-            '<div class="title">Motorista</div>' +
-            '<div class="description">Asignado</div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="completed step" style="max-width:20%;width:20%">' +
+            '<div class="completed step" style="max-width:25%;width:25%">' +
             '<i class="car icon"></i>' +
             '<div class="content">' +
             '<div class="title">Vehiculo</div>' +
             '<div class="description">Asignado</div>' +
             '</div>' +
             '</div>' +
-            '<div class="completed step" style="max-width:20%;width:20%">' +
+            '<div class="completed step" style="max-width:25%;width:25%">' +
             '<i class="gas pump icon"></i>' +
             '<div class="content">' +
             '<div class="title">Vales</div>' +
@@ -505,152 +488,45 @@ function progressBar(valor, motivo) {
             '</div>');
     } else if (valor == "2") {
         $('#progressTable1').append('<div class="ui tablet stackable steps">' +
-            '<div class="completed step" style="max-width:20%;width:20%">' +
+            '<div class="completed step" style="max-width:25%;width:25%">' +
             '<i class="chalkboard teacher icon"></i>' +
             '<div class="content">' +
-            '<div class="title">Unidad de Transporte</div>' +
+            '<div class="title">Jefe</div>' +
             '<div class="description">Aprobado</div>' +
             '</div>' +
             '</div>' +
-            '<div class="completed step" style="max-width:20%;width:20%">' +
-            '<i class="user icon"></i>' +
-            '<div class="content">' +
-            '<div class="title">Motorista</div>' +
-            '<div class="description">Asignado</div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="completed step" style="max-width:20%;width:20%">' +
+            '<div class="completed step" style="max-width:25%;width:25%">' +
             '<i class="car icon"></i>' +
             '<div class="content">' +
             '<div class="title">Vehiculo</div>' +
             '<div class="description">Asignado</div>' +
             '</div>' +
             '</div>' +
-            '<div class="active step" style="max-width:20%;width:20%">' +
+            '<div class="active step" style="max-width:25%;width:25%">' +
             '<i class="gas pump icon"></i>' +
             '<div class="content">' +
             '<div class="title">Vales</div>' +
             '<div class="description">Esperando Asignaci&oacute;n</div>' +
-            '</div>' +
-            '</div>' +
-            '</div>');
-    } else if (valor == "3") {
-        $('#progressTable1').append('<div class="ui tablet stackable steps">' +
-            '<div class="completed step" style="max-width:20%;width:20%">' +
-            '<i class="chalkboard teacher icon"></i>' +
-            '<div class="content">' +
-            '<div class="title">Unidad de Transporte</div>' +
-            '<div class="description">Aprobado</div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="completed step" style="max-width:20%;width:20%">' +
-            '<i class="user icon"></i>' +
-            '<div class="content">' +
-            '<div class="title">Motorista</div>' +
-            '<div class="description">Asignado</div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="active step" style="max-width:20%;width:20%">' +
-            '<i class="car icon"></i>' +
-            '<div class="content">' +
-            '<div class="title">Vehiculo</div>' +
-            '<div class="description">Esperando Asignaci&oacute;n</div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="disabled step" style="max-width:20%;width:20%">' +
-            '<i class="gas pump icon"></i>' +
-            '<div class="content">' +
-            '<div class="title">Vales</div>' +
-            '<div class="description">Sin Asignar</div>' +
             '</div>' +
             '</div>' +
             '</div>');
     } else if (valor == "4") {
         $('#progressTable1').append('<div class="ui tablet stackable steps">' +
-            '<div class="completed step" style="max-width:20%;width:20%">' +
+            '<div class="completed step" style="max-width:25%;width:25%">' +
             '<i class="chalkboard teacher icon"></i>' +
             '<div class="content">' +
-            '<div class="title">Unidad de Transporte</div>' +
+            '<div class="title">Jefe</div>' +
             '<div class="description">Aprobado</div>' +
             '</div>' +
             '</div>' +
-            '<div class="active step" style="max-width:20%;width:20%">' +
-            '<i class="user icon"></i>' +
-            '<div class="content">' +
-            '<div class="title">Motorista</div>' +
-            '<div class="description">Esperando Asignaci&oacute;n</div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="disabled step" style="max-width:20%;width:20%">' +
+            '<div class="disabled step" style="max-width:25%;width:25%">' +
             '<i class="car icon"></i>' +
             '<div class="content">' +
             '<div class="title">Vehiculo</div>' +
             '<div class="description">Sin Asignar</div>' +
             '</div>' +
             '</div>' +
-            '<div class="disabled step" style="max-width:20%;width:20%">' +
-            '<i class="gas pump icon"></i>' +
-            '<div class="content">' +
-            '<div class="title">Vales</div>' +
-            '<div class="description">Sin Asignar</div>' +
-            '</div>' +
-            '</div>' +
-            '</div>');
-    } else if (valor == "5") {
-        $('#progressTable1').append('<div class="ui tablet stackable steps">' +
-            '<div class="active step" style="max-width:20%;width:20%">' +
-            '<i class="chalkboard teacher icon"></i>' +
-            '<div class="content">' +
-            '<div class="title">Unidad de Transporte</div>' +
-            '<div class="description">Esperando Aprobaci&oacute;n</div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="disabled step" style="max-width:20%;width:20%">' +
-            '<i class="user icon"></i>' +
-            '<div class="content">' +
-            '<div class="title">Motorista</div>' +
-            '<div class="description">Asignado</div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="disabled step" style="max-width:20%;width:20%">' +
-            '<i class="car icon"></i>' +
-            '<div class="content">' +
-            '<div class="title">Vehiculo</div>' +
-            '<div class="description">Esperando Asignaci&oacute;</div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="disabled step" style="max-width:20%;width:20%">' +
-            '<i class="gas pump icon"></i>' +
-            '<div class="content">' +
-            '<div class="title">Vales</div>' +
-            '<div class="description">Sin Asignar</div>' +
-            '</div>' +
-            '</div>' +
-            '</div>');
-    } else if (valor == "5") {
-        $('#progressTable1').append('<div class="ui tablet stackable steps">' +
-            '<div class="active step" style="max-width:20%;width:20%">' +
-            '<i class="chalkboard teacher icon"></i>' +
-            '<div class="content">' +
-            '<div class="title">Unidad de Transporte</div>' +
-            '<div class="description">Esperando Aprobaci&oacute;n</div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="disabled step" style="max-width:20%;width:20%">' +
-            '<i class="user icon"></i>' +
-            '<div class="content">' +
-            '<div class="title">Motorista</div>' +
-            '<div class="description">Asignado</div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="disabled step" style="max-width:20%;width:20%">' +
-            '<i class="car icon"></i>' +
-            '<div class="content">' +
-            '<div class="title">Vehiculo</div>' +
-            '<div class="description">Esperando Asignaci&oacute;</div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="disabled step" style="max-width:20%;width:20%">' +
+            '<div class="disabled step" style="max-width:25%;width:25%">' +
             '<i class="gas pump icon"></i>' +
             '<div class="content">' +
             '<div class="title">Vales</div>' +
@@ -663,35 +539,28 @@ function progressBar(valor, motivo) {
             '<div class="active step" style="max-width:80%;width:80%">' +
             '<i class="exclamation circle red icon"></i>' +
             '<div class="content">' +
-            '<div class="title">Unidad de Transporte</div>' +
+            '<div class="title">Jefe</div>' +
             '<div class="description">Su solicitud ha sido cancelada debido a: ' + motivo + ' </div>' +
             '</div>' +
             '</div>'
         );
     } else {
         $('#progressTable1').append('<div class="ui tablet stackable steps">' +
-            '<div class="disabled step" style="max-width:20%;width:20%">' +
+            '<div class="disabled step" style="max-width:25%;width:25%">' +
             '<i class="chalkboard teacher icon"></i>' +
             '<div class="content">' +
-            '<div class="title">Unidad de Transporte</div>' +
+            '<div class="title">Jefe</div>' +
             '<div class="description">Sin Aprobar</div>' +
             '</div>' +
             '</div>' +
-            '<div class="disabled step" style="max-width:20%;width:20%">' +
-            '<i class="user icon"></i>' +
-            '<div class="content">' +
-            '<div class="title">Motorista</div>' +
-            '<div class="description">Sin Asignar</div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="disabled step" style="max-width:20%;width:20%">' +
+            '<div class="disabled step" style="max-width:25%;width:25%">' +
             '<i class="car icon"></i>' +
             '<div class="content">' +
             '<div class="title">Vehiculo</div>' +
             '<div class="description">Sin Asignar</div>' +
             '</div>' +
             '</div>' +
-            '<div class="disabled step" style="max-width:20%;width:20%">' +
+            '<div class="disabled step" style="max-width:25%;width:25%">' +
             '<i class="gas pump icon"></i>' +
             '<div class="content">' +
             '<div class="title">Vales</div>' +

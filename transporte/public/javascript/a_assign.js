@@ -211,3 +211,36 @@ function showLoadingDimmer() {
     }).dimmer('show');
 };
 $('#container').css('display', 'block');
+
+$('.ui.form').form({
+    //revalidate: true,
+    inline: true,
+    on: 'blur',
+    fields: {
+        license_type: {
+            identifier: 'license_type',
+            rules: [{
+                type: 'empty',
+                prompt: 'Seleccione un lugar frecuente de la lista'
+            }, {
+                type: 'not[Vehiculo || Placa]',
+                prompt: 'Seleccione un lugar frecuente de la lista'
+            }]
+        },
+        cant: {
+            identifier: 'cant',
+            rules: [{
+                    type: 'empty',
+                    prompt: 'Inrgrese una cantidad, sea: 0 o mayores'
+                },
+                {
+                    type: 'integer',
+                    prompt: 'Ingrese un número válido de pasajeros'
+                },
+                {
+
+                }
+            ]
+        },
+    }
+});
