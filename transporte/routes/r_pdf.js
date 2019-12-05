@@ -51,7 +51,7 @@ router.get('/', (req, res) => {
           preserveLeadingSpaces: true
         },
         {
-          text: '\nMotorista:                                        Cantidad de pasajeros:',
+          text: '\nCantidad de pasajeros:',
           preserveLeadingSpaces: true
         },
         {

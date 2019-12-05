@@ -1,3 +1,5 @@
+/* const moment = require("moment");
+ */
 /*****ANIMACIÓN,SETTINGS INICIALES Y VALIDACIONES******/
 var id_employee = 4;
 var motorista;
@@ -17,6 +19,9 @@ function showLoadingDimmer() {
 
 $(document).ready(function () {
     showLoadingDimmer()
+    $('#driver_cb').checkbox('uncheck');
+    $('#driver_cb').checkbox('enable');
+    motorista = 1;
     $.ajax({
         url: url_request_employee,
         async: true,
@@ -29,12 +34,13 @@ $(document).ready(function () {
         }
     }).done(function () {
         $("#name_lb").text(emp.first_name + ", " + emp.last_name);
+        $('#n_driver_i').val(emp.first_name + ", " + emp.last_name)
         $('body').dimmer('hide');
     });
 
 })
 //VALIDACION DEL FORM
-$('.ui.form').form({
+/* $('.ui.form').form({
     //revalidate: true,
     inline: true,
     fields: {
@@ -79,7 +85,7 @@ $('.ui.form').form({
             }]
         },
     }
-});
+}); */
 
 //VALIDACION DEL FORM
 $('.ui.form').form({
@@ -106,6 +112,9 @@ $('.ui.form').form({
             rules: [{
                 type: 'empty',
                 prompt: 'Seleccione una hora de retorno'
+            }, {
+                type: 'different[time]',
+                prompt: 'La hora de retorno debe ser distinta a la hora de salida'
             }]
         },
         passengers_i: {
@@ -119,6 +128,21 @@ $('.ui.form').form({
                     prompt: 'Ingrese un número válido de pasajeros'
                 }
             ]
+        },
+        name_driver_i: {
+            rules: [{
+                type: 'empty',
+                prompt: 'Ingrese el nombre de la persona que conducirá'
+            }, {
+                type: 'regExp[/^[a-zA-ZñÑáÁéÉíÍóÓúÚ ]+$/]',
+                prompt: 'Por favor ingrese solo texto'
+            }]
+        },
+        license_ls: {
+            rules: [{
+                type: 'empty',
+                prompt: 'Seleccione el tipo de licencia que posee el conductor'
+            }]
         },
         departamento: {
             identifier: 'departamento',
@@ -212,7 +236,7 @@ $('#standard_calendar').calendar({
         var years = date.getFullYear() - today.getFullYear();
 
         //Controlará si la fecha de salida es menor a tres días del día en que se llena y mes-año actual
-        if (days < 3 && months === 0 && years === 0) {
+        /* if (days < 3 && months === 0 && years === 0) {
             console.log("Solicitó con: " + days + " días hábiles, Tendrá que manejar por su cuenta");
             $('#driver_cb').checkbox('uncheck');
             $('.ui.checkbox').checkbox('disable');
@@ -222,7 +246,7 @@ $('#standard_calendar').calendar({
             $('#driver_cb').checkbox('check');
             $('.ui.checkbox').checkbox('enable');
             motorista = 1;
-        }
+        } */
     }
 }).calendar('focus');
 /*--Checkbox motorista--*/
@@ -266,7 +290,9 @@ $('#time_calendar')
             $(".ui.form").form('validate field', 'time');
         },
         onchange: function (date, text, mode) {
-            console.log("Hora de salida: " + date + " Formato string" + text + " y mode:" + mode);
+            var min_date = new Date($('#time_calendar').calendar('get date'));
+            console.log("min" + min_date)
+            $('#time_calendar1').calendar('set minDate', min_date)
         }
     });
 $('#time_calendar1')
@@ -286,7 +312,7 @@ $('#time_calendar1')
 /*****FIN: ANIMACIÓN,SETTINGS INICIALES Y VALIDACIONES******/
 //Funciones para crear el PDF del Folo-06.
 function printPDF() {
-    event.preventDefault();
+    /* event.preventDefault(); */
     //Recolección de datos.
     fechaSolicitud = $('#date_lb').text();
     personaSolicitante = $('#name_lb').text();
@@ -294,11 +320,7 @@ function printPDF() {
     horaSalida = $('#time').val();
     horaRetorno = $('#time1').val();
     var motorista; //1 = no ; 0 = sí
-    if ($('#driver_i').is(":checked")) {
-        motorista = 0;
-    } else {
-        motorista = 1;
-    }
+    motorista = 1;
     cantidadPasajeros = $('#passengers_i').val();
     personaConducir = $('#n_driver_i').val();
     tipoLicencia = $('#license_ls_id option:selected').text();
@@ -330,7 +352,7 @@ function printPDF() {
         if (c4 == '') {
             c4 = 'No especificado';
         };
-        direccion = c1 + ', ' + c2 + ', ' + c3 + ', ' + c4 + ".";
+        direccion = (c1 ? c1 + ', ' : '') + (c2 ? c2 + ', ' : '') + (c3 ? c3 + ', ' : '') + (c4 ? c4 + "." : '') + ".";
         b = 0; //No crea listado de direcciones
     } else {
         direccion = "Ver listado de direcciones en página anexo.";
@@ -339,21 +361,21 @@ function printPDF() {
     for (var i = 1; i < tablaDirecciones.rows.length; i++) {
         c1 = tablaDirecciones.rows[i].cells[0].innerHTML;
         if (c1 == '') {
-            c1 = 'No especificado';
+            c1 = '';
         };
         c2 = tablaDirecciones.rows[i].cells[1].innerHTML;
         if (c2 == '') {
-            c2 = 'No especificado';
+            c2 = '';
         };
         c3 = tablaDirecciones.rows[i].cells[2].innerHTML;
         if (c3 == '') {
-            c3 = 'No especificado';
+            c3 = '';
         };
         c4 = tablaDirecciones.rows[i].cells[3].innerHTML;
         if (c4 == '') {
-            c4 = 'No especificado';
+            c4 = '';
         };
-        direcciones.push("\n" + i + " - " + c1 + ', ' + c2 + ', ' + c3 + ', ' + c4 + ".");
+        direcciones.push("\n" + i + " - " + (c1 ? c1 + ', ' : '') + (c2 ? c2 + ', ' : '') + (c3 ? c3 + ', ' : '') + (c4 ? c4 + "." : '') + ".");
     };
     //Convierto el array en un string.
     direcciones = direcciones.toString();
@@ -397,11 +419,29 @@ function debugBase64(base64URL) {
 }
 
 $('#save_print_btn').on('click', function () {
-    if ($('.ui.form').form('is valid')) {
+    $('.ui.toast').remove();
+    if ($('#createdAddress').has('option').length > 0 || $('#selectedFPlace').has('option').length > 0) {
+        if ($('.ui.form').form('is valid')) {
+            event.preventDefault();
+
+            showDimmer();
+            guardarFolo6();
+            // setTimeout(guardarFolo6(), 30000);
+        }
+    } else {
         event.preventDefault();
-        showDimmer();
-        guardarFolo6();
-        // setTimeout(guardarFolo6(), 30000);
+
+        hideDimmer();
+        $('body')
+            .toast({
+                title: "Lugares de destino vacíos",
+                showIcon: false,
+                class: 'error',
+                position: 'top right',
+                displayTime: 0,
+                closeIcon: true,
+                message: "La solicitud debe tener al menos un lugar o una dirección que visitar",
+            });
     }
 });
 //Animación patanlla negra y muestra el loader: "guardando..."

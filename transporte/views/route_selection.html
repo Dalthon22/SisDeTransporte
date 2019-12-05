@@ -1,0 +1,136 @@
+{% extends "index.html" %}
+{% block views %}
+
+
+
+<div class="ui container">
+
+    <h1 id="tittle" class="ui blue dividing header"><i class="calendar alternate icon"></i>Configuración Calendario</h1>
+
+    <!-- tabla -->
+    <table class="ui celled table datatable" id="selectroutes" name="selectroutes" style="width: 70 em">
+        <tbody>
+            <tr class="top colorthead">
+                <td class="center aligned">
+                    <b>Rutas.</b>
+                </td>
+                {% if route_list %}
+                {% for ruta in route_list %}
+                <td rowspan="2" class="center aligned">
+                    <b>{{ruta.name}}</b>
+                    <br>
+                    <br>
+                    <div class="ui checkbox">
+                        <input type="checkbox" class="col-master chk">
+                        <label></label>
+                    </div>
+                </td>
+                {% endfor %}
+                {% endif %}
+            </tr>
+            <tr class="top colorthead">
+                <td class="center aligned">
+                    <b>Motoristas.</b>
+                </td>
+            </tr>
+            {% if motoristas %}
+            {% for motorista in motoristas %}
+            <tr>
+                <td class="center aligned">
+                    {{motorista}}
+                    <br>
+                    <div class="ui checkbox">
+                        <input type="checkbox" class="row-master chk">
+                        <label></label>
+                    </div>
+                </td>
+                {% if route_list %}
+                {% for ruta1 in route_list %}
+                <td class="center aligned">
+                    <div class="ui checkbox">
+                        <input type="checkbox" name="motorista_rutas" class="child chk">
+                        <label></label>
+                    </div>
+                </td>
+                {% endfor %}
+                {% endif %}
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+    <!-- fin de tabla -->
+
+    <br>
+
+    <!-- botonera -->
+    <div class="botonera">
+        <button class="ui left labeled icon button ui blue button">
+            Atras
+            <i class="arrow alternate circle left icon"></i>
+        </button>
+        <button class="ui button btnCancelar ui red button">
+            Cancelar
+        </button>
+        <button class="ui right labeled icon button btnContinuar ui green button " id="btnContinuar">
+            Continuar
+            <i class="arrow alternate circle right icon"></i>
+        </button>
+    </div>
+    <!-- fin botonera -->
+
+    <br>
+
+    <!-- modal cancelar -->
+    <div class="ui mini inverted modal" id="modalCancelar">
+        <div class="ui icon header">
+            <i class="exclamation triangle icon"></i>
+            ¿Desea cancelar?
+        </div>
+        <div class="content">
+            <p>Se perderá la infromación seleccionada.</p>
+        </div>
+        <div class="actions">
+            <a href="/home">
+                <div class="ui green ok inverted button">
+                    <i class="checkmark icon"></i>
+                    Aceptar
+                </div>
+            </a>
+            <div class="ui red deny button">
+                <i class="remove icon"></i>
+                Cancelar
+            </div>
+        </div>
+    </div>
+    <!-- fin modal cancelar -->
+
+    <!-- modal continuar -->
+    <div class="ui mini inverted modal" id="modalContinuar">
+        <div class="ui icon header">
+            <i class="info icon"></i>
+            Información
+        </div>
+        <div class="content">
+            <p>¿Datos correctos?</p>
+        </div>
+
+        <div class="actions">
+            <div class="ui green ok inverted button" id="btnInfoAceptar">
+                <i class="checkmark icon"></i>
+                Aceptar
+            </div>
+            <div class="ui red deny button">
+                <i class="remove icon"></i>
+                No
+            </div>
+        </div>
+
+    </div>
+    <!-- fin modal continuar -->
+
+    <script src="/javascript/a_route_selection.js"></script>
+    <link rel="stylesheet" href="/stylesheets/route_selection.css">
+
+
+    {% endblock %}

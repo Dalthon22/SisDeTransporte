@@ -1,14 +1,21 @@
 const Address = require('../models/m_address');
+const place_container = require('../models/m_places_container');
 const department_controller = require('../controllers/c_department');
 const municipio_controller = require('../controllers/c_city');
 const express = require('express');
 const Sequelize = require('sequelize');
+
+//Manejo de fechas
+var moment = require('moment');
+moment.locale("Es-SV")
+
+
 const {
   validationResult
 } = require('express-validator');
 
 class address_services {
-  constructor() { }
+  constructor() {}
   //Gets Addresses list
   async getList(req, res) {
     try {
@@ -49,31 +56,57 @@ class address_services {
   //Saves the new address in the DB.
   async createAddress(req, res) {
     try {
+      console.log("ID DEL LUGAR FRECUENTE" + req.query.fplace_id)
       let dir; //Creo variable que contendrá el objeto Dirección
-      let {
-        idSelDepto,
-        idSelMun,
-        selectedPlace,
-        destinyPlace,
-        direction,
-        selectedPlaceTxt
-      } = req.body //Saco los atributos del cuerpo de la petición
-      console.log(req.body); //Imprimo la petición para comprobar los datos.
-      if (selectedPlace != 10000) {
-        //Si el lugar seleccionado es diferente de "Otro", solo guardará los valores de los dropdown
-        dir = await Address.create({
-          name: selectedPlaceTxt,
-          city_id: idSelMun, //Creo dirección
-          department_id: idSelDepto
-        });
-      } else { //De lo contrario guardará depto y municipio del dropdown; nombre y dirección de los inputs.
-        dir = await Address.create({
-          name: destinyPlace,
-          detail: direction, //Creo dirección
-          city_id: idSelMun,
-          department_id: idSelDepto
-        });
-      };
+      //Si no es lugar frecuete se crea la direccion de lo contrario se enlazará el id del lugar frecuente con el folo en la tabla place_container
+      if (!req.query.fplace_id) {
+        let {
+          idSelDepto,
+          idSelMun,
+          selectedPlace,
+          destinyPlace,
+          direction,
+          selectedPlaceTxt
+        } = req.body //Saco los atributos del cuerpo de la petición
+        console.log(req.body); //Imprimo la petición para comprobar los datos.
+        if (selectedPlace != 10000) {
+          //Si el lugar seleccionado es diferente de "Otro", solo guardará los valores de los dropdown
+          dir = await Address.create({
+            name: selectedPlaceTxt,
+            city_id: idSelMun, //Creo dirección
+            department_id: idSelDepto
+          });
+
+
+        } else { //De lo contrario guardará depto y municipio del dropdown; nombre y dirección de los inputs.
+          console.log("GUARDAR DIRECCION")
+          dir = await Address.create({
+            name: destinyPlace,
+            detail: direction, //Creo dirección
+            city_id: idSelMun,
+            department_id: idSelDepto
+          });
+          if (req.query.folo_id) {
+            await place_container.create({
+              folo_id: req.query.folo_id,
+              date_of_visit: moment(),
+              address_id: dir.id
+            });
+          }
+        };
+      } else {
+        console.log("LUGAR FRECUENTE")
+        if (req.query.folo_id) {
+          await place_container.create({
+            folo_id: req.query.folo_id,
+            date_of_visit: moment(),
+            frequent_place_id: req.query.fplace_id
+          });
+        }
+      }
+
+
+
       res.send(dir); //Envío la dirección creada a la vista.
     } catch (error) {
       console.log(error); //Muestra errores.
