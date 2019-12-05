@@ -245,7 +245,7 @@ $('.ui.form').form({
     }
 });
 
-/* function setInputFilter(textbox, inputFilter) {
+function setInputFilter(textbox, inputFilter) {
     ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function (event) {
         textbox.addEventListener(event, function () {
             if (inputFilter(this.value)) {
@@ -263,5 +263,5 @@ $('.ui.form').form({
 }
 
 setInputFilter(document.getElementById("cant"), function (value) {
-    return /^\d*$/.test(cant); // Allow digits and '.' only, using a RegExp
-}); */
+    return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 4);
+});
