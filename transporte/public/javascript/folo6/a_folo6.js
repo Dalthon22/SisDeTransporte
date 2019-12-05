@@ -420,7 +420,7 @@ function debugBase64(base64URL) {
 
 $('#save_print_btn').on('click', function () {
     $('.ui.toast').remove();
-    if ($('#addAddress').has('option').length > 0 || $('#createdAddress').has('option').length > 0) {
+    if ($('#createdAddress').has('option').length > 0 || $('#selectedFPlace').has('option').length > 0) {
         if ($('.ui.form').form('is valid')) {
             event.preventDefault();
 
@@ -429,6 +429,8 @@ $('#save_print_btn').on('click', function () {
             // setTimeout(guardarFolo6(), 30000);
         }
     } else {
+        event.preventDefault();
+
         hideDimmer();
         $('body')
             .toast({

@@ -288,6 +288,7 @@ $('#save_print_btn').on('click', function () {
     $('.ui.toast').remove();
 
     if ($('#createdAddress').has('option').length > 0 || $('#selectedFPlace').has('option').length > 0) {
+
         if ($('.ui.form').form('is valid')) {
             event.preventDefault();
 
@@ -298,6 +299,8 @@ $('#save_print_btn').on('click', function () {
             }
         }
     } else {
+        event.preventDefault();
+
         hideDimmer();
         $('body')
             .toast({
