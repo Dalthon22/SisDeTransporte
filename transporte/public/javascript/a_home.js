@@ -4,7 +4,7 @@ var tab, data;
 $(document).ready(function () {
     fillTable();
     $('body').append(tab);
-    console.dir($('body'))
+    //console.dir($('body'))
 
 });
 

@@ -1,3 +1,5 @@
+/* const moment = require("moment");
+ */
 /*****ANIMACIÓN,SETTINGS INICIALES Y VALIDACIONES******/
 var id_employee = 4;
 var motorista;
@@ -110,6 +112,9 @@ $('.ui.form').form({
             rules: [{
                 type: 'empty',
                 prompt: 'Seleccione una hora de retorno'
+            }, {
+                type: 'different[time]',
+                prompt: 'La hora de retorno debe ser distinta a la hora de salida'
             }]
         },
         passengers_i: {
@@ -282,7 +287,9 @@ $('#time_calendar')
             $(".ui.form").form('validate field', 'time');
         },
         onchange: function (date, text, mode) {
-            console.log("Hora de salida: " + date + " Formato string" + text + " y mode:" + mode);
+            var min_date = new Date($('#time_calendar').calendar('get date'));
+            console.log("min" + min_date)
+            $('#time_calendar1').calendar('set minDate', min_date)
         }
     });
 $('#time_calendar1')
@@ -302,7 +309,7 @@ $('#time_calendar1')
 /*****FIN: ANIMACIÓN,SETTINGS INICIALES Y VALIDACIONES******/
 //Funciones para crear el PDF del Folo-06.
 function printPDF() {
-    event.preventDefault();
+    /* event.preventDefault(); */
     //Recolección de datos.
     fechaSolicitud = $('#date_lb').text();
     personaSolicitante = $('#name_lb').text();
