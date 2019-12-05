@@ -1,5 +1,5 @@
 /*****ANIMACIÓN,SETTINGS INICIALES Y VALIDACIONES******/
-var id_employee = 5;
+var id_employee = 4;
 var motorista;
 var emp;
 const url_request_employee = 'empleado/' + id_employee;
@@ -17,6 +17,9 @@ function showLoadingDimmer() {
 
 $(document).ready(function () {
     showLoadingDimmer()
+    $('#driver_cb').checkbox('uncheck');
+    $('#driver_cb').checkbox('enable');
+    motorista = 1;
     $.ajax({
         url: url_request_employee,
         async: true,
@@ -29,12 +32,13 @@ $(document).ready(function () {
         }
     }).done(function () {
         $("#name_lb").text(emp.first_name + ", " + emp.last_name);
+        $('#n_driver_i').val(emp.first_name + ", " + emp.last_name)
         $('body').dimmer('hide');
     });
 
 })
 //VALIDACION DEL FORM
-$('.ui.form').form({
+/* $('.ui.form').form({
     //revalidate: true,
     inline: true,
     fields: {
@@ -79,7 +83,7 @@ $('.ui.form').form({
             }]
         },
     }
-});
+}); */
 
 //VALIDACION DEL FORM
 $('.ui.form').form({
@@ -119,6 +123,18 @@ $('.ui.form').form({
                     prompt: 'Ingrese un número válido de pasajeros'
                 }
             ]
+        },
+        name_driver_i: {
+            rules: [{
+                type: 'empty',
+                prompt: 'Ingrese el nombre de la persona que conducirá'
+            }]
+        },
+        license_ls: {
+            rules: [{
+                type: 'empty',
+                prompt: 'Seleccione el tipo de licencia que posee el conductor'
+            }]
         },
         departamento: {
             identifier: 'departamento',
@@ -212,7 +228,7 @@ $('#standard_calendar').calendar({
         var years = date.getFullYear() - today.getFullYear();
 
         //Controlará si la fecha de salida es menor a tres días del día en que se llena y mes-año actual
-        if (days < 3 && months === 0 && years === 0) {
+        /* if (days < 3 && months === 0 && years === 0) {
             console.log("Solicitó con: " + days + " días hábiles, Tendrá que manejar por su cuenta");
             $('#driver_cb').checkbox('uncheck');
             $('.ui.checkbox').checkbox('disable');
@@ -222,7 +238,7 @@ $('#standard_calendar').calendar({
             $('#driver_cb').checkbox('check');
             $('.ui.checkbox').checkbox('enable');
             motorista = 1;
-        }
+        } */
     }
 }).calendar('focus');
 /*--Checkbox motorista--*/
@@ -294,11 +310,7 @@ function printPDF() {
     horaSalida = $('#time').val();
     horaRetorno = $('#time1').val();
     var motorista; //1 = no ; 0 = sí
-    if ($('#driver_i').is(":checked")) {
-        motorista = 0;
-    } else {
-        motorista = 1;
-    }
+    motorista = 1;
     cantidadPasajeros = $('#passengers_i').val();
     personaConducir = $('#n_driver_i').val();
     tipoLicencia = $('#license_ls_id option:selected').text();
@@ -330,7 +342,7 @@ function printPDF() {
         if (c4 == '') {
             c4 = 'No especificado';
         };
-        direccion = c1 + ', ' + c2 + ', ' + c3 + ', ' + c4 + ".";
+        direccion = (c1 ? c1 + ', ' : '') + (c2 ? c2 + ', ' : '') + (c3 ? c3 + ', ' : '') + (c4 ? c4 + "." : '') + ".";
         b = 0; //No crea listado de direcciones
     } else {
         direccion = "Ver listado de direcciones en página anexo.";
@@ -339,21 +351,21 @@ function printPDF() {
     for (var i = 1; i < tablaDirecciones.rows.length; i++) {
         c1 = tablaDirecciones.rows[i].cells[0].innerHTML;
         if (c1 == '') {
-            c1 = 'No especificado';
+            c1 = '';
         };
         c2 = tablaDirecciones.rows[i].cells[1].innerHTML;
         if (c2 == '') {
-            c2 = 'No especificado';
+            c2 = '';
         };
         c3 = tablaDirecciones.rows[i].cells[2].innerHTML;
         if (c3 == '') {
-            c3 = 'No especificado';
+            c3 = '';
         };
         c4 = tablaDirecciones.rows[i].cells[3].innerHTML;
         if (c4 == '') {
-            c4 = 'No especificado';
+            c4 = '';
         };
-        direcciones.push("\n" + i + " - " + c1 + ', ' + c2 + ', ' + c3 + ', ' + c4 + ".");
+        direcciones.push("\n" + i + " - " + (c1 ? c1 + ', ' : '') + (c2 ? c2 + ', ' : '') + (c3 ? c3 + ', ' : '') + (c4 ? c4 + "." : '') + ".");
     };
     //Convierto el array en un string.
     direcciones = direcciones.toString();

@@ -6,13 +6,13 @@
             <div class="column">
                 <form class="ui form" id="folo6_form" method="POST" novalidate>
                     <h3 class="ui blue dividing header" style="padding-top: 15px;">Solicitud de transporte FOLO-6</h3>
-                    <div class="ui info message">
+                    <!-- <div class="ui info message">
                         <div class="header"><i class="top left exclamation circle fitted info icon"></i>
                             Recuerde:
                         </div> Si desea que el área de transporte le asigne motorista, la solicitud debe realizarse al
                         menos 3 días antes de la fecha de salida. De lo contrario deberá indicar sus datos, o los de la
                         persona que conducirá.
-                    </div>
+                    </div> -->
                     <div class="ui segment">
                         <div class="labels">
                             <strong>Fecha de creación de la solicitud: </strong>
@@ -60,18 +60,17 @@
                     <div class="field">
                         <div class="fields">
                             {% if(folo.with_driver) %}
-                            <div class="ui toggle checkbox" id="driver_cb">
+                            <div class="ui toggle checkbox" id="driver_cb" style="display: none;">
                                 <input type="checkbox" name="driver_i" tabindex="0" class="hidden" checked
                                     id="driver_i">
                                 <label for="driver_i">Con Motorista</label>
                             </div>
                             {%else%}
-                            <div class="ui toggle checkbox" id="driver_cb">
+                            <div class="ui toggle checkbox" id="driver_cb" style="display: none;">
                                 <input type="checkbox" name="driver_i" tabindex="0" class="hidden">
                                 <label for="driver_i">Con Motorista</label>
                             </div>
                             {% endif %}
-                            <div class="one wide field"></div>
                             <label>Cantidad de pasajeros: </label>
                             <div class="two wide field">
                                 <input type="number" name="passengers_i" id="passengers_i" min="1" max="40"

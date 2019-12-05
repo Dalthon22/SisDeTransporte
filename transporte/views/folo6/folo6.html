@@ -57,12 +57,10 @@
                     </div>
                     <div class="field">
                         <div class="fields">
-                            <div class="ui toggle checkbox" id="driver_cb">
-                                <input type="checkbox" id="driver_i" name="driver_i" checked="checked" tabindex="0"
-                                    class="hidden">
+                            <!-- <div class="ui toggle checkbox" id="driver_cb">
+                                <input type="checkbox" id="driver_i" name="driver_i" tabindex="0" class="hidden">
                                 <label for="driver_i">Con Motorista</label>
-                            </div>
-                            <div class="one wide field"></div>
+                            </div> -->
                             <label>Cantidad de pasajeros: </label>
                             <div class="two wide field">
                                 <input type="number" name="passengers_i" min="1" max="40" value="1" id="passengers_i">
@@ -71,13 +69,13 @@
                     </div>
                     <div class="fields">
                         <div class="eight wide field" id="name_driver_f">
-                            <label for="name_driver_i">Nombre:</label>
+                            <label for="name_driver_i">Nombre del motorista:</label>
                             <input type="text" placeholder="Persona que va a coducir" name="name_driver_i"
-                                id="n_driver_i" disabled="true" maxlength="100">
+                                id="n_driver_i" maxlength="100">
                         </div>
                         <div class="field" id="type_license_f">
                             <label for="license_ls_id">Tipo de licencia:</label>
-                            <select class="ui fluid dropdown" name="license_ls" id="license_ls_id" disabled="true">
+                            <select class="ui fluid dropdown" name="license_ls" id="license_ls_id">
                                 <option value="">Tipo de licencia</option>
                                 <option value="Particular">Particular</option>
                                 <option value="Liviana">Liviana</option>
