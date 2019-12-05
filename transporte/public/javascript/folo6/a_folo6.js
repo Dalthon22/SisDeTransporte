@@ -302,7 +302,7 @@ $('#time_calendar1')
 /*****FIN: ANIMACIÓN,SETTINGS INICIALES Y VALIDACIONES******/
 //Funciones para crear el PDF del Folo-06.
 function printPDF() {
-    event.preventDefault();
+    /* event.preventDefault(); */
     //Recolección de datos.
     fechaSolicitud = $('#date_lb').text();
     personaSolicitante = $('#name_lb').text();

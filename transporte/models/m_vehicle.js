@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../dbconfig/conex');
+const Voucher_folo6_assign = require('./m_voucher_folo6_assign');
+
 
 const Vehicle = db.define('SGT_Vehiculo', {
     brand: {
@@ -72,7 +74,7 @@ const Vehicle = db.define('SGT_Vehiculo', {
     freezeTableName: true,
 });
 
-Voucher.hasOne(Voucher_folo6_assign, {
+Vehicle.hasMany(Voucher_folo6_assign, {
     foreignKey: 'vehicle_plate'
 });
 

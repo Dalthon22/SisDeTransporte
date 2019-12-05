@@ -2154,7 +2154,7 @@ class folo6_controllers {
                     });
                 } else {
                     Apanel.create({
-                        request_unit_approve: 0,
+                        request_unit_approve: 1,
                         transport_unit_approve: 0,
                         folo06_id: folo.id
                     });
