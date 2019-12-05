@@ -13,7 +13,7 @@ const {
     body,
     check,
     validationResult
-} = require('../middleware/expresse-validator');
+} = require('express-validator');
 
 class employee_controller {
     constructor() {
