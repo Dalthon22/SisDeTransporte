@@ -82,11 +82,11 @@
                         <div class="eight wide field" id="name_driver_f">
                             <label for="name_driver_i">Nombre:</label>
                             <input type="text" placeholder="Persona que va a coducir" name="name_driver_i"
-                                id="n_driver_i" disabled="true" maxlength="100" value="{{folo.person_who_drive}}">
+                                id="n_driver_i" maxlength="100" value="{{folo.person_who_drive}}">
                         </div>
                         <div class="field" id="type_license_f">
                             <label for="license_ls_id">Tipo de licencia:</label>
-                            <select class="ui fluid dropdown" name="license_ls" id="license_ls_id" disabled="true ">
+                            <select class="ui fluid dropdown" name="license_ls" id="license_ls_id">
                                 <!-- Si cuando se creo el folo había sleccionado un tipo de licencia sera seleccionado por defecto de lo contrario mostrará la opción por defecto -->
                                 {% if (folo.license_type) %}
                                 <option value="{{folo.license_type}}" selected> {{folo.license_type}}

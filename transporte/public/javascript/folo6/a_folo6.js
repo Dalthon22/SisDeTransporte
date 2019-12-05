@@ -134,8 +134,8 @@ $('.ui.form').form({
                 type: 'empty',
                 prompt: 'Ingrese el nombre de la persona que conducirá'
             }, {
-                type: 'regExp[/^[a-zA-Z]{10,85}$/]',
-                prompt: 'Por favor ingrese solo texto de 10-75 carácteres'
+                type: 'regExp[/^[a-zA-ZñÑáÁéÉíÍóÓúÚ ]+$/]',
+                prompt: 'Por favor ingrese solo texto'
             }]
         },
         license_ls: {
@@ -419,11 +419,27 @@ function debugBase64(base64URL) {
 }
 
 $('#save_print_btn').on('click', function () {
-    if ($('.ui.form').form('is valid')) {
-        event.preventDefault();
-        showDimmer();
-        guardarFolo6();
-        // setTimeout(guardarFolo6(), 30000);
+    $('.ui.toast').remove();
+    if ($('#addAddress').has('option').length > 0 || $('#createdAddress').has('option').length > 0) {
+        if ($('.ui.form').form('is valid')) {
+            event.preventDefault();
+
+            showDimmer();
+            guardarFolo6();
+            // setTimeout(guardarFolo6(), 30000);
+        }
+    } else {
+        hideDimmer();
+        $('body')
+            .toast({
+                title: "Lugares de destino vacíos",
+                showIcon: false,
+                class: 'error',
+                position: 'top right',
+                displayTime: 0,
+                closeIcon: true,
+                message: "La solicitud debe tener al menos un lugar o una dirección que visitar",
+            });
     }
 });
 //Animación patanlla negra y muestra el loader: "guardando..."
