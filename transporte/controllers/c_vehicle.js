@@ -101,6 +101,32 @@ class Vehicle_controller {
         }
     }
 
+
+    //Obtiene todos los reguistros almacenados en la tabla
+    async getList1() {
+        try {
+            var lista = [];
+            var vehicles = await Vehicle.findAll({
+                order: Sequelize.literal('plate ASC'),
+                state: "Funcional"
+            });
+            vehicles.forEach(v => {
+                var e = new Object();
+                e.id = v.id;
+                e.plate = v.plate;
+                e.brand = v.brand;
+                e.model = v.model;
+                lista.push(e);
+            });
+            /* return res.send({
+                vehicles: lista
+            }); */
+            return lista;
+        } catch (Error) {
+            console.log(Error)
+        }
+    }
+
     //Renderiza el formulario de ingreso de vehiculo
     //Para editar o ingresar un nuevo vehiculo
     async getCreate(req, res) {

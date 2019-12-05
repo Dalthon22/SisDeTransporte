@@ -128,6 +128,11 @@ class assign_controller {
         }
     };
 
+    async getAsignaciones(req, res) {
+        var plate = "P1234";
+
+    }
+
 }
 
 module.exports = new assign_controller();

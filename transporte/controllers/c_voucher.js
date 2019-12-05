@@ -4,6 +4,7 @@ const Op = Sequelize.Op;
 const Voucher = require('../models/m_voucher');
 const FacturaCompra = require('../models/m_bill')
 const bill_controllers = require('../controllers/c_bill');
+const vehicle_controller = require('../controllers/c_vehicle');
 //Manejo de fechas
 var moment = require('moment');
 moment.locale("Es-SV")
@@ -276,6 +277,18 @@ class voucher_controllers {
             console.log(err)
         }
     }
+
+    async getAsignaciones(req, res) {
+        var vehicles = new Object();
+        await vehicle_controller.getList1().then(list => {
+            vehicles = list
+        });
+
+        res.render('./report_voucher.html', {
+            vehicles: vehicles,
+        });
+    }
+
 }
 
 module.exports = new voucher_controllers();

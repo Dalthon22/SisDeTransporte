@@ -39,7 +39,7 @@ $(document).ready(function () {
             console.log(emp);
 
             //Para setting de los labels
-            $("#name_lb").text(emp.first_name + ", " + emp.last_name);
+            $("#name_lb").text(emp.first_name + " " + emp.last_name);
         }
     });
     $('body').dimmer('hide');
