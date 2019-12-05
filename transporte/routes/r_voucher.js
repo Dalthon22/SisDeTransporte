@@ -5,7 +5,7 @@ const {
     body,
     check,
     validationResult
-} = require('../middleware/expresse-validator');
+} = require('express-validator');
 
 //Muestra el listado de vales y permite el ingreso de vales
 router.get('/vales', (req, res) => {

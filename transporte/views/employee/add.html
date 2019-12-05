@@ -1,0 +1,70 @@
+{% extends 'index.html'%}
+
+{% block views %}
+
+<div class="ui container">
+    <div class="ui vertically divided grid">
+        <div class="one column row">
+            <div class="column">
+                <form class="ui form" id="frm-prueba" action="/motoristas/gestionar" method="POST">
+                    {% if employee.id %}
+                    <h1 class="ui blue dividing header">Editar Empleado</h1>
+                    {% else %}
+                    <h1 class="ui blue dividing header">Agregar Empleado</h1>
+                    {% endif %}
+                    <div class="required field">
+                        <label>Nombre</label>
+                        <div class="two fields">
+                            <div class="field">
+                                <input type="text" name="first_name" placeholder="Nombres"
+                                    value={{employee.first_name}}>
+                            </div>
+                            <div class="field">
+                                <input type="text" name="last_name" placeholder="Apelidos" value={{employee.last_name}}>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% include '../user/add.html' %}
+
+                    <button class="ui positive button" type="submit">Guardar</button>
+                    <input id="employee_id" name="employee_id" type="hidden" value="{{employee.id}}">
+                    <a href="/empleados">
+                        <div class="ui left floated animated button" style="margin-bottom:1em" type="button">
+                            <div class="visible content">Volver</div>
+                            <div class="hidden content"><i class="left arrow icon"></i></div>
+                        </div>
+                    </a>
+                </form>
+                {% if errors %}
+                <div class="ui error message" style="width:30em">
+                    <i class="close icon"></i>
+                    <div class="header">
+                        Errores al Insertar
+                    </div>
+                    <ul class="list">
+                        {% for error in errors %}
+                        <li>{{error.msg}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                {% if error %}
+                <div class="ui error message" style="width:30em">
+                    <i class="close icon"></i>
+                    <div class="header">
+                        Errores al Insertar
+                    </div>
+                    <ul class="list">
+                        <li>{{error}}</li>
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/javascript/employee/a_employee_add.js"></script>
+
+{% endblock %}

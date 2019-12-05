@@ -12,7 +12,7 @@ const {
     body,
     check,
     validationResult
-} = require('../middleware/expresse-validator');
+} = require('express-validator');
 /*  < td > num_voucher < /td> <
      td > price < /td> <
      td > condition < /td> <

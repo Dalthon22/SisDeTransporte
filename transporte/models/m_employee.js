@@ -2,6 +2,7 @@ const Sequelize = require('sequelize');
 const db = require('../dbconfig/conex');
 const Folo6 = require('./m_folo6');
 const Folo6_Approve = require('./m_folo6_approve_state');
+const User = require('./m_user');
 
 const Employee = db.define('SGT_Empleado', {
     first_name: {
@@ -20,20 +21,7 @@ const Employee = db.define('SGT_Empleado', {
     },
     is_unit_boss: {
         type: Sequelize.BOOLEAN,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-        }
-    },
-    user_name: {
-        type: Sequelize.STRING(75),
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-        }
-    },
-    user_pass: {
-        type: Sequelize.STRING(75),
+        defaultValue: true,
         allowNull: false,
         validate: {
             notEmpty: true,
@@ -60,14 +48,15 @@ Employee.hasMany(Folo6, {
 });
 
 Employee.hasMany(Folo6_Approve, {
-    foreignKey: 'aprove_boss_id'
-});
-Employee.hasMany(Folo6_Approve, {
     foreignKey: 'aprove_tunit_boss_id'
 });
 
 Employee.belongsTo(Employee, {
     foreignKey: 'id_boss'
+});
+
+Employee.belongsTo(User, {
+    foreignKey: 'user_id'
 });
 
 module.exports = Employee;

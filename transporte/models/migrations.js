@@ -21,46 +21,46 @@ class Migration {
         City.sync();
 
         Address.sync({
-            alter: true
+            alter: false
         });
         Vehicle.sync({
-            alter: true
+            alter: false
         });
         Frequent_Place.sync({
-            alter: true
+            alter: false
         });
         Voucher.sync({
-            alter: true
-        });
-        Employee.sync({
-            alter: true
-        });
-        Folo6.sync({
-            alter: true
-        });
-        Places_container.sync({
-            alter: true
-        });
-        Voucher_folo6_assign.sync({
-            alter: true
-        });
-        Folo6_Approve_State.sync({
-            alter: true
+            alter: false
         });
         User.sync({
-            alter: true
+            alter: false
+        });
+        Employee.sync({
+            alter: false
+        });
+        Folo6.sync({
+            alter: false
+        });
+        Places_container.sync({
+            alter: false
+        });
+        Voucher_folo6_assign.sync({
+            alter: false
+        });
+        Folo6_Approve_State.sync({
+            alter: false
         });
         Rol.sync({
-            alter: true
+            alter: false
         });
         UserRol.sync({
-            alter: true
+            alter: false
         });
         ProcurementBill.sync({
-            alter: true
+            alter: false
         })
         CosumedBill.sync({
-            alter: true
+            alter: false
         })
     }
 };

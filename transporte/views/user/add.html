@@ -1,0 +1,71 @@
+<section class="ui segment" id="Address">
+    {% if employee.SGT_Usuario.id %}
+    <h3 class="ui blue dividing header">Editar Usuario</h3>
+    {% else %}
+    <h3 class="ui blue dividing header">Nuevo usuario</h3>
+    {% endif %}
+    <div class="two fields">
+        <div class="required field">
+            <label>Correo electrónico</label>
+            <input id="email" name="email" type="text" placeholder="Email" value={{employee.SGT_Usuario.email}}>
+        </div>
+        <div class="required field">
+            <label>Contraseña</label>
+            <div class="ui icon input">
+                <input name="password" id="password" placeholder="Contraseña" type="password"
+                    value={{employee.SGT_Usuario.password}}>
+                <i id="pw_icon" class="eye link icon"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui toggle checkbox">
+
+        {% if employee.SGT_Usuario.active == true %}
+        <input type="checkbox" name="active" checked="checked">
+        {% else %}
+        <input type="checkbox" name="active">
+        {% endif %}
+        <label>Activo</label>
+    </div>
+
+    <div class="field" style="margin-top: 1em;">
+        <label>Roles</label>
+        <div class="ui fluid clearable multiple selection dropdown">
+            <input type="hidden" name="roles" value="">
+            <i class="dropdown icon"></i>
+            <div class="default text">Seleccione los roles</div>
+            <div class="menu">
+                <div class="item">Jefe</div>
+                <div class="item">Empleado</div>
+                <div class="item">Administrador de vehículo</div>
+                <div class="item">Administrador IT</div>
+            </div>
+        </div>
+    </div>
+
+    {% if errors %}
+    <div class="ui error message" style="width:30em">
+        <i class="close icon"></i>
+        <div class="header">
+            Errores al Insertar
+        </div>
+        <ul class="list">
+            {% for error in errors %}
+            <li>{{error.msg}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    {% if error %}
+    <div class="ui error message" style="width:30em">
+        <i class="close icon"></i>
+        <div class="header">
+            Errores al Insertar
+        </div>
+        <ul class="list">
+            <li>{{error}}</li>
+        </ul>
+    </div>
+    {% endif %}
+</section>
