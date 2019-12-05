@@ -69,7 +69,7 @@ class employee_controller {
                 user.name = record.first_name + ' ' + record.last_name;
                 user.email = record.SGT_Usuario.email;
                 user.active = record.SGT_Usuario.active;
-                user.created_at = moment.parseZone(record.created_at).local().format("DD/MM/YYYY h:mm A");
+                user.created_at = moment.utc(record.created_at).format("DD/MM/YYYY h:mm A");
                 employees.push(user);
             })
             console.log(employees);
@@ -108,7 +108,57 @@ class employee_controller {
     }
 
     async createEmployee(req, res) {
+        try {
+            const errors = validationResult(req);
+            let {
+                first_name,
+                last_name,
+                email,
+                password,
+                active,
+                roles,
+            } = req.body;
+            var emp = new Object();
+            emp.first_name = first_name;
+            emp.last_name = last_name;
+            emp.email = email;
+            emp.password = password;
+            emp.active = active;
+            emp.roles = roles;
+            console.log(emp);
+            if (!errors.isEmpty()) {
+                console.log("Aqui");
+                res.redirect('/empleados/gestionar');
+            } else {
+                try {
+                    console.log("al crear");
+                    await User.create({
+                        email: emp.email,
+                        password: emp.password,
+                        active: emp.active
+                    }).then(function (m) {
+                        emp.user_id = m.null;
+                        console.log(m.null);
+                        console.log(emp.user_id);
+                    });
+                    console.log("al crear 2");
+                    await Employee.create({
+                        first_name: emp.first_name,
+                        last_name: emp.last_name,
+                        is_unit_boss: false,
+                        id_boss: 1,
+                        user_id: emp.user_id
+                    });
+                    res.redirect('/empleados');
+                } catch (errors) {
+                    console.log(errors);
+                    res.redirect('/empleados/gestionar');
+                }
 
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 };
 
