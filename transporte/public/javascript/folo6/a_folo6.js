@@ -133,6 +133,9 @@ $('.ui.form').form({
             rules: [{
                 type: 'empty',
                 prompt: 'Ingrese el nombre de la persona que conducirá'
+            }, {
+                type: 'regExp[/^[a-zA-Z]{10,85}$/]',
+                prompt: 'Por favor ingrese solo texto de 10-75 carácteres'
             }]
         },
         license_ls: {

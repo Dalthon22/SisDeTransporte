@@ -71,6 +71,9 @@ $('.ui.form').form({
             rules: [{
                 type: 'empty',
                 prompt: 'Seleccione una hora de retorno'
+            }, {
+                type: 'different[time]',
+                prompt: 'La hora de retorno debe ser distinta a la hora de salida'
             }]
         },
         passengers_i: {
