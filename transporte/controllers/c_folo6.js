@@ -711,7 +711,7 @@ class folo6_controllers {
                             fontSize: '16'
                         },
                         {
-                            text: '\n\nRquerimiento de transporte',
+                            text: '\n\nRequerimiento de transporte',
                             alignment: 'right',
                             bold: true,
                             italics: true
@@ -1155,7 +1155,7 @@ class folo6_controllers {
                             fontSize: '16'
                         },
                         {
-                            text: '\n\nRquerimiento de transporte',
+                            text: '\n\nRequerimiento de transporte',
                             alignment: 'right',
                             bold: true,
                             italics: true
@@ -1526,7 +1526,7 @@ class folo6_controllers {
                             fontSize: '16'
                         },
                         {
-                            text: '\n\nRquerimiento de transporte',
+                            text: '\n\nRequerimiento de transporte',
                             alignment: 'right',
                             bold: true,
                             italics: true
