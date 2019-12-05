@@ -712,7 +712,7 @@ class folo6_controllers {
                             fontSize: '16'
                         },
                         {
-                            text: '\n\nRquerimiento de transporte',
+                            text: '\n\nRequerimiento de transporte',
                             alignment: 'right',
                             bold: true,
                             italics: true
@@ -1181,7 +1181,7 @@ class folo6_controllers {
                             fontSize: '16'
                         },
                         {
-                            text: '\n\nRquerimiento de transporte',
+                            text: '\n\nRequerimiento de transporte',
                             alignment: 'right',
                             bold: true,
                             italics: true
@@ -1552,7 +1552,7 @@ class folo6_controllers {
                             fontSize: '16'
                         },
                         {
-                            text: '\n\nRquerimiento de transporte',
+                            text: '\n\nRequerimiento de transporte',
                             alignment: 'right',
                             bold: true,
                             italics: true
@@ -1734,7 +1734,7 @@ class folo6_controllers {
             el.estado = new Object();
             estados.forEach((estado, i) => {
                 console.log(JSON.stringify(estado.id));
-                var e = new Object();
+
                 el.estado = new Object();
                 e.u_approve = estado.request_unit_approve;
                 e.u_det_approve = estado.unit_cancel_detail;
