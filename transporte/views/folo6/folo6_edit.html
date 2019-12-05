@@ -6,13 +6,13 @@
             <div class="column">
                 <form class="ui form" id="folo6_form" method="POST" novalidate>
                     <h3 class="ui blue dividing header" style="padding-top: 15px;">Solicitud de transporte FOLO-6</h3>
-                    <div class="ui info message">
+                    <!-- <div class="ui info message">
                         <div class="header"><i class="top left exclamation circle fitted info icon"></i>
                             Recuerde:
                         </div> Si desea que el área de transporte le asigne motorista, la solicitud debe realizarse al
                         menos 3 días antes de la fecha de salida. De lo contrario deberá indicar sus datos, o los de la
                         persona que conducirá.
-                    </div>
+                    </div> -->
                     <div class="ui segment">
                         <div class="labels">
                             <strong>Fecha de creación de la solicitud: </strong>
@@ -60,18 +60,17 @@
                     <div class="field">
                         <div class="fields">
                             {% if(folo.with_driver) %}
-                            <div class="ui toggle checkbox" id="driver_cb">
+                            <div class="ui toggle checkbox" id="driver_cb" style="display: none;">
                                 <input type="checkbox" name="driver_i" tabindex="0" class="hidden" checked
                                     id="driver_i">
                                 <label for="driver_i">Con Motorista</label>
                             </div>
                             {%else%}
-                            <div class="ui toggle checkbox" id="driver_cb">
+                            <div class="ui toggle checkbox" id="driver_cb" style="display: none;">
                                 <input type="checkbox" name="driver_i" tabindex="0" class="hidden">
                                 <label for="driver_i">Con Motorista</label>
                             </div>
                             {% endif %}
-                            <div class="one wide field"></div>
                             <label>Cantidad de pasajeros: </label>
                             <div class="two wide field">
                                 <input type="number" name="passengers_i" id="passengers_i" min="1" max="40"
@@ -83,11 +82,11 @@
                         <div class="eight wide field" id="name_driver_f">
                             <label for="name_driver_i">Nombre:</label>
                             <input type="text" placeholder="Persona que va a coducir" name="name_driver_i"
-                                id="n_driver_i" disabled="true" maxlength="100" value="{{folo.person_who_drive}}">
+                                id="n_driver_i" maxlength="100" value="{{folo.person_who_drive}}">
                         </div>
                         <div class="field" id="type_license_f">
                             <label for="license_ls_id">Tipo de licencia:</label>
-                            <select class="ui fluid dropdown" name="license_ls" id="license_ls_id" disabled="true ">
+                            <select class="ui fluid dropdown" name="license_ls" id="license_ls_id">
                                 <!-- Si cuando se creo el folo había sleccionado un tipo de licencia sera seleccionado por defecto de lo contrario mostrará la opción por defecto -->
                                 {% if (folo.license_type) %}
                                 <option value="{{folo.license_type}}" selected> {{folo.license_type}}
@@ -149,8 +148,39 @@
 
                     <!-- Los siguientes select se utilizan para cuando se envie la informacion al controller, se tiene un listado con las direcciones y lugares frecuentes que se van a guardar en la bd -->
 
+                    <!-- <select class="ui fluid dropdown" id="selectedFPlace" name="selectedFPlace"></select>
+                    <select class="ui fluid dropdown" id="createdAddress" name="createdAddress"></select> -->
+                    <!-- Los siguientes select se utilizan para cuando se envie la informacion al controller, se tiene un listado con las direcciones y lugares frecuentes que se van a guardar en la bd -->
+
+                    <!-- Se llena con los fplaces relacionados al folo que se va a editar -->
+                    {% if folo.fplaces%}
+                    <select class="ui fluid dropdown" id="selectedFPlace" name="selectedFPlace">
+
+                        {% for fplace in folo.fplaces  %}
+                        <option value="{{fplace.id}}">{{fplace.name}}</option>
+
+                        {% endfor %}
+                    </select>
+                    {% else %}
                     <select class="ui fluid dropdown" id="selectedFPlace" name="selectedFPlace"></select>
-                    <select class="ui fluid dropdown" id="createdAddress" name="createdAddress"></select>
+                    {%endif%}
+                    <!-- Fin del llenado -->
+
+                    <!-- Inicio del llenado con las direcciones  -->
+                    {% if folo.address%}
+                    <select class="ui fluid dropdown" id="createdAddress" name="createdAddress">
+
+                        {% for address in folo.address  %}
+                        <option value="{{address.id}}">{{address.name}}</option>
+                        {% endfor %}
+                    </select>
+                    {% else %}
+                    <select class="ui fluid dropdown" id="createdAddress" name="createdAddress">
+                    </select>
+
+                    {%endif%}
+                    <!-- Fin del llenado -->
+
                     <table class="ui center celled collapsing table tablet stackable" id="addressTable"
                         name="addressTable" style="width: 100%;">
                         <thead>

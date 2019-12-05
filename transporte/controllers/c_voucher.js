@@ -121,6 +121,22 @@ class voucher_controllers {
         }
     };
 
+    async getQuantity(req, res) {
+        try {
+            let v = await Voucher.count({
+                where: {
+                    condition: 'Disponible',
+                }
+            });
+            console.log(v);
+            res.send({
+                v
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     async createVoucher(req, res) {
         var primer, ultimo;
         var date, month, year;
