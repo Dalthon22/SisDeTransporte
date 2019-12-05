@@ -2,7 +2,6 @@ const Sequelize = require('sequelize');
 const db = require('../dbconfig/conex');
 const Voucher_folo6_assign = require('./m_voucher_folo6_assign');
 
-
 const Vehicle = db.define('SGT_Vehiculo', {
     brand: {
         type: Sequelize.STRING(50),
