@@ -231,7 +231,7 @@ $('.ui.form').form({
             identifier: 'cant',
             rules: [{
                     type: 'empty',
-                    prompt: 'Inrgrese una cantidad, sea: 0 o mayores'
+                    prompt: 'Ingrese una cantidad, sea: 0 o mayores'
                 },
                 {
                     type: 'integer',
@@ -244,3 +244,24 @@ $('.ui.form').form({
         },
     }
 });
+
+/* function setInputFilter(textbox, inputFilter) {
+    ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function (event) {
+        textbox.addEventListener(event, function () {
+            if (inputFilter(this.value)) {
+                this.oldValue = this.value;
+                this.oldSelectionStart = this.selectionStart;
+                this.oldSelectionEnd = this.selectionEnd;
+            } else if (this.hasOwnProperty("oldValue")) {
+                this.value = this.oldValue;
+                this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+            } else {
+                this.value = "";
+            }
+        });
+    });
+}
+
+setInputFilter(document.getElementById("cant"), function (value) {
+    return /^\d*$/.test(cant); // Allow digits and '.' only, using a RegExp
+}); */
