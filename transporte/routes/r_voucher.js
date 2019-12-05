@@ -16,6 +16,9 @@ router.get('/vales', (req, res) => {
 router.get('/vales/list', (req, res) => {
     controller.getList(req, res);
 });
+router.get('/vales/quantity', (req, res) => {
+    controller.getQuantity(req, res);
+});
 //Manda los datos para agregar del vale "n" al vale "m"; n y m son cualquier número donde m > n
 router.post('/vales/add',
     /*  [
