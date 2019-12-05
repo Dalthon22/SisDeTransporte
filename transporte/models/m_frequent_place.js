@@ -3,7 +3,7 @@ const db = require('../dbconfig/conex');
 const City = require('../models/m_city');
 const Department = require('./m_department');
 
-const Frequent_Place = db.define('frequent_place', {
+const Frequent_Place = db.define('SGT_Lugar_Frecuente', {
     name: {
         type: Sequelize.STRING(250),
         allowNull: false,

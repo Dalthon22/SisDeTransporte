@@ -6,7 +6,11 @@ const {
 } = require('express-validator');
 
 router.get('/', (req, res) => {
-    controller.getList(req, res);
+    if (req.query.filter) {
+        controller.getFilteredList(req, res);
+    } else {
+        controller.getList(req, res);
+    }
 });
 
 router.get('/nuevo', (req, res) => {

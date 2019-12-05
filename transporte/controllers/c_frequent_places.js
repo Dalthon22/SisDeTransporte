@@ -1,4 +1,6 @@
 const frequent_place = require('../models/m_frequent_place');
+const City = require('../models/m_city');
+const Deparment = require('../models/m_department');
 const department_controller = require('../controllers/c_department');
 const municipio_controller = require('../controllers/c_city');
 const {
@@ -9,10 +11,32 @@ class frequent_place_controller {
 
     constructor() {}
 
+    async getFilteredList(req, res) {
+        var fplaces;
+        try {
+            //Cuando se necesita filtrada
+            if (parseInt(req.query.filter) !== 0) {
+                fplaces = await frequent_place.findAll({
+                    include: [City, Deparment]
+                });
+            } //Caundo se derse ver todos
+            else {
+                fplaces = await frequent_place.findAll({
+                    include: [City, Deparment]
+                });
+            }
+            return res.render('../views/frequent_places/FTable.html', {
+                fplaces,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     async getList(req, res) {
         try {
             var fplaces = await frequent_place.findAll({
-                include: ['city', 'department']
+                include: [City, Deparment]
             });
             return res.render('../views/frequent_places/list.html', {
                 fplaces
@@ -35,12 +59,11 @@ class frequent_place_controller {
         try {
             let Departamentos = await department_controller.getList();
             return res.render('../views/frequent_places/add.html', {
-                Departamentos
+                Departamentos,
             })
         } catch (error) {
             console.log(error);
         }
-
     };
 
     async createFrequentPlace(req, res) {
@@ -68,21 +91,16 @@ class frequent_place_controller {
                         name,
                         detail,
                         city_id: municipio,
-                        department_id: departamento
+                        department_id: departamento,
                     });
-                    /* let Mstate2 = true;
-                    let Departamentos = await department_controller.getList(); */
-                    /* res.render('../views/frequent_places/add.html', {
-                        Departamentos,
-                        Mstate2
-                    }) */
                     res.redirect('/lugares_frecuentes');
-                } catch (error) {
-                    error = 'El Lugar de Destino ingresado ya existe.';
+                } catch (errors) {
+                    console.log(errors);
+                    let error = 'El Lugar de Destino ingresado ya existe.';
                     let Departamentos = await department_controller.getList();
                     res.render('../views/frequent_places/add.html', {
                         Departamentos,
-                        error
+                        error,
                     });
                 }
 
@@ -112,7 +130,7 @@ class frequent_place_controller {
                 Departamentos,
                 edit,
                 fplace_id,
-                true_name
+                true_name,
             })
         } catch (error) {
             console.log(error);

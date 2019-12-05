@@ -4,15 +4,13 @@
     <div class="ui vertically divided grid">
         <div class="one column row">
             <div class="column">
-                <form class="ui form" id="folo6_form" method="POST">
-                    <h2 class="ui blue dividing header">Solicitud de transporte FOLO-6</h2>
-                    <div class="ui info message">
+                <form class="ui form" id="folo6_form" method="POST" novalidate>
+                    <h2 class="ui blue dividing header">Solicitud de transporte</h2>
+                    <!-- <div class="ui info message">
                         <div class="header"><i class="top left exclamation circle fitted info icon"></i>
                             Recuerde:
-                        </div> Si desea que el área de transporte le asigne motorista, la solicitud debe realizarse al
-                        menos 3 días antes de la fecha de salida. De lo contrario deberá indicar sus datos, o los de la
-                        persona que conducirá.
-                    </div>
+                        </div> Mantener sus documentos en regla
+                    </div> -->
                     <div class="ui segment">
                         <div class="labels">
                             <strong>Fecha de solicitud: </strong>
@@ -20,9 +18,6 @@
                             <br>
                             <strong>Nombre del solicitante: </strong>
                             <label id="name_lb">-------,------</label>
-                            <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                            <strong>Unidad solicitante: </strong>
-                            <label id="unidad_lb">Unidad ------</label>
                         </div>
                     </div>
                     <div class="three wide field">
@@ -62,11 +57,10 @@
                     </div>
                     <div class="field">
                         <div class="fields">
-                            <div class="ui toggle checkbox" id="driver_cb">
-                                <input type="checkbox" name="driver_i" checked="checked" tabindex="0" class="hidden">
+                            <!-- <div class="ui toggle checkbox" id="driver_cb">
+                                <input type="checkbox" id="driver_i" name="driver_i" tabindex="0" class="hidden">
                                 <label for="driver_i">Con Motorista</label>
-                            </div>
-                            <div class="one wide field"></div>
+                            </div> -->
                             <label>Cantidad de pasajeros: </label>
                             <div class="two wide field">
                                 <input type="number" name="passengers_i" min="1" max="40" value="1" id="passengers_i">
@@ -75,13 +69,13 @@
                     </div>
                     <div class="fields">
                         <div class="eight wide field" id="name_driver_f">
-                            <label for="name_driver_i">Nombre:</label>
+                            <label for="name_driver_i">Nombre del motorista:</label>
                             <input type="text" placeholder="Persona que va a coducir" name="name_driver_i"
-                                id="n_driver_i" disabled="true" maxlength="100">
+                                id="n_driver_i" maxlength="100">
                         </div>
                         <div class="field" id="type_license_f">
                             <label for="license_ls_id">Tipo de licencia:</label>
-                            <select class="ui fluid dropdown" name="license_ls" id="license_ls_id" disabled="true">
+                            <select class="ui fluid dropdown" name="license_ls" id="license_ls_id">
                                 <option value="">Tipo de licencia</option>
                                 <option value="Particular">Particular</option>
                                 <option value="Liviana">Liviana</option>
@@ -179,18 +173,20 @@
                     </table> -->
                     <!--                     <input type="hidden" id="n_dir" name="n_dir">
  -->
-                    <table class="ui celled collapsing table tablet stackable" id="addressTable" name="addressTable">
+                    <table class="ui center celled collapsing table tablet stackable" id="addressTable"
+                        name="addressTable" style="width: 100%;">
                         <thead>
                             <tr>
                                 <th>Nombre del destino</th>
                                 <th>Detalle de la dirección</th>
                                 <th>Departamento</th>
                                 <th>Municipio</th>
+                                <th></th>
                         </thead>
                         <tbody></tbody>
                     </table>
                     <h4 class="ui blue dividing header">Misión</h4>
-                    <div class="field">
+                    <div class="required field">
                         <label>Misión o motivo del viaje</label>
                         <input type="text" name="mision_i" placeholder="Auditoria al área laboral..." maxlength="150"
                             id="mision_i_id" autocomplete="off">
@@ -202,6 +198,13 @@
                             maxlength="150" autocomplete="off" id="details_i">
                     </div>
                     <div class="ui error message"></div>
+                    <a href='/home'>
+                        <div class="ui left floated animated button" style="margin-bottom:1em" type="button"
+                            id="backBtn" name="backBtn">
+                            <div class="visible content">Volver</div>
+                            <div class="hidden content"><i class="left arrow icon"></i></div>
+                        </div>
+                    </a>
                     <button class="ui right aligned green button" id="save_print_btn">Guardar e
                         imprimir</button>
                 </form>

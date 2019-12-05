@@ -14,12 +14,12 @@ var bodyParser = require('body-parser');
 db.authenticate()
   .then(() => console.log('Database connected...'))
   .catch(err => console.log('Error: ' + err))
-  
+
 
 //Migracion de tablas
 /* var Migrate = require('./models/migrations');
-var migration = new Migrate();
- */
+var migration = new Migrate(); */
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
@@ -34,7 +34,9 @@ app.use(express.urlencoded({
   extended: false
 }));
 app.use(cookieParser());
-//app.use(bodyParser());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 
 //archivos estaticos
@@ -46,16 +48,14 @@ app.use('/', require('./routes/index'));
 app.use('/', require('./routes/r_folo6'));
 app.use('/', require('./routes/r_voucher'));
 app.use('/direccion', require('./routes/r_address'));
-app.use('/instituciones', require('./routes/r_procuraduria'));
 app.use('/vehiculos', require('./routes/r_vehicle'));
-
-app.use('/rutas', require('./routes/r_route'));
 app.use('/lugares_frecuentes', require('./routes/r_frequent_places'));
+app.use('/asignar_recursos', require('./routes/r_assign'));
 app.use('/', require('./routes/r_employee'));
 app.use('/asignar_vales', require('./routes/r_voucher_entry'));
-app.use('/listar_vales', require('./routes/r_voucher_assign'));
-
 app.use('/', require('./routes/r_approve_panel'));
+app.use('/empleados', require('./routes/r_employee'));
+
 
 
 

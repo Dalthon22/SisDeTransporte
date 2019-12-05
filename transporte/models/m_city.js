@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../dbconfig/conex');
 
-const City = db.define('city', {
+const City = db.define('SGT_Municipio', {
     name: {
         type: Sequelize.STRING(50),
         allowNull: false,

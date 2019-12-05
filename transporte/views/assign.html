@@ -1,0 +1,125 @@
+{% extends 'index.html' %}
+{% block views %}
+<div class="ui container" id="bad">
+    <div class="ui vertically divided grid">
+        <div id="div_table" class="sixteen wide column">
+            <br>
+            <input type="hidden" id="messagetype" value="{{atype}}">
+            <input type="hidden" id="messageinfo" value="{{message}}">
+            <h1 id="title" class="ui blue dividing header"><i class="clipboard check icon"></i>Asignación de
+                recursos.
+            </h1>
+            <table class="ui celled table datatable" id="mytable" name="mytable" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th>Fecha Salida:</th>
+                        <th>Solicitante:</th>
+                        <th>Pasajeros:</th>
+                        <th>Mision:</th>
+                        <th>Opciones:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Recibiendo todas las direcciones e insertandolas en la tabla -->
+                    {% for folo in data %}
+                    <tr>
+                        <td>{{ folo.off_date }}</td>
+                        <td>{{ folo.first_name }} {{ folo.last_name }}</td>
+                        <td>{{ folo.passengers_number }}</td>
+                        <td>{{ folo.mission }}</td>
+                        <td class="btnDelete">
+                            <input type="hidden" id="folo06_id" name="folo06_id" value="{{folo.folo6id}}">
+                            <i class="large file grey alternate outline link icon" title="Mostrar Requerimiento"></i>
+                            <i class="large check green circle outline link icon" title="Asignar Recursos"></i>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div id="data-hidden" style="display: none;">
+            <br><br><br>
+            <strong>Fecha Salida: <label id="fecha_salida">-------</label></strong><br>
+            <strong>Solicitante: <label id="solicitante">-------</label> </strong><br>
+            <strong>Pasajeros: <label id="pasajeros">-------</label> </strong><br>
+            <strong>Mision: <label id="mision_folo">-------</label> </strong><br>
+        </div>
+        <div class="one column row">
+            <div class="column">
+                <form class="ui form" id="frm-prueba" action="/asignar_recursos" method="POST">
+                    <div class="two fields">
+                        <div class="six wide required field">
+                            <label>Seleccione un Vehiculo:</label>
+                            <br>
+                            <select disabled="true" class="ui fluid search dropdown" name="license_type"
+                                id="license_type">
+                                <option selected="true">Vehiculo || Placa</option>
+                                {% for car in Cars %}
+                                <option value={{car.plate}}>{{car.model}} || {{car.plate}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="three wide required field"></div>
+                        <div class="six wide required field">
+                            <strong>Vales Disponibles:
+                                <label id="quantity">-------</label> </strong>
+                            <br>
+                            <strong>Cantidad de Vales a asignar</strong>
+                            <input disabled="true" maxlength="1" type="number" name="cant" min="0" max="4" value="1"
+                                id="cant"></input>
+                        </div>
+                    </div>
+                    <button id="bAsignar" class="ui positive button" disabled="true" type="submit">Asignar</button>
+                    <div id="bCancelar" class="ui left floated animated button" style="margin-bottom:1em" type="button">
+                        <div class="visible content">Cancelar</div>
+                        <div class="hidden content"><i class="left arrow icon"></i></div>
+                    </div>
+                    <input id="foloA_id" name="foloA_id" type="hidden">
+                    <input id="fecha_folo" name="fecha_folo" type="hidden">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal para ver todo el folo -->
+<div class="ui modal segment dimmable" id="show_modal">
+    <div class="header">
+        <h2 class="ui blue centered header">Solicitud de transporte</h2>
+    </div>
+    <div class="content ">
+        <strong>Fecha de salida: </strong><label id="off_date_lb1"></label>
+        <div class="labels">
+            <strong>Hora de salida: </strong><label id="off_hour_lb1"></label>
+            <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <strong>Hora de retorno: </strong> <label id="return_hour_lb1"></label>
+        </div>
+        <div> <strong>Cantidad de pasajeros: </strong><label id="Passenger_number_lb1"></label></div>
+        <div><strong>Con motorista: </strong> <label id="with_driver_lb1"></label></div>
+        <div><strong>Persona que conducirá: </strong> <label id="driver_name_lb1"></label></div>
+        <div><strong>Tipo de licencia: </strong> <label id="license_type_lb1"></label></div>
+        <div><strong>Misión: </strong><label id="mission_lb1"></label></div>
+        <div><strong>Observación: </strong><label id="observation_lb1"></label></div>
+        <div><strong>Fecha de creación: </strong> <label id="created_at_lb1"></label></div>
+        <table class="ui celled collapsing table tablet stackable" id="addressTable1" name="addressTable1">
+            <thead>
+                <tr>
+                    <th>Nombre del destino</th>
+                    <th>Detalle de la dirección</th>
+                    <th>Departamento</th>
+                    <th>Municipio</th>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="actions">
+        <div class="ui left aligned cancel button">Volver</div>
+        <!--  <button class="ui approve button" id="delete_btn"> <i
+                            class="trash alternate outline icon"></i>
+                        Aceptar</button> -->
+    </div>
+</div>
+<script src="/javascript/a_assign.js"></script>
+<link rel="stylesheet" href="/stylesheets/datatablefix.css">
+</link>
+<link rel="stylesheet" href="/stylesheets/frequent_places/frequent_places_list.css">
+{% endblock %}

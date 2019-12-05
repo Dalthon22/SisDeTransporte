@@ -1,7 +1,8 @@
 const Sequelize = require('sequelize');
 const db = require('../dbconfig/conex');
+const Voucher_folo6_assign = require('./m_voucher_folo6_assign');
 
-const Vehicle = db.define('vehicle', {
+const Vehicle = db.define('SGT_Vehiculo', {
     brand: {
         type: Sequelize.STRING(50),
         allowNull: false,
@@ -50,6 +51,14 @@ const Vehicle = db.define('vehicle', {
             notEmpty: true,
         }
     },
+    is_traveling: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
+        validate: {
+            notEmpty: true,
+        }
+    },
     created_by: {
         type: Sequelize.INTEGER
     },
@@ -62,6 +71,10 @@ const Vehicle = db.define('vehicle', {
     createdAt: 'created_at',
     updatedAt: 'updated_at',
     freezeTableName: true,
+});
+
+Vehicle.hasMany(Voucher_folo6_assign, {
+    foreignKey: 'vehicle_plate'
 });
 
 module.exports = Vehicle;

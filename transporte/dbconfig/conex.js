@@ -19,20 +19,9 @@ const Sequelize = require('sequelize');
 });*/
 
 //Local db connection
-const dbConex = new Sequelize('sigestran', 'dm15012', 'Cdalton2019', {
+const dbConex = new Sequelize('sgt', 'dm15012', 'Cdalton2019', {
   host: 'localhost',
   dialect: 'mssql',
-  dialectOptions: {
-    options: {
-      encrypt: true,
-    }
-  },
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  },
 });
 
 module.exports = dbConex;

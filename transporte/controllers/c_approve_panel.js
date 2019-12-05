@@ -32,11 +32,12 @@ class approve_panel_controller {
             });
             var data = []; /* La data que se enviara al front */
             /* recorremos todos los empleados y ademas recorremos por cada uno de sus folos */
-            folos.forEach((employee, i) => {
-                employee.folo6s.forEach((employeeFolos, i) => {
+            folos.forEach(emp => {
+                console.dir(emp);
+                emp.SGT_Folo6s.forEach(employeeFolos => {
                     var el = new Object(); /* sera lo que ingresaremos a la data */
-                    el.first_name = employee.first_name;
-                    el.last_name = employee.last_name;
+                    el.first_name = emp.first_name;
+                    el.last_name = emp.last_name;
                     var formatted_date = moment.utc(employeeFolos.off_date).format("DD MMMM YYYY"); /* Damos Formato correcto a la fecha */
                     el.off_date = formatted_date;
                     el.passengers_number = employeeFolos.passengers_number;
@@ -139,12 +140,12 @@ class approve_panel_controller {
             /* Se enviara un array con todos los folos con los datos a mostrar */
             var data = [];
             /* Recorremos cada empleado y luego por todos los folos que tienen */
-            folos.forEach((employee, i) => {
-                employee.folo6s.forEach((employeeFolos, i) => {
+            folos.forEach((emp, i) => {
+                emp.SGT_Folo6s.forEach((employeeFolos, i) => {
                     /* Se asignara a una variable el para luego ñadirla a la data */
                     var el = new Object();
-                    el.first_name = employee.first_name;
-                    el.last_name = employee.last_name;
+                    el.first_name = emp.first_name;
+                    el.last_name = emp.last_name;
                     var formatted_date = moment.utc(employeeFolos.off_date).format("DD MMMM YYYY");
                     el.off_date = formatted_date;
                     el.passengers_number = employeeFolos.passengers_number;
@@ -173,7 +174,7 @@ class approve_panel_controller {
             let folo06id = await req.body.folo6_id_Amodal; /* se consigue el id del folo */
             /* se actualiza la tabla de estados del folo correspondie   nte */
             /* var idboss = session.getActual.idemployee(); */
-            var idboss = 7;
+            var idboss = 1;
             await folo6_approve.update({
                 transport_unit_approve: 1,
                 aprove_tunit_boss_id: idboss
@@ -187,9 +188,9 @@ class approve_panel_controller {
             let atype = 'true';
             /* Se renderiza la pagina con mensaje */
             this.getListAllNew(req, res, message, atype);
-        } catch (err) {
-            console.log(err);
-            error = 'No se actualizo el estado del folo BD ERROR.';
+        } catch (error) {
+            console.log(error);
+            //error = 'No se actualizo el estado del folo BD ERROR.';
             /* Se asignan los mensajes para mostrar el error */
             let message = 'false';
             let atype = 'true';
@@ -206,8 +207,8 @@ class approve_panel_controller {
             let motivoC = await req.body.motivo;
             /* se actualiza la tabla de estados del folo correspondiente */
             await folo6_approve.update({
-                request_unit_approve: 0,
-                unit_cancel_detail: motivoC
+                transport_unit_approve: 0,
+                cancel_tunit_detail: motivoC
             }, {
                 where: {
                     folo06_id: folo06id
@@ -218,8 +219,8 @@ class approve_panel_controller {
             let atype = 'false';
             /* se renderiza la pagina con mensaje de aprobación */
             this.getListAllNew(req, res, message, atype);
-        } catch (err) {
-            console.log(err);
+        } catch (error) {
+            console.log(error);
             error = 'No se actualizo el estado del folo BD ERROR.';
             /* se asignan los mensajes de error */
             let message = 'false';
