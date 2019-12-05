@@ -7,6 +7,7 @@ const Address = require('../models/m_address');
 const Municipios = require('../models/m_city');
 const Departamento = require('../models/m_department');
 const Apanel = require('../models/m_folo6_approve_state');
+const Voucher_Assign = require('../models/m_voucher_folo6_assign');
 
 //Manejo de fechas
 var moment = require('moment');
@@ -863,6 +864,31 @@ class folo6_controllers {
         4. No quiere motorista y hay una sola dirección. */
         try {
             let folo = await this.foloInfo(req);
+            var asignBot = await Voucher_Assign.findAll({
+                top: '1',
+                order: [
+                    ['num_voucher', 'ASC']
+                ],
+                where: {
+                    folo6_id: folo.id
+                }
+            });
+
+            var asignTop = await Voucher_Assign.findAll({
+                top: '1',
+                order: [
+                    ['num_voucher', 'DESC']
+                ],
+                where: {
+                    folo6_id: folo.id
+                }
+            });
+            console.log(asignBot);
+            console.log("OTRO");
+            console.log("OTRO");
+            console.log("OTRO");
+            console.log("OTRO");
+            console.log(asignTop);
             //console.dir("EN SHOW RECIBI ESTO" + JSON.stringify(folo));
             var fechaSolicitud = folo.created_at;
             var personaSolicitante = folo.emp.first_name + ', ' + folo.emp.last_name;
