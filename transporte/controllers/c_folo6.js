@@ -2203,9 +2203,9 @@ class folo6_controllers {
     }
     //Recibe los datos actulizados para un registro de folo 6
     async editFolo6(req, res) {
-        var form, emp, date, motorista;
-        motorista = JSON.parse(req.body.motorista);
-        console.dir("form: " + JSON.stringify(motorista + "Y del tipo:" + typeof (motorista)));
+        var form, emp, date;
+        /*  motorista = JSON.parse(req.body.motorista);
+         console.dir("form: " + JSON.stringify(motorista + "Y del tipo:" + typeof (motorista))); */
         form = JSON.parse(req.body.form);
         console.dir("form: " + JSON.stringify(form));
         emp = JSON.parse(req.body.emp);
@@ -2229,51 +2229,28 @@ class folo6_controllers {
                 });
             } else {
                 console.log("Estoy en el edit");
-                if (motorista) {
-                    console.log("Estoy en el true del edit");
 
-                    let f = await Folo6.update({
-                        off_date: date,
-                        off_hour: t,
-                        return_hour: t1,
-                        passengers_number: form.passengers_i,
-                        with_driver: motorista,
-                        person_who_drive: null,
-                        license_type: null,
-                        mission: form.mision_i,
-                        observation: form.details_i,
-                        employee_id: emp.id,
-                        // procuraduria_id: emp.procuraduria_id
-                    }, {
-                        where: {
-                            id: form.folo_id
-                        }
-                    });
-                    console.dir("Folo actualizado" + f);
-
-                } else {
-                    console.log("Estoy en el else del edit");
-                    console.log("En el controller me dice que tiene esta licencia" + form.license_ls);
-                    let f = await Folo6.update({
-                        request_unit: emp.unit_id,
-                        off_date: date,
-                        off_hour: t,
-                        return_hour: t1,
-                        passengers_number: form.passengers_i,
-                        with_driver: motorista,
-                        person_who_drive: form.name_driver_i,
-                        license_type: form.license_ls,
-                        mission: form.mision_i,
-                        observation: form.details_i,
-                        employee_id: emp.id,
-                        //procuraduria_id: emp.procuraduria_id
-                    }, {
-                        where: {
-                            id: form.folo_id
-                        }
-                    });
-                    console.dir("Folo actualizado" + f);
-                }
+                console.log("Estoy en el else del edit");
+                console.log("En el controller me dice que tiene esta licencia" + form.license_ls);
+                let f = await Folo6.update({
+                    request_unit: emp.unit_id,
+                    off_date: date,
+                    off_hour: t,
+                    return_hour: t1,
+                    passengers_number: form.passengers_i,
+                    with_driver: 0,
+                    person_who_drive: form.name_driver_i,
+                    license_type: form.license_ls,
+                    mission: form.mision_i,
+                    observation: form.details_i,
+                    employee_id: emp.id,
+                    //procuraduria_id: emp.procuraduria_id
+                }, {
+                    where: {
+                        id: form.folo_id
+                    }
+                });
+                console.dir("Folo actualizado" + f);
 
                 //Departamento
                 console.log("sali del create");

@@ -21,13 +21,13 @@ $(document).ready(function () {
     const url_request_employee = '/empleado/' + id_employee;
     $('.ui.checkbox').checkbox('enable');
     console.log("En el folo original el checkbox con motorista estaba: " + $('#driver_cb').checkbox('is checked'));
-    if ($('#driver_cb').checkbox('is checked')) {
+    /* if ($('#driver_cb').checkbox('is checked')) {
         console.log("detonamos true");
         conMotorista();
     } else {
         console.log("detonamos false");
         sinMotorista();
-    }
+    } */
     $.ajax({
         url: url_request_employee,
         async: true,
@@ -71,6 +71,9 @@ $('.ui.form').form({
             rules: [{
                 type: 'empty',
                 prompt: 'Seleccione una hora de retorno'
+            }, {
+                type: 'different[time]',
+                prompt: 'La hora de retorno debe ser distinta a la hora de salida'
             }]
         },
         passengers_i: {
@@ -84,6 +87,21 @@ $('.ui.form').form({
                     prompt: 'Ingrese un número válido de pasajeros'
                 }
             ]
+        },
+        name_driver_i: {
+            rules: [{
+                type: 'empty',
+                prompt: 'Ingrese el nombre de la persona que conducirá'
+            }, {
+                type: 'regExp[/^[a-zA-ZñÑáÁéÉíÍóÓúÚ ]+$/]',
+                prompt: 'Por favor ingrese solo texto'
+            }]
+        },
+        license_ls: {
+            rules: [{
+                type: 'empty',
+                prompt: 'Seleccione el tipo de licencia que posee el conductor'
+            }]
         },
         departamento: {
             identifier: 'departamento',
@@ -175,30 +193,30 @@ $('#standard_calendar').calendar({
         var months = (date.getMonth() + 1) - (today.getMonth() + 1);
         var years = date.getFullYear() - today.getFullYear();
         //Controlará si la fecha de salida es menor a tres días del día en que se llena y mes-año actual
-        if (days < 3 && months === 0 && years === 0) {
+        /* if (days < 3 && months === 0 && years === 0) {
             console.log("Solicitó con: " + days + " días hábiles, Tendrá que manejar por su cuenta");
             $('#driver_cb').checkbox('uncheck');
-            $('.ui.checkbox').checkbox('disable');
+            $('.ui.checkbox').checkbox('disable'); 
             motorista = 0;
         } else {
             console.log("Solicitó con:" + days + " días hábiles, Puede solicitar motorista al área e logistica");
             $('#driver_cb').checkbox('check');
             $('.ui.checkbox').checkbox('enable');
             motorista = 1;
-        }
+        } */
     }
 });
 /*--Checkbox motorista--*/
-$('#driver_cb').checkbox({
+/* $('#driver_cb').checkbox({
     onChecked: function () {
         conMotorista();
     },
     onUnchecked: function () {
         sinMotorista();
     }
-})
+}) */
 
-function conMotorista() {
+/* function conMotorista() {
     motorista = 1;
     $('#n_driver_i').prop('disabled', true);
     $('#license_ls_id').prop('disabled', true);
@@ -207,9 +225,9 @@ function conMotorista() {
     //$(".ui.form").form('validate field', 'license_ls');
     // $('#license_ls_id').prop('selectedIndex', 0);
     //$('#n_driver_i').val('');
-}
+} */
 
-function sinMotorista() {
+/* function sinMotorista() {
     console.log("Va a solicitar motorista");
     motorista = 0;
     $('#n_driver_i').prop('disabled', false);
@@ -226,7 +244,7 @@ function sinMotorista() {
             prompt: 'Seleccione el tipo de licencia que posee el conductor'
         }]
     });
-}
+} */
 
 /* --TIMER´s--*/
 $('#time_calendar')
@@ -267,11 +285,30 @@ $('#time_calendar1')
  */
 
 $('#save_print_btn').on('click', function () {
-    if ($('.ui.form').form('is valid')) {
-        event.preventDefault();
-        showDimmer();
-        updateFolo6();
-        // setTimeout(guardarFolo6(), 30000);
+    $('.ui.toast').remove();
+
+    if ($('#createdAddress').has('option').length > 0 || $('#selectedFPlace').has('option').length > 0) {
+        if ($('.ui.form').form('is valid')) {
+            event.preventDefault();
+
+            if ($('.ui.form').form('is valid')) {
+                showDimmer();
+                updateFolo6();
+                // setTimeout(guardarFolo6(), 30000);
+            }
+        }
+    } else {
+        hideDimmer();
+        $('body')
+            .toast({
+                title: "Lugares de destino vacíos",
+                showIcon: false,
+                class: 'error',
+                position: 'top right',
+                displayTime: 0,
+                closeIcon: true,
+                message: "La solicitud debe tener al menos un lugar o una dirección que visitar",
+            });
     }
 });
 
