@@ -1,9 +1,15 @@
 const Asignacion = require('../models/m_voucher_folo6_assign');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
+const db = require('../dbconfig/conex');
+
 const Vehiculo = require('../models/m_vehicle');
 const employee = require('../models/m_employee');
 const folo6 = require('../models/m_folo6');
 const folo6_approve = require('../models/m_folo6_approve_state');
 const Vales = require('../models/m_voucher');
+const controller_vehicle = require('../controllers/c_vehicle');
+const controller_voucher = require('../controllers/c_voucher');
 
 //Manejo de fechas
 var moment = require('moment');
@@ -128,8 +134,59 @@ class assign_controller {
         }
     };
 
-    async getAsignaciones(req, res) {
-        var plate = "P1234";
+    async getVehiclesAssigned(req, res) {
+        var vid = req.query.id_vehicle;
+        var vplate;
+        try {
+
+            await controller_vehicle.findById(vid).then(v => {
+                vplate = v.plate;
+            })
+            console.log(vplate + "placa")
+            var f = req.query.year + '/' + req.query.month + '/1'
+            var date = moment(f).format('YYYY/MM/DD');
+            console.log("FECHA BASE:" + date);
+            var first_day = moment(date).startOf('month').format("YYYY-MM-DD");
+            var last_day = moment(date).endOf('month').format("YYYY-MM-DD")
+            console.log("Rangos del:" + first_day + " al " + last_day);
+
+            var assign = await Asignacion.findAll({
+
+                attributes: ['date_voucher_f6', 'num_voucher', 'folo6_id'],
+                where: {
+                    vehicle_plate: vplate,
+                    created_at: {
+                        [Op.lt]: last_day,
+                        [Op.gt]: first_day
+                    },
+                },
+                include: [Vales]
+
+            })
+            /* console.dir(list) */
+            var data = [];
+
+            assign.forEach(a => {
+                var e = new Object();
+                e.assign_date = moment.utc(a.date_voucher_f6).format("DD/MM/YYYY");;
+                e.num_voucher = a.num_voucher;
+                e.folo6_id = a.folo6_id;
+                if (e.num_voucher) {
+                    controller_voucher.findById2(e.num_voucher).then(v => {
+                        e.price = v.price;
+                        console.log("valor" + e.price)
+                    });
+                }
+
+                data.push(e);
+            });
+            return res.send({
+                data: data
+            });
+            /* return lista; */
+        } catch (Error) {
+            console.log(Error)
+        }
 
     }
 

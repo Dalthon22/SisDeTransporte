@@ -86,6 +86,16 @@ class voucher_controllers {
         let voucher = await Car.findByPk(num_voucher);
         return voucher;
     }
+    async findById2(num_voucher) {
+        let voucher;
+        await Voucher.findByPk(num_voucher).then(v => {
+            voucher = v;
+            return v;
+
+        });
+        return voucher;
+
+    }
 
     async getList(req, res) {
         try {
@@ -278,16 +288,7 @@ class voucher_controllers {
         }
     }
 
-    async getAsignaciones(req, res) {
-        var vehicles = new Object();
-        await vehicle_controller.getList1().then(list => {
-            vehicles = list
-        });
 
-        res.render('./report_voucher.html', {
-            vehicles: vehicles,
-        });
-    }
 
 }
 

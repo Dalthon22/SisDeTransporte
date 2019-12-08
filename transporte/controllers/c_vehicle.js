@@ -108,7 +108,6 @@ class Vehicle_controller {
             var lista = [];
             var vehicles = await Vehicle.findAll({
                 order: Sequelize.literal('plate ASC'),
-                state: "Funcional"
             });
             vehicles.forEach(v => {
                 var e = new Object();

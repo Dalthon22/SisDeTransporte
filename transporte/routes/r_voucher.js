@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/c_voucher');
+const controller_assign = require('../controllers/c_assign');
+const controller_vehicle = require('../controllers/c_vehicle');
+
 const {
     body,
     check,
@@ -45,11 +48,18 @@ router.get('/vales/bills', (req, res) => {
 //Reporte de vales por vehículo
 router.get('/vales/reporte_por_vehiculo', (req, res) => {
     /* controller.getAsignaciones(req, res); */
-
-    controller.getAsignaciones(req, res);
-
+    controller_vehicle.getList1().then(vehicles => {
+        res.render('./report_voucher.html', {
+            vehicles: vehicles,
+        });
+    })
 });
 
+
+router.get('/vales/reporte_por_vehiculo/datos', (req, res) => {
+    /* controller.getAsignaciones(req, res); */
+    controller_assign.getVehiclesAssigned(req, res);
+});
 //Listadp de vales por vehículo 
 /* router.get('/vales/get_asignaciones', (req, res) => {
 }); */

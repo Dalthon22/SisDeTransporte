@@ -1700,25 +1700,25 @@ class folo6_controllers {
                 el.employee_id = folo.employee_id;
             });
             console.log(el.id);
-            var estados = await Apanel.findAll({
-                where: {
-                    folo06_id: el.id
-                }
-            });
-            el.estado = new Object();
-            estados.forEach((estado, i) => {
-                console.log(JSON.stringify(estado.id));
+            /*  var estados = await Apanel.findAll({
+                 where: {
+                     folo06_id: el.id
+                 }
+             });
+             el.estado = new Object();
+             estados.forEach((estado, i) => {
+                 console.log(JSON.stringify(estado.id));
 
-                el.estado = new Object();
-                e.u_approve = estado.request_unit_approve;
-                e.u_det_approve = estado.unit_cancel_detail;
-                e.t_approve = estado.transport_unit_approve;
-                e.t_det_approve = estado.cancel_tunit_detail;
-                e.driver = estado.driver;
-                e.car = estado.car;
-                e.gas = estado.gasoline;
-                el.estado = e;
-            });
+                 el.estado = new Object();
+                 el.u_approve = estado.request_unit_approve;
+                 el.u_det_approve = estado.unit_cancel_detail;
+                 el.t_approve = estado.transport_unit_approve;
+                 el.t_det_approve = estado.cancel_tunit_detail;
+                 el.driver = estado.driver;
+                 el.car = estado.car;
+                 el.gas = estado.gasoline;
+                 el.estado = e;
+             }); */
             /* if(estado.SGT_Folo6_Aprovado.gasoline){
             } */
             //Contador de lugares frecuentes y direcciones
