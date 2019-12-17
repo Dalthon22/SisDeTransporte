@@ -1734,7 +1734,7 @@ class folo6_controllers {
             el.estado = new Object();
             estados.forEach((estado, i) => {
                 console.log(JSON.stringify(estado.id));
-
+var e=new Object();
                 el.estado = new Object();
                 e.u_approve = estado.request_unit_approve;
                 e.u_det_approve = estado.unit_cancel_detail;
